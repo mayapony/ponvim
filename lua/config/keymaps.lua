@@ -1,2 +1,2 @@
 -- lazy
-vim.keymap.set("n", "<leader>ml", "<cmd>:Lazy<cr>", { desc = "Lazy" })
+vim.keymap.set("n", "<leader><leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
