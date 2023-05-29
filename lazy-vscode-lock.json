@@ -1,0 +1,6 @@
+{
+  "hop": { "branch": "v2", "commit": "90db1b2c61b820e230599a04fedcd2679e64bd07" },
+  "kommentary": { "branch": "main", "commit": "3a80117148c6798972bb69414423311ab151d368" },
+  "nvim-treesitter": { "branch": "master", "commit": "1d670b0c906716b1543270b3b087d44b09f3b523" },
+  "quick-scope": { "branch": "master", "commit": "a147fe0b180479249a6770eac332e2cd8f35b673" }
+}

@@ -123,10 +123,10 @@ return {
   -- LSP
   {
     "neovim/nvim-lspconfig",
-		-- lazy load lspconfig
-		-- source: https://www.reddit.com/r/neovim/comments/1308ie7/help_how_to_lazy_load_lspconfig/
-		event = { "BufReadPost", "BufNewFile" },
-		cmd = { "LspInfo", "LspInstall", "LspUninstall" },
+    -- lazy load lspconfig
+    -- source: https://www.reddit.com/r/neovim/comments/1308ie7/help_how_to_lazy_load_lspconfig/
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = { "LspInfo", "LspInstall", "LspUninstall" },
     dependencies = {
       { "hrsh7th/cmp-nvim-lsp" },
       { "williamboman/mason-lspconfig.nvim" },
@@ -197,20 +197,20 @@ return {
 
         -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save#sync-formatting
         -- 保存时异步格式化
-        on_attach = function(client, bufnr)
-          local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-          if client.supports_method("textDocument/formatting") then
-            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-            vim.api.nvim_create_autocmd("BufWritePre", {
-              group = augroup,
-              buffer = bufnr,
-              callback = function()
-                -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-                require("config.function").async_formatting(bufnr)
-              end,
-            })
-          end
-        end,
+        --        on_attach = function(client, bufnr)
+        --          local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+        --          if client.supports_method("textDocument/formatting") then
+        --            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+        --            vim.api.nvim_create_autocmd("BufWritePre", {
+        --              group = augroup,
+        --              buffer = bufnr,
+        --              callback = function()
+        --                -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+        --                require("config.function").async_formatting(bufnr)
+        --              end,
+        --            })
+        --          end
+        --        end,
       })
     end,
   },
