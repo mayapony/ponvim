@@ -2,7 +2,7 @@ return {
   -- nvim-cmp
   {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+    event = "BufReadPost",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
@@ -123,17 +123,14 @@ return {
   -- LSP
   {
     "neovim/nvim-lspconfig",
-    cmd = "LspInfo",
-    event = { "BufReadPre", "BufNewFile" },
+		-- lazy load lspconfig
+		-- source: https://www.reddit.com/r/neovim/comments/1308ie7/help_how_to_lazy_load_lspconfig/
+		event = { "BufReadPost", "BufNewFile" },
+		cmd = { "LspInfo", "LspInstall", "LspUninstall" },
     dependencies = {
       { "hrsh7th/cmp-nvim-lsp" },
       { "williamboman/mason-lspconfig.nvim" },
-      {
-        "williamboman/mason.nvim",
-        build = function()
-          pcall(vim.cmd, "MasonUpdate")
-        end,
-      },
+      { "williamboman/mason.nvim" },
     },
     config = function()
       require("mason").setup()
@@ -176,7 +173,7 @@ return {
       {
         "<leader>cm",
         "<cmd>Mason<cr>",
-        desc = "Explorer NeoTree",
+        desc = "Open Mason",
       },
     },
   },
@@ -186,7 +183,7 @@ return {
   -- ------------------------------
   {
     "jose-elias-alvarez/null-ls.nvim",
-    event = "InsertEnter",
+    event = "BufReadPre",
     config = function()
       local null_ls = require("null-ls")
 

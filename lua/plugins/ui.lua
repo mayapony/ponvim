@@ -5,7 +5,8 @@ return {
     config = function()
       require("catppuccin").setup({
         flavour = "frappe", -- latte, frappe, macchiato, mocha
-        background = { -- :h background
+        background = {
+          -- :h background
           light = "latte",
           dark = "frappe",
         },
@@ -55,8 +56,26 @@ return {
       },
     },
     opts = {
+      enable_diagnostics = false,
       window = {
         width = 25,
+      },
+      buffers = {
+        follow_current_file = true, -- This will find and focus the file in the active buffer every
+      },
+      default_component_configs = {
+        indent_size = 2,
+        padding = 1, -- extra padding on left hand side
+        -- indent guides
+        with_markers = true,
+        indent_marker = "│",
+        last_indent_marker = "└",
+        highlight = "NeoTreeIndentMarker",
+        -- expander config, needed for nesting files
+        with_expanders = nil, -- if nil and file nesting is enabled, will enable expanders
+        expander_collapsed = "",
+        expander_expanded = "",
+        expander_highlight = "NeoTreeExpander",
       },
     },
   },
@@ -95,16 +114,16 @@ return {
                 right = 0,
               },
             },
-          -- stylua: ignore
-          {
-            "filename",
-            path = 1,
-            symbols = {
-              modified = "*",
-              readonly = "",
-              unnamed = ""
-            }
-          },
+						-- stylua: ignore
+						{
+							"filename",
+							path = 1,
+							symbols = {
+								modified = "*",
+								readonly = "",
+								unnamed = ""
+							}
+						},
           },
           lualine_x = {
             {
@@ -131,7 +150,7 @@ return {
     config = function()
       require("indent_blankline").setup({
         char = "│",
-        filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
+        filetype_exclude = { "help", "alpha", "dashboard", "Trouble", "lazy", "mason" },
         show_trailing_blankline_indent = true,
         show_current_context = true,
         show_end_of_line = true,
@@ -147,9 +166,9 @@ return {
       symbol = "│",
       options = { try_as_border = true },
     },
-    init = function()
+    config = function()
       vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
+        pattern = { "help", "alpha", "dashboard", "Trouble", "lazy", "mason" },
         callback = function()
           vim.b.miniindentscope_disable = true
         end,
@@ -209,11 +228,8 @@ return {
           },
         },
         buffer_close_icon = "",
-        -- indicator = {
-        --   icon = '', -- this should be omitted if indicator style is not 'icon'
-        --   style = 'underline',
-        -- },
         separator_style = { "", "" },
+        extensions = { "lazy", "neo-tree", "nvim-dap-ui", "overseer", "symbols-outline", "toggleterm", "trouble" },
       },
     },
   },

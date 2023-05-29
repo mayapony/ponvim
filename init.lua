@@ -1,5 +1,6 @@
 require("config.options")
 require("config.autocmd")
+require("config.keymaps")
 
 -- init.lua
 -- source: https://github.com/folke/lazy.nvim#-installation
