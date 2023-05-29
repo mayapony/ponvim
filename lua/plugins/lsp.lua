@@ -1,27 +1,5 @@
 return {
-  {
-    "VonHeikemen/lsp-zero.nvim",
-    branch = "v2.x",
-    lazy = true,
-    config = function()
-      local lsp = require("lsp-zero").preset({})
-      -- Note: asynchronous formatting on save is experimental right now (2023-05-11).
-      -- source: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/lsp.md#enable-format-on-save
-      lsp.format_on_save({
-        format_opts = {
-          async = true,
-          timeout_ms = 10000,
-        },
-        servers = {
-          ["null-ls"] = { "lua", "javascript", "typescript" },
-        },
-      })
-
-      lsp.setup()
-    end,
-  },
-
-  -- Autocompletion
+  -- nvim-cmp
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
@@ -35,19 +13,9 @@ return {
       "onsails/lspkind.nvim",
     },
     config = function()
-      -- Here is where you configure the autocompletion settings.
-      -- The arguments for .extend() have the same shape as `manage_nvim_cmp`:
-      -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/api-reference.md#manage_nvim_cmp
-
-      require("lsp-zero.cmp").extend()
-
       -- And you can configure cmp even more, if you want to.
       local cmp = require("cmp")
-      local cmp_action = require("lsp-zero.cmp").action()
 
-      -- If a file is too large, I don't want to add to it's cmp sources treesitter, see:
-      -- https://github.com/hrsh7th/nvim-cmp/issues/1522
-      -- default sources for all buffers
       local default_cmp_sources = cmp.config.sources({
         { name = "nvim_lsp", keyword_length = 2 },
         { name = "luasnip", keyword_length = 2 },
@@ -128,8 +96,6 @@ return {
               cmp.complete()
             end
           end),
-          ["<Tab>"] = cmp_action.luasnip_supertab(),
-          ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
         },
         snippet = {
           expand = function(args)
@@ -150,20 +116,6 @@ return {
             ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
           }),
         },
-        --        formatting = {
-        --          fields = { "abbr", "menu", "kind" },
-        --          format = function(entry, item)
-        --            local short_name = {
-        --              nvim_lsp = "LSP",
-        --              nvim_lua = "nvim",
-        --            }
-        --
-        --            local menu_name = short_name[entry.source.name] or entry.source.name
-        --
-        --            item.menu = string.format("[%s]", menu_name)
-        --            return item
-        --          end,
-        --        },
       })
     end,
   },
@@ -184,18 +136,41 @@ return {
       },
     },
     config = function()
-      -- This is where all the LSP shenanigans will live
+      require("mason").setup()
+      require("mason-lspconfig").setup({
+        -- server name source: https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
+        ensure_installed = {
+          -- Replace these with whatever servers you want to install
+          "tsserver",
+          "lua_ls",
+        },
+        automatic_installation = true,
+      })
 
-      local lsp = require("lsp-zero")
+      local lspconfig = require("lspconfig")
 
-      lsp.on_attach(function(client, bufnr)
-        lsp.default_keymaps({ buffer = bufnr })
-      end)
-
-      -- (Optional) Configure lua language server for neovim
-      require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
-
-      lsp.setup()
+      lspconfig.lua_ls.setup({
+        settings = {
+          Lua = {
+            runtime = {
+              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+              version = "LuaJIT",
+            },
+            diagnostics = {
+              -- Get the language server to recognize the `vim` global
+              globals = { "vim" },
+            },
+            workspace = {
+              -- Make the server aware of Neovim runtime files
+              library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+              enable = false,
+            },
+          },
+        },
+      })
     end,
     keys = {
       {
@@ -206,12 +181,15 @@ return {
     },
   },
 
-  -- null-ls
+  ---------------------------------
+  -- null-ls ----------------------
+  -- ------------------------------
   {
     "jose-elias-alvarez/null-ls.nvim",
     event = "InsertEnter",
     config = function()
       local null_ls = require("null-ls")
+
       null_ls.setup({
         sources = {
           -- Replace these with the tools you have installed
@@ -219,9 +197,29 @@ return {
           null_ls.builtins.diagnostics.eslint,
           null_ls.builtins.formatting.stylua,
         },
+
+        -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save#sync-formatting
+        -- 保存时异步格式化
+        on_attach = function(client, bufnr)
+          local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+          if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              group = augroup,
+              buffer = bufnr,
+              callback = function()
+                -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+                require("config.function").async_formatting(bufnr)
+              end,
+            })
+          end
+        end,
       })
     end,
   },
+  ---------------------------------
+  -- null-ls ----------------------
+  -- ------------------------------
 
   -- luasnip
   {

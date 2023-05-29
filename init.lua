@@ -1,9 +1,5 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
-vim.opt.shiftround = true -- Round indent
-vim.opt.shiftwidth = 2 -- Size of an indent
-vim.opt.smartindent = true -- Insert indents automatically
+require("config.options")
+require("config.autocmd")
 
 -- init.lua
 -- source: https://github.com/folke/lazy.nvim#-installation
