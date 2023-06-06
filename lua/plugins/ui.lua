@@ -1,39 +1,17 @@
 return {
 	{
-		"catppuccin/nvim",
-		name = "catppuccin",
+		"rose-pine/neovim",
+		name = "rose-pine",
 		config = function()
-			require("catppuccin").setup({
-				flavour = "frappe", -- latte, frappe, macchiato, mocha
-				background = {
-					-- :h background
-					light = "latte",
-					dark = "frappe",
-				},
-				transparent_background = false,
-				show_end_of_buffer = false, -- show the '~' characters after the end of buffers
-				term_colors = false,
-				dim_inactive = {
-					enabled = false,
-					shade = "dark",
-					percentage = 0.15,
-				},
-				no_italic = true, -- Force no italic
-				styles = {
-					comments = { "italic" },
-					conditionals = { "italic" },
-				},
-				integrations = {
-					cmp = true,
-					gitsigns = true,
-					nvimtree = true,
-					telescope = true,
-					notify = true,
-					-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-				},
+			require("rose-pine").setup({
+				disable_italics = true,
+				disable_float_background = true,
+				variant = "auto",
+				--- @usage 'main'|'moon'|'dawn'
+				dark_variant = "main",
 			})
 
-			vim.cmd("colorscheme catppuccin")
+			vim.api.nvim_command("colorscheme rose-pine")
 		end,
 	},
 	{
@@ -56,26 +34,26 @@ return {
 			},
 		},
 		opts = {
+			sources = { "filesystem", "buffers", "git_status", "document_symbols" },
+			filesystem = {
+				bind_to_cwd = true,
+				follow_current_file = true,
+				use_libuv_file_watcher = true,
+			},
 			enable_diagnostics = false,
 			window = {
 				width = 25,
-			},
-			buffers = {
-				follow_current_file = true, -- This will find and focus the file in the active buffer every
+				mappings = {
+					["<space>"] = "none",
+				},
 			},
 			default_component_configs = {
-				indent_size = 2,
-				padding = 1, -- extra padding on left hand side
-				-- indent guides
-				with_markers = true,
-				indent_marker = "│",
-				last_indent_marker = "└",
-				highlight = "NeoTreeIndentMarker",
-				-- expander config, needed for nesting files
-				with_expanders = nil, -- if nil and file nesting is enabled, will enable expanders
-				expander_collapsed = "",
-				expander_expanded = "",
-				expander_highlight = "NeoTreeExpander",
+				indent = {
+					with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+					expander_collapsed = "",
+					expander_expanded = "",
+					expander_highlight = "NeoTreeExpander",
+				},
 			},
 		},
 	},
@@ -278,6 +256,63 @@ return {
 		},
 		config = function(_, opts)
 			require("nvim-treesitter.configs").setup(opts)
+		end,
+	},
+	{
+		"goolord/alpha-nvim",
+		event = "VimEnter",
+		opts = function()
+			local dashboard = require("alpha.themes.dashboard")
+			local logo = [[
+			███╗░░░███╗░█████╗░██╗░░░██╗░█████╗░██████╗░░█████╗░███╗░░██╗██╗░░░██╗
+			████╗░████║██╔══██╗╚██╗░██╔╝██╔══██╗██╔══██╗██╔══██╗████╗░██║╚██╗░██╔╝
+			██╔████╔██║███████║░╚████╔╝░███████║██████╔╝██║░░██║██╔██╗██║░╚████╔╝░
+			██║╚██╔╝██║██╔══██║░░╚██╔╝░░██╔══██║██╔═══╝░██║░░██║██║╚████║░░╚██╔╝░░
+			██║░╚═╝░██║██║░░██║░░░██║░░░██║░░██║██║░░░░░╚█████╔╝██║░╚███║░░░██║░░░
+			╚═╝░░░░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░░░░░╚════╝░╚═╝░░╚══╝░░░╚═╝░░░
+			]]
+
+			dashboard.section.header.val = vim.split(logo, "\n")
+			dashboard.section.buttons.val = {
+				dashboard.button("f", "   " .. " Find file", ":Telescope find_files <CR>"),
+				dashboard.button("r", "   " .. " Recent files", ":Telescope oldfiles <CR>"),
+				dashboard.button("g", "   " .. " Find text", ":Telescope live_grep <CR>"),
+				dashboard.button("c", "   " .. " Config", ":e $MYVIMRC <CR>"),
+				dashboard.button("q", "   " .. " Quit", ":qa<CR>"),
+			}
+			for _, button in ipairs(dashboard.section.buttons.val) do
+				button.opts.hl = "AlphaButtons"
+				button.opts.hl_shortcut = "AlphaShortcut"
+			end
+			dashboard.section.header.opts.hl = "AlphaHeader"
+			dashboard.section.buttons.opts.hl = "AlphaButtons"
+			dashboard.section.footer.opts.hl = "AlphaFooter"
+			dashboard.opts.layout[1].val = 8
+			return dashboard
+		end,
+		config = function(_, dashboard)
+			-- close Lazy and re-open when the dashboard is ready
+			if vim.o.filetype == "lazy" then
+				vim.cmd.close()
+				vim.api.nvim_create_autocmd("User", {
+					pattern = "AlphaReady",
+					callback = function()
+						require("lazy").show()
+					end,
+				})
+			end
+
+			require("alpha").setup(dashboard.opts)
+
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "LazyVimStarted",
+				callback = function()
+					local stats = require("lazy").stats()
+					local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+					dashboard.section.footer.val = "⚡ Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
+					pcall(vim.cmd.AlphaRedraw)
+				end,
+			})
 		end,
 	},
 }

@@ -72,37 +72,11 @@ function M.packages()
 			end,
 		},
 		{
-			"nvim-treesitter/nvim-treesitter",
+			"kylechui/nvim-surround",
+			version = "*",
 			config = function()
-				require("nvim-treesitter.install").prefer_git = true
-
-				require("nvim-treesitter.configs").setup({
-					ensure_installed = {
-						"bash",
-						"css",
-						"html",
-						"javascript",
-						"json",
-						"json5",
-						"jsonc",
-						"latex",
-						"lua",
-						"markdown",
-						"python",
-						"scss",
-						"toml",
-						"typescript",
-						"yaml",
-					},
-					highlight = {
-						enable = false,
-					},
-					indent = {
-						enable = false,
-					},
-				})
+				require("nvim-surround").setup({})
 			end,
-			build = ":TSUpdate",
 		},
 	}
 end

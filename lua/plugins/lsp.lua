@@ -16,36 +16,6 @@ return {
       -- And you can configure cmp even more, if you want to.
       local cmp = require("cmp")
 
-      local default_cmp_sources = cmp.config.sources({
-        { name = "nvim_lsp", keyword_length = 2 },
-        { name = "luasnip", keyword_length = 2 },
-        { name = "buffer", keyword_length = 2 },
-        { name = "path", keyword_length = 2 },
-        { name = "nvim_lua", keyword_length = 2 },
-      })
-
-      local bufIsBig = function(bufnr)
-        local max_filesize = 100 * 1024 -- 100 KB
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
-        if ok and stats and stats.size > max_filesize then
-          return true
-        else
-          return false
-        end
-      end
-
-      vim.api.nvim_create_autocmd("BufReadPre", {
-        callback = function(t)
-          local sources = default_cmp_sources
-          if not bufIsBig(t.buf) then
-            sources[#sources + 1] = { name = "treesitter", group_index = 2 }
-          end
-          cmp.setup.buffer({
-            sources = sources,
-          })
-        end,
-      })
-
       -- `/` cmdline setup.
       cmp.setup.cmdline("/", {
         mapping = cmp.mapping.preset.cmdline(),
@@ -69,10 +39,16 @@ return {
         }),
       })
 
+      local default_cmp_sources = cmp.config.sources({
+        { name = "nvim_lsp", keyword_length = 1 },
+        { name = "luasnip", keyword_length = 2 },
+        { name = "buffer", keyword_length = 2 },
+        { name = "path", keyword_length = 2 },
+        { name = "nvim_lua", keyword_length = 2 },
+      })
+
       cmp.setup({
-        sources = {
-          { name = "nvim_lsp" },
-        },
+        sources = default_cmp_sources,
         preselect = "item",
         completion = {
           completeopt = "menu,menuone,noinsert",
@@ -146,6 +122,8 @@ return {
 
       local lspconfig = require("lspconfig")
 
+      lspconfig.tsserver.setup({})
+
       lspconfig.lua_ls.setup({
         settings = {
           Lua = {
@@ -167,6 +145,44 @@ return {
             },
           },
         },
+      })
+
+      -- Global mappings.
+      -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+      vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
+      vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+      vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+      vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
+
+      -- Use LspAttach autocommand to only map the following keys
+      -- after the language server attaches to the current buffer
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+        callback = function(ev)
+          -- Enable completion triggered by <c-x><c-o>
+          vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+
+          -- Buffer local mappings.
+          -- See `:help vim.lsp.*` for documentation on any of the below functions
+          local opts = { buffer = ev.buf }
+          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+          vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+          vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
+          vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
+          vim.keymap.set("n", "<space>wl", function()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+          end, opts)
+          vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
+          vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
+          vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
+          vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+          vim.keymap.set("n", "<space>f", function()
+            vim.lsp.buf.format({ async = true })
+          end, opts)
+        end,
       })
     end,
     keys = {
@@ -193,6 +209,7 @@ return {
           null_ls.builtins.formatting.prettier,
           null_ls.builtins.diagnostics.eslint,
           null_ls.builtins.formatting.stylua,
+          null_ls.builtins.formatting.shfmt,
         },
 
         -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save#sync-formatting

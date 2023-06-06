@@ -61,3 +61,6 @@ opt.pumheight = 10 -- Maximum number of entries in a popup
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+-- don't display ~ for blank lines
+vim.wo.fillchars = "eob: "
