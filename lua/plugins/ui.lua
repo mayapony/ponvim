@@ -16,7 +16,6 @@ return {
 	},
 	{
 		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v2.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{
@@ -24,6 +23,9 @@ return {
 			},
 			"MunifTanjim/nui.nvim",
 		},
+		config = function(_, opts)
+			require("neo-tree").setup(opts)
+		end,
 		keys = {
 			{
 				"<leader>e",
@@ -43,9 +45,6 @@ return {
 			enable_diagnostics = false,
 			window = {
 				width = 25,
-				mappings = {
-					["<space>"] = "none",
-				},
 			},
 			default_component_configs = {
 				indent = {
@@ -59,16 +58,8 @@ return {
 	},
 	{
 		"nvim-lualine/lualine.nvim",
-		event = "VeryLazy",
+		event = "VimEnter",
 		opts = function()
-			local function fg(name)
-				return function()
-					---@type {foreground?:number}?
-					local hl = vim.api.nvim_get_hl_by_name(name, true)
-					return hl and hl.foreground and { fg = string.format("#%06x", hl.foreground) }
-				end
-			end
-
 			return {
 				options = {
 					theme = "auto",
@@ -155,6 +146,7 @@ return {
 	},
 	{
 		"rcarriga/nvim-notify",
+		event = "VimEnter",
 		keys = {
 			{
 				"<leader>un",
@@ -175,22 +167,47 @@ return {
 				return math.floor(vim.o.columns * 0.35)
 			end,
 		},
-		init = function()
+		config = function()
 			vim.notify = require("notify")
 		end,
 	},
 	{
 		"akinsho/bufferline.nvim",
-		event = "VeryLazy",
+		event = "BufReadPre",
 		keys = {
 			{ "<leader>bp", "<Cmd>BufferLineTogglePin<CR>",            desc = "Toggle pin" },
 			{ "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
 			{ "<leader>ft", "<Cmd>BufferLinePick<CR>",                 desc = "Find Buffer" },
-			{ "<A-1>",      "<Cmd>BufferLineGoToBuffer 1<CR>",         desc = "go to buffer 1" },
-			{ "<A-2>",      "<Cmd>BufferLineGoToBuffer 2<CR>",         desc = "go to buffer 2" },
-			{ "<A-3>",      "<Cmd>BufferLineGoToBuffer 3<CR>",         desc = "go to buffer 3" },
-			{ "<A-4>",      "<Cmd>BufferLineGoToBuffer 4<CR>",         desc = "go to buffer 4" },
-			{ "<A-5>",      "<Cmd>BufferLineGoToBuffer 5<CR>",         desc = "go to buffer 5" },
+			{
+				"<A-1>",
+				mode = { "n", "i" },
+				"<Cmd>BufferLineGoToBuffer 1<CR>",
+				desc = "go to buffer 1",
+			},
+			{
+				"<A-2>",
+				mode = { "n", "i" },
+				"<Cmd>BufferLineGoToBuffer 2<CR>",
+				desc = "go to buffer 2",
+			},
+			{
+				"<A-3>",
+				mode = { "n", "i" },
+				"<Cmd>BufferLineGoToBuffer 3<CR>",
+				desc = "go to buffer 3",
+			},
+			{
+				"<A-4>",
+				mode = { "n", "i" },
+				"<Cmd>BufferLineGoToBuffer 4<CR>",
+				desc = "go to buffer 4",
+			},
+			{
+				"<A-5>",
+				mode = { "n", "i" },
+				"<Cmd>BufferLineGoToBuffer 5<CR>",
+				desc = "go to buffer 5",
+			},
 		},
 		opts = {
 			options = {

@@ -49,7 +49,7 @@ return {
 		end,
 		keys = {
 			{
-				"<leader>g",
+				"<leader>gg",
 				"<cmd>lua require('config.function').lazygit_toggle()<CR>",
 				desc = "Toggle lazygit",
 			},
@@ -77,10 +77,15 @@ return {
 			vim.o.timeout = true
 			vim.o.timeoutlen = 300
 		end,
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
 	},
 	{
 		"NvChad/nvim-colorizer.lua",
-		event = "BufEnter",
+		event = "BufReadPost",
 		config = function()
 			require("colorizer").setup({
 				filetypes = { "*" },
@@ -113,6 +118,7 @@ return {
 	},
 	{
 		"ahmedkhalf/project.nvim",
+		event = "VeryLazy",
 		config = function()
 			require("project_nvim").setup({
 				patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", ".luarc.json" },
@@ -120,12 +126,33 @@ return {
 		end,
 	},
 	{
-		"ggandor/flit.nvim",
-		opts = {
-			multiline = false,
-		},
-	},
-	{
-		"ggandor/leap.nvim",
+		"phaazon/hop.nvim",
+		event = "BufReadPost",
+		name = "hop",
+		branch = "v2",
+		config = function()
+			require("hop").setup({
+				keys = "etovxqpdygfblzhckisuran",
+				quit_key = "<SPC>",
+				case_insensitive = true,
+				multi_windows = true,
+			})
+			local hop = require("hop")
+			local directions = require("hop.hint").HintDirection
+			vim.keymap.set("", "f", function()
+				hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+			end, { remap = true })
+			vim.keymap.set("", "F", function()
+				hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+			end, { remap = true })
+			vim.keymap.set("", "t", function()
+				hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+			end, { remap = true })
+			vim.keymap.set("", "T", function()
+				hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+			end, { remap = true })
+			vim.keymap.set("", "s", "<cmd>HopChar2<cr>", { remap = true })
+			vim.keymap.set("n", "<leader><leader>j", "<cmd>HopLine<cr>", {})
+		end,
 	},
 }

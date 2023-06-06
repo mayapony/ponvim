@@ -19,12 +19,15 @@ if not vim.g.vscode then
 	require("config.autocmd")
 	require("config.keymaps").initNvim()
 
-	require("lazy").setup({ { import = "plugins" } })
+	require("lazy").setup({
+		spec = {
+			{ import = "plugins" },
+			{ import = "plugins.lang" },
+		},
+	})
 else
 	local vscode = require("vscode")
 	vscode.configure()
-
-	require("config.keymaps").initVscode()
 
 	local options = {
 		root = vim.fn.stdpath("data") .. "/lazy-vscode",
