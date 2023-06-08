@@ -9,15 +9,45 @@ map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsea
 -- Save file
 map({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 
+-- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+map("n", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+
+-- Add undo break-points
+map("i", ",", ",<c-g>u")
+map("i", ".", ".<c-g>u")
+map("i", ";", ";<c-g>u")
+
+-- better indenting
+map("v", "<", "<gv")
+map("v", ">", ">gv")
+
+-- windows
+map("n", "<leader>ww", "<C-W>p", { desc = "Other window" })
+map("n", "<leader>wd", "<C-W>c", { desc = "Delete window" })
+map("n", "<leader>ws", "<C-W>v", { desc = "Split window right" })
+map("n", "<leader>wv", "<C-W>s", { desc = "Split window below" })
+map("n", "<leader>wo", "<C-W>o", { desc = "Close other window" })
+
 function M.initNvim()
   -- lazy
-  vim.keymap.set("n", "<leader><leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
+  vim.keymap.set("n", "<leader>ml", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
   -- Move to window using the <ctrl> hjkl keys
   map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
   map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
   map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
   map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
+
+  -- Resize window using <ctrl> arrow keys
+  map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+  map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+  map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+  map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
   -- floating terminal
   map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
@@ -52,11 +82,26 @@ function M.initVscode()
   --  map({ "n", "x" }, "n", [[<cmd>call VSCodeNotify('editor.action.marker.next')<cr>]], {})
   --  map({ "n", "x" }, "p", [[<cmd>call VSCodeNotify('editor.action.marker.prev')<cr>]], {})
   map({ "n", "x" }, "gr", [[<cmd>call VSCodeNotify('editor.action.rename')<cr>]], {})
-  map({ "n", "x" }, "gx", [[<cmd>call VSCodeNotify('keyboard-quickfix.openQuickFix')<cr>]], {})
+  map({ "n", "x" }, "<leader>ca", [[<cmd>call VSCodeNotify('keyboard-quickfix.openQuickFix')<cr>]], {})
   map({ "n", "x" }, "<leader>.", [[<cmd>call VSCodeNotify('workbench.action.quickOpen')<cr>]], {})
-  map({ "n", "x" }, "<leader>qo", [[<cmd>call VSCodeNotify('workbench.action.closeOtherEditors')<cr>]], {})
-  map({ "n", "x" }, "<leader>qa", [[<cmd>call VSCodeNotify('workbench.action.closeAllEditors')<cr>]], {})
-  map({ "n", "x" }, "<leader>qq", [[<cmd>call VSCodeNotify('workbench.action.closeActiveEditor')<cr>]], {})
+  map(
+    { "n", "x" },
+    "<leader>qo",
+    [[<cmd>call VSCodeNotify('workbench.action.closeOtherEditors')<cr>]],
+    { desc = "Close other editors", silent = true, expr = true }
+  )
+  map(
+    { "n", "x" },
+    "<leader>qa",
+    [[<cmd>call VSCodeNotify('workbench.action.closeAllEditors')<cr>]],
+    { desc = "Close all editors", silent = true, expr = true }
+  )
+  map(
+    { "n", "x" },
+    "<leader>qq",
+    [[<cmd>call VSCodeNotify('workbench.action.closeActiveEditor')<cr>]],
+    { desc = "Close active editor", silent = true, expr = true }
+  )
 end
 
 return M

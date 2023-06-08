@@ -4,6 +4,8 @@ vim.g.maplocalleader = " "
 
 local opt = vim.opt
 opt.autowrite = true -- 自动保存
+-- opt.number = true
+-- opt.relativenumber = true
 opt.clipboard = "unnamedplus" -- 复制保存到剪切板
 opt.completeopt = "menu,menuone,noselect"
 opt.confirm = true -- 在离开buffer时确认保存
@@ -64,3 +66,6 @@ vim.g.loaded_netrwPlugin = 1
 
 -- don't display ~ for blank lines
 opt.fillchars = "eob: "
+
+-- disable default status line
+opt.laststatus = 0

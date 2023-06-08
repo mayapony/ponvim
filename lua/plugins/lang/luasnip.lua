@@ -3,16 +3,19 @@ return {
 	-- install jsregexp (optional!).
 	build = "make install_jsregexp",
 	version = "1.2.*",
-	event = "BufReadPre",
+	event = { "BufReadPost", "BufNewFile" },
 	dependencies = {
 		"rafamadriz/friendly-snippets",
 		config = function()
 			require("luasnip.loaders.from_vscode").lazy_load()
 		end,
 	},
-
 	config = function()
 		local luasnip = require("luasnip")
+
+		-- add react snippet support
+		luasnip.filetype_extend("javascript", { "javascriptreact" })
+		luasnip.filetype_extend("javascript", { "html" })
 
 		-- forget the current snippet when leaving the insert mode
 		-- source: https://github.com/L3MON4D3/LuaSnip/issues/656
@@ -29,4 +32,29 @@ return {
 			end,
 		})
 	end,
+	keys = {
+		{
+			"<tab>",
+			function()
+				return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+			end,
+			expr = true,
+			silent = true,
+			mode = "i",
+		},
+		{
+			"<tab>",
+			function()
+				require("luasnip").jump(1)
+			end,
+			mode = "s",
+		},
+		{
+			"<s-tab>",
+			function()
+				require("luasnip").jump(-1)
+			end,
+			mode = { "i", "s" },
+		},
+	},
 }

@@ -45,6 +45,7 @@ return {
         { name = "buffer", keyword_length = 2 },
         { name = "path", keyword_length = 2 },
         { name = "nvim_lua", keyword_length = 2 },
+        { name = "codeium" },
       })
 
       cmp.setup({
@@ -87,9 +88,10 @@ return {
         formatting = {
           fields = { "abbr", "kind", "menu" },
           format = require("lspkind").cmp_format({
-            mode = "symbol_text", -- show only symbol annotations
+            mode = "symbol", -- show only symbol annotations
             maxwidth = 50, -- prevent the popup from showing more than provided characters
             ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
+            symbol_map = { Codeium = "" },
           }),
         },
       })

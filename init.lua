@@ -23,6 +23,28 @@ if not vim.g.vscode then
 		spec = {
 			{ import = "plugins" },
 			{ import = "plugins.lang" },
+			{ import = "plugins.tools" },
+			{ import = "plugins.ui" },
+			{ import = "plugins.coding" },
+		},
+		performance = {
+			rtp = {
+				-- disable some rtp plugins
+				disabled_plugins = {
+					"netrw",
+					"netrwPlugin",
+					"netrwSettings",
+					"netrwFileHandlers",
+					"gzip",
+					-- "matchit",
+					-- "matchparen",
+					-- "netrwPlugin",
+					"tarPlugin",
+					"tohtml",
+					"tutor",
+					"zipPlugin",
+				},
+			},
 		},
 	})
 else

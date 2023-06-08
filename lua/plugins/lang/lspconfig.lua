@@ -1,8 +1,44 @@
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = "👈🤣", -- Could be '●', '▎', 'x'
+    -- severity = {
+    --   -- Specify a range of severities
+    --   min = vim.diagnostic.severity.ERROR,
+    -- },
+  },
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+  float = {
+    source = "always",
+    border = "rounded",
+  },
+})
+
+-- local signs = { Error = " ", Warn = " ", Hint = "󰛨 ", Info = " " }
+local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
+local border = {
+  { "🭽", "FloatBorder" },
+  { "▔", "FloatBorder" },
+  { "🭾", "FloatBorder" },
+  { "▕", "FloatBorder" },
+  { "🭿", "FloatBorder" },
+  { "▁", "FloatBorder" },
+  { "🭼", "FloatBorder" },
+  { "▏", "FloatBorder" },
+}
+
 return {
   "neovim/nvim-lspconfig",
   -- lazy load lspconfig
   -- source: https://www.reddit.com/r/neovim/comments/1308ie7/help_how_to_lazy_load_lspconfig/
-  event = { "BufReadPost", "BufNewFile" },
+  event = { "BufReadPre", "BufNewFile" },
   cmd = { "LspInfo", "LspInstall", "LspUninstall" },
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp" },
@@ -22,8 +58,6 @@ return {
     })
 
     local lspconfig = require("lspconfig")
-
-    lspconfig.tsserver.setup({})
 
     lspconfig.lua_ls.setup({
       settings = {
@@ -68,10 +102,18 @@ return {
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
       end,
     })
+
+    -- To instead override globally
+    local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+    function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+      opts = opts or {}
+      opts.border = opts.border or border
+      return orig_util_open_floating_preview(contents, syntax, opts, ...)
+    end
   end,
   keys = {
     {
-      "<leader>cm",
+      "<leader>mm",
       "<cmd>Mason<cr>",
       desc = "Open Mason",
     },

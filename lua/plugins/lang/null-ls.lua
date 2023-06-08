@@ -1,7 +1,7 @@
 return {
   {
     "jose-elias-alvarez/null-ls.nvim",
-    event = "BufReadPre",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       local null_ls = require("null-ls")
 
@@ -12,6 +12,9 @@ return {
           null_ls.builtins.diagnostics.eslint,
           null_ls.builtins.formatting.stylua,
           null_ls.builtins.formatting.shfmt,
+
+          -- typescript.nvim
+          require("typescript.extensions.null-ls.code-actions"),
         },
       })
     end,
