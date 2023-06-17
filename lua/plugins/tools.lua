@@ -16,7 +16,7 @@ return {
     keys = {
       { "<leader>qq", "<cmd>BufDel<cr>", desc = "Delete Buffer", silent = true },
       { "<leader>qo", "<cmd>BufDelOthers<cr>", desc = "Delete other buffer", silent = true },
-      { "<leader>qa", ":wqa<cr>", desc = "Delete Buffer all", silent = true },
+      { "<leader>qa", ":qa<cr>", desc = "Delete Buffer all", silent = true },
     },
     config = function()
       require("bufdel").setup({

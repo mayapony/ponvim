@@ -1,6 +1,7 @@
-return {
+local spec = {
   "akinsho/bufferline.nvim",
-  event = "VeryLazy",
+	priority = 10000,
+  event = "BufWinEnter",
   keys = {
     {
       "<S-h>",
@@ -65,3 +66,5 @@ return {
     },
   },
 }
+
+return spec

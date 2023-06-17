@@ -88,19 +88,19 @@ function M.initVscode()
     { "n", "x" },
     "<leader>qo",
     [[<cmd>call VSCodeNotify('workbench.action.closeOtherEditors')<cr>]],
-    { desc = "Close other editors", silent = true, expr = true }
+    { desc = "Close other editors" }
   )
   map(
     { "n", "x" },
     "<leader>qa",
     [[<cmd>call VSCodeNotify('workbench.action.closeAllEditors')<cr>]],
-    { desc = "Close all editors", silent = true, expr = true }
+    { desc = "Close all editors" }
   )
   map(
     { "n", "x" },
     "<leader>qq",
     [[<cmd>call VSCodeNotify('workbench.action.closeActiveEditor')<cr>]],
-    { desc = "Close active editor", silent = true, expr = true }
+    { desc = "Close active editor" }
   )
 end
 

@@ -4,8 +4,8 @@ vim.g.maplocalleader = " "
 
 local opt = vim.opt
 opt.autowrite = true -- 自动保存
--- opt.number = true
--- opt.relativenumber = true
+opt.number = true
+opt.relativenumber = true
 opt.clipboard = "unnamedplus" -- 复制保存到剪切板
 opt.completeopt = "menu,menuone,noselect"
 opt.confirm = true -- 在离开buffer时确认保存
@@ -17,7 +17,7 @@ opt.shiftwidth = 2 -- Size of an indent
 opt.shortmess:append({ W = true, I = true, c = true })
 opt.showmode = false -- Don't show mode since we have a statusline
 opt.sidescrolloff = 8 -- Columns of context
-opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
+opt.signcolumn = "no" -- Always show the signcolumn, otherwise it would shift the text each time
 opt.smartcase = true -- Don't ignore case with capitals
 opt.smartindent = true -- Insert indents automatically
 opt.spelllang = { "en" }
@@ -68,4 +68,6 @@ vim.g.loaded_netrwPlugin = 1
 opt.fillchars = "eob: "
 
 -- disable default status line
-opt.laststatus = 0
+-- opt.laststatus = 0
+
+-- opt.stc = "%{v:relnum?v:relnum:v:lnum}%=%s"

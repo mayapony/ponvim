@@ -1,6 +1,7 @@
 return {
   "nvim-lualine/lualine.nvim",
-  event = "BufReadPre",
+  priority = 10000,
+  event = "BufWinEnter",
   opts = function()
     return {
       options = {

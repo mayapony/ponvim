@@ -1,3 +1,13 @@
+local bufIsBig = function(bufnr)
+  local max_filesize = 100 * 1024 -- 100 KB
+  local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+  if ok and stats and stats.size > max_filesize then
+    return true
+  else
+    return false
+  end
+end
+
 return {
   -- nvim-cmp
   {
@@ -46,6 +56,18 @@ return {
         { name = "path", keyword_length = 2 },
         { name = "nvim_lua", keyword_length = 2 },
         { name = "codeium" },
+      })
+
+      vim.api.nvim_create_autocmd("BufReadPre", {
+        callback = function(t)
+          local sources = default_cmp_sources
+          if not bufIsBig(t.buf) then
+            sources[#sources + 1] = { name = "treesitter", group_index = 2 }
+          end
+          cmp.setup.buffer({
+            sources = sources,
+          })
+        end,
       })
 
       cmp.setup({

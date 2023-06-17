@@ -14,6 +14,6 @@ return {
       "<cmd>lua require('config.function').lazygit_toggle()<CR>",
       desc = "Toggle lazygit",
     },
-    { "<leader>ut", "<cmd>ToggleTerm<CR>", desc = "Toggle Term" },
+    { "<leader>tt", "<cmd>ToggleTerm<CR>", desc = "Toggle Term" },
   },
 }

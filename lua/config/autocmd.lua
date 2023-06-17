@@ -1,12 +1,4 @@
--- local cmp = require("cmp")
---
--- local default_cmp_sources = cmp.config.sources({
--- 	{ name = "nvim_lsp", keyword_length = 2 },
--- 	{ name = "luasnip",  keyword_length = 2 },
--- 	{ name = "buffer",   keyword_length = 2 },
--- 	{ name = "path",     keyword_length = 2 },
--- 	{ name = "nvim_lua", keyword_length = 2 },
--- })
+local autocmd = vim.api.nvim_create_autocmd
 
 local function augroup(name)
   return vim.api.nvim_create_augroup("maya_" .. name, { clear = true })
@@ -20,8 +12,76 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 
 vim.api.nvim_create_autocmd("LspAttach", {
   desc = "LSP actions",
-  callback = function()
-    -- event
+  callback = function(args)
+    local buffer = args.buf
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    local builtin = require("telescope.builtin")
+
+    -- local formatAugroup = vim.api.nvim_create_augroup("LspFormatting", {})
+    --
+    -- if client.supports_method("textDocument/formatting") then
+    --   vim.api.nvim_clear_autocmds({ group = formatAugroup, buffer = buffer })
+    --   vim.api.nvim_create_autocmd("BufWritePre", {
+    --     group = formatAugroup,
+    --     buffer = buffer,
+    --     callback = function()
+    --       -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+    --       -- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
+    --       vim.lsp.buf.format({ async = false })
+    --     end,
+    --   })
+    -- end
+
+    vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+    -- Buffer local mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local opts = { buffer = args.buf }
+    vim.keymap.set("n", "gd", builtin.lsp_definitions, { buffer = args.buf, desc = "definitions" })
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+    vim.keymap.set("n", "gi", builtin.lsp_implementations, { buffer = args.buf, desc = "implementations" })
+    vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
+    vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { buffer = args.buf, desc = "code action" })
+    vim.keymap.set("n", "gr", builtin.lsp_references, { buffer = args.buf, desc = "references" })
+    vim.keymap.set("n", "go", builtin.lsp_document_symbols, { buffer = args.buf, desc = "document symbols" })
+    vim.keymap.set("n", "gh", vim.diagnostic.open_float, { noremap = true, silent = true })
+    vim.keymap.set("n", "gx", builtin.diagnostics, { buffer = 0, desc = "diagnostics" })
+    vim.keymap.set(
+      "n",
+      "gw",
+      builtin.lsp_workspace_symbols,
+      { noremap = true, silent = true, desc = "workspace symbols" }
+    )
+
+    if client.name == "tsserver" then
+			-- stylua: ignore
+			vim.keymap.set("n", "<leader>co", "<cmd>TypescriptOrganizeImports<CR>",
+				{ buffer = buffer, desc = "Organize Imports" })
+      vim.keymap.set("n", "<leader>cR", "<cmd>TypescriptRenameFile<CR>", { desc = "Rename File", buffer = buffer })
+      vim.keymap.set(
+        "n",
+        "<leader>ci",
+        "<cmd>TypescriptAddMissingImports<CR>",
+        { desc = "Import missing modules", buffer = buffer }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>cc",
+        "<cmd>TypescriptRemoveUnused<CR>",
+        { desc = "Clear unused variables", buffer = buffer }
+      )
+      vim.keymap.set(
+        "n",
+        "gd",
+        "<cmd>TypescriptGoToSourceDefinition<CR>",
+        { desc = "Go to typescript source definition", buffer = buffer }
+      )
+      vim.keymap.set(
+        { "n", "x" },
+        "<leader>ca",
+        "<cmd>CodeActionMenu<CR>",
+        { desc = "typescript code action menu", buffer = buffer }
+      )
+    end
   end,
 })
 
@@ -49,9 +109,9 @@ vim.api.nvim_create_autocmd("FileType", {
     "toggleterm",
     "telescope",
   },
-  callback = function(event)
-    vim.bo[event.buf].buflisted = false
-    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+  callback = function(argsent)
+    vim.bo[argsent.buf].buflisted = false
+    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = argsent.buf, silent = true })
   end,
 })
 
@@ -65,33 +125,3 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     end
   end,
 })
-
--- auto format on save
--- source: https://github.com/neovim/nvim-lspconfig/issues/1792
-vim.api.nvim_create_autocmd("BufWritePre", {
-  callback = function()
-    vim.lsp.buf.format({ async = false })
-  end,
-})
-
--- local bufIsBig = function(bufnr)
--- 	local max_filesize = 100 * 1024 -- 100 KB
--- 	local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
--- 	if ok and stats and stats.size > max_filesize then
--- 		return true
--- 	else
--- 		return false
--- 	end
--- end
---
--- vim.api.nvim_create_autocmd("BufReadPre", {
--- 	callback = function(t)
--- 		local sources = default_cmp_sources
--- 		if not bufIsBig(t.buf) then
--- 			sources[#sources + 1] = { name = "treesitter", group_index = 2 }
--- 		end
--- 		cmp.setup.buffer({
--- 			sources = sources,
--- 		})
--- 	end,
--- })

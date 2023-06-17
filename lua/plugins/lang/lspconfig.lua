@@ -1,6 +1,7 @@
 vim.diagnostic.config({
   virtual_text = {
-    prefix = "👈🤣", -- Could be '●', '▎', 'x'
+    -- prefix = "👈🤣", -- Could be '●', '▎', 'x'
+    prefix = "●", -- Could be '●', '▎', 'x'
     -- severity = {
     --   -- Specify a range of severities
     --   min = vim.diagnostic.severity.ERROR,
@@ -16,8 +17,8 @@ vim.diagnostic.config({
   },
 })
 
--- local signs = { Error = " ", Warn = " ", Hint = "󰛨 ", Info = " " }
-local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+local signs = { Error = " ", Warn = " ", Hint = "󰛨 ", Info = " " }
+-- local signs = { Error = "", Warn = "", Hint = "", Info = "" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -43,7 +44,25 @@ return {
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp" },
     { "williamboman/mason-lspconfig.nvim" },
-    { "williamboman/mason.nvim" },
+    {
+      "williamboman/mason.nvim",
+      priority = 10000,
+      cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+      event = { "VeryLazy" },
+    },
+    { "nvim-telescope/telescope.nvim" },
+    { "b0o/SchemaStore.nvim" },
+    {
+      "SmiteshP/nvim-navbuddy",
+      dependencies = {
+        "SmiteshP/nvim-navic",
+        "MunifTanjim/nui.nvim",
+      },
+      opts = { lsp = { auto_attach = true } },
+      keys = {
+        { "<leader>ss", "<cmd>Navbuddy<cr>", desc = "Toggle navbuddy" },
+      },
+    },
   },
   config = function()
     require("mason").setup()
@@ -80,27 +99,6 @@ return {
           },
         },
       },
-    })
-
-    -- Use LspAttach autocommand to only map the following keys
-    -- after the language server attaches to the current buffer
-    vim.api.nvim_create_autocmd("LspAttach", {
-      group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-      callback = function(ev)
-        -- Enable completion triggered by <c-x><c-o>
-        vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-        -- Buffer local mappings.
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
-        local opts = { buffer = ev.buf }
-        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-        vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
-        vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-      end,
     })
 
     -- To instead override globally

@@ -67,28 +67,10 @@ return {
     config = function()
       require("indent_blankline").setup({
         char = "│",
-        filetype_exclude = { "help", "alpha", "dashboard", "Trouble", "lazy", "mason" },
-        show_trailing_blankline_indent = true,
+        filetype_exclude = { "help", "alpha", "dashboard", "Trouble", "lazy", "mason", "toggleterm", "neo-tree" },
+        show_trailing_blankline_indent = false,
         show_current_context = true,
-        show_end_of_line = true,
-      })
-    end,
-  },
-  {
-    "echasnovski/mini.indentscope",
-    version = false, -- wait till new 0.7.0 release to put it back on semver
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {
-      -- symbol = "▏",
-      symbol = "│",
-      options = { try_as_border = true },
-    },
-    config = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "help", "alpha", "dashboard", "Trouble", "lazy", "mason" },
-        callback = function()
-          vim.b.miniindentscope_disable = true
-        end,
+        show_end_of_line = false,
       })
     end,
   },
@@ -117,53 +99,6 @@ return {
     },
     config = function()
       vim.notify = require("notify")
-    end,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    version = false, -- last release is way too old and doesn't work on Windows
-    build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
-    keys = {
-      { "<c-space>", desc = "Increment selection" },
-      { "<bs>", desc = "Decrement selection", mode = "x" },
-    },
-    opts = {
-      highlight = {
-        enable = true,
-      },
-      indent = { enable = true, disable = { "python" } },
-      context_commentstring = { enable = true, enable_autocmd = false },
-      ensure_installed = {
-        "bash",
-        "c",
-        "html",
-        "javascript",
-        "json",
-        "lua",
-        "luap",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "query",
-        "tsx",
-        "typescript",
-        "vim",
-        "yaml",
-        "vue",
-      },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
-          scope_incremental = "<nop>",
-          node_decremental = "<bs>",
-        },
-      },
-    },
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
     end,
   },
 }
