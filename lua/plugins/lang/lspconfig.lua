@@ -1,40 +1,3 @@
-vim.diagnostic.config({
-  virtual_text = {
-    -- prefix = "👈🤣", -- Could be '●', '▎', 'x'
-    prefix = "●", -- Could be '●', '▎', 'x'
-    -- severity = {
-    --   -- Specify a range of severities
-    --   min = vim.diagnostic.severity.ERROR,
-    -- },
-  },
-  signs = true,
-  underline = true,
-  update_in_insert = false,
-  severity_sort = true,
-  float = {
-    source = "always",
-    border = "rounded",
-  },
-})
-
-local signs = { Error = " ", Warn = " ", Hint = "󰛨 ", Info = " " }
--- local signs = { Error = "", Warn = "", Hint = "", Info = "" }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-
-local border = {
-  { "🭽", "FloatBorder" },
-  { "▔", "FloatBorder" },
-  { "🭾", "FloatBorder" },
-  { "▕", "FloatBorder" },
-  { "🭿", "FloatBorder" },
-  { "▁", "FloatBorder" },
-  { "🭼", "FloatBorder" },
-  { "▏", "FloatBorder" },
-}
-
 return {
   "neovim/nvim-lspconfig",
   -- lazy load lspconfig
@@ -70,8 +33,8 @@ return {
       -- server name source: https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
       ensure_installed = {
         -- Replace these with whatever servers you want to install
-        "tsserver",
         "lua_ls",
+        "tsserver",
       },
       automatic_installation = true,
     })
@@ -82,11 +45,9 @@ return {
       settings = {
         Lua = {
           runtime = {
-            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
             version = "LuaJIT",
           },
           diagnostics = {
-            -- Get the language server to recognize the `vim` global
             globals = { "vim" },
           },
           workspace = {
@@ -108,6 +69,75 @@ return {
       opts.border = opts.border or border
       return orig_util_open_floating_preview(contents, syntax, opts, ...)
     end
+
+    -- Global mappings.
+    -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+    vim.keymap.set(
+      "n",
+      "gh",
+      vim.diagnostic.open_float,
+      { noremap = true, silent = true, desc = "diagnostic open float" }
+    )
+
+    -- Use LspAttach autocommand to only map the following keys
+    -- after the language server attaches to the current buffer
+    vim.api.nvim_create_autocmd("LspAttach", {
+      group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+      callback = function(ev)
+        -- Enable completion triggered by <c-x><c-o>
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+
+        -- Buffer local mappings.
+        -- See `:help vim.lsp.*` for documentation on any of the below functions
+        local opts = { buffer = ev.buf }
+        local builtin = require("telescope.builtin")
+        vim.keymap.set("n", "gd", builtin.lsp_definitions, { buffer = ev.buf, desc = "definitions" })
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        vim.keymap.set("n", "gi", builtin.lsp_implementations, { buffer = ev.buf, desc = "implementations" })
+        vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+        vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
+        vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "code action" })
+        vim.keymap.set("n", "gr", builtin.lsp_references, { buffer = ev.buf, desc = "references" })
+        vim.keymap.set("n", "go", builtin.lsp_document_symbols, { buffer = ev.buf, desc = "document symbols" })
+        vim.keymap.set("n", "gh", vim.diagnostic.open_float, { noremap = true, silent = true })
+        vim.keymap.set("n", "gx", builtin.diagnostics, { buffer = 0, desc = "diagnostics" })
+        vim.keymap.set(
+          "n",
+          "gw",
+          builtin.lsp_workspace_symbols,
+          { noremap = true, silent = true, desc = "workspace symbols" }
+        )
+
+        if client.name == "tsserver" then
+          local buffer = ev.buf
+          vim.keymap.set(
+            "n",
+            "<leader>co",
+            require("typescript").actions.organizeImports,
+            { buffer = buffer, desc = "Organize Imports" }
+          )
+          vim.keymap.set(
+            "n",
+            "<leader>ci",
+            require("typescript").actions.addMissingImports,
+            { desc = "Import missing modules", buffer = buffer }
+          )
+          vim.keymap.set(
+            "n",
+            "<leader>cc",
+            require("typescript").actions.removeUnused,
+            { desc = "Clear unused variables", buffer = buffer }
+          )
+          vim.keymap.set(
+            { "n", "x" },
+            "<leader>ca",
+            "<cmd>CodeActionMenu<CR>",
+            { desc = "typescript code action menu", buffer = buffer }
+          )
+        end
+      end,
+    })
   end,
   keys = {
     {
