@@ -27,39 +27,28 @@ end
 function M.packages()
   return {
     {
-      "phaazon/hop.nvim",
-      name = "hop",
-      branch = "v2",
-      config = function()
-        require("hop").setup({
-          keys = "etovxqpdygfblzhckisuran",
-          quit_key = "<SPC>",
-          case_insensitive = true,
-          multi_windows = true,
-        })
-        local hop = require("hop")
-        local directions = require("hop.hint").HintDirection
-        vim.keymap.set("", "f", function()
-          hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
-        end, { remap = true })
-        vim.keymap.set("", "F", function()
-          hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-        end, { remap = true })
-        vim.keymap.set("", "t", function()
-          hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
-        end, { remap = true })
-        vim.keymap.set("", "T", function()
-          hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
-        end, { remap = true })
-        vim.keymap.set("", "s", "<cmd>HopChar2<cr>", { remap = true })
-        vim.keymap.set("n", "<leader><leader>j", "<cmd>HopLine<cr>", {})
-      end,
-    },
-    {
       "kylechui/nvim-surround",
       version = "*",
       config = function()
         require("nvim-surround").setup({})
+      end,
+    },
+    {
+      "ggandor/flit.nvim",
+      keys = function()
+        ---@type LazyKeys[]
+        local ret = {}
+        for _, key in ipairs({ "f", "F", "t", "T" }) do
+          ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
+        end
+        return ret
+      end,
+      opts = { labeled_modes = "nx" },
+    },
+    {
+      "ggandor/leap.nvim",
+      config = function()
+        require("leap").add_default_mappings()
       end,
     },
   }

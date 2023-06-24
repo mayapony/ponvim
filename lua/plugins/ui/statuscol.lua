@@ -19,12 +19,21 @@ function M.column()
     end
   end
 
+  -- local components = {
+  --   sign and ("%#" .. sign.texthl .. "#" .. sign.text .. "%*") or "   ",
+  --   [[%=]],
+  --   [[%{&nu?(&rnu&&v:relnum?v:relnum:v:lnum):''} ]],
+  --   git_sign and ("%#" .. git_sign.texthl .. "#" .. git_sign.text .. "%*") or "  ",
+  -- }
+  --
   local components = {
-    sign and ("%#" .. sign.texthl .. "#" .. sign.text .. "%*") or "   ",
+    sign and ("%#" .. sign.texthl .. "#" .. sign.text .. "%*") or [[%{&nu?'   ':''}]],
+    [[%{&nu?(&rnu&&v:relnum?v:relnum:v:lnum):''}]],
     [[%=]],
-    [[%{&nu?(&rnu&&v:relnum?v:relnum:v:lnum):''} ]],
-    git_sign and ("%#" .. git_sign.texthl .. "#" .. git_sign.text .. "%*") or "  ",
+		[[%{&nu?' ': ''}]],
+    git_sign and ("%#" .. git_sign.texthl .. "#" .. git_sign.text .. "%*") or [[%{&nu?'  ':''}]],
   }
+
   return table.concat(components, "")
 end
 

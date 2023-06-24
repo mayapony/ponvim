@@ -1,24 +1,5 @@
 return {
   {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    config = function()
-      require("rose-pine").setup({
-        disable_italics = true,
-        -- disable_float_background = true,
-        -- disable_background = true,
-        variant = "auto",
-        --- @usage 'main'|'moon'|'dawn'
-        dark_variant = "main",
-      })
-
-      vim.api.nvim_command("colorscheme rose-pine")
-      -- vim.cmd([[highlight GitSignsAdd guibg=NONE
-      --        highlight GitSignsChange guibg=NONE
-      --        highlight GitSignsDelete guibg=NONE]])
-    end,
-  },
-  {
     "nvim-neo-tree/neo-tree.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -87,7 +68,7 @@ return {
       },
     },
     opts = {
-      timeout = 3000,
+      timeout = 2000,
       render = "minimal",
 
       max_height = function()

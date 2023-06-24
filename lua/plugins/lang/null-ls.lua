@@ -13,12 +13,8 @@ return {
           null_ls.builtins.formatting.prettier,
           null_ls.builtins.formatting.stylua,
           null_ls.builtins.formatting.shfmt,
-          null_ls.builtins.code_actions.eslint_d.with({
-            only_local = "node_modules/.bin",
-          }),
-          null_ls.builtins.diagnostics.eslint_d.with({
-            only_local = "node_modules/.bin",
-          }),
+          null_ls.builtins.code_actions.eslint,
+          null_ls.builtins.diagnostics.eslint,
 
           -- typescript.nvim
           require("typescript.extensions.null-ls.code-actions"),
@@ -39,10 +35,10 @@ return {
                 -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
                 -- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
                 vim.lsp.buf.format({
-                  async = true,
-                  filter = function(c)
-                    return c.name == "null-ls"
-                  end,
+                  async = false,
+                  -- filter = function(c)
+                  --   return c.name == "null-ls"
+                  -- end,
                 })
               end,
               desc = "[null-ls] format on save",

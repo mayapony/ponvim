@@ -52,6 +52,9 @@ function M.initNvim()
   -- floating terminal
   map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
   vim.cmd([[map <C-t> <Nop>]])
+
+  -- toggle line number
+  map("n", "<leader>tn", require("config.function").toggle_line, { desc = "Toggle line number" })
 end
 
 function M.initVscode()

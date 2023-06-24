@@ -1,14 +1,14 @@
 -- Enhanced matchparen.vim plugin for Neovim to highlight the outer pair.
 
-local spec = {
+return {
   "utilyre/sentiment.nvim",
-  event = { "VeryLazy" },
+  version = "*",
+  event = "VeryLazy", -- keep for lazy loading
+  opts = {
+    -- config
+  },
+  init = function()
+    -- `matchparen.vim` needs to be disabled manually in case of lazy loading
+    vim.g.loaded_matchparen = 1
+  end,
 }
-
-function spec:config()
-  local sentiment = require("sentiment")
-
-  sentiment.setup()
-end
-
-return spec

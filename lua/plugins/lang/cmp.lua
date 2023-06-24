@@ -51,9 +51,9 @@ return {
 
       local default_cmp_sources = cmp.config.sources({
         { name = "nvim_lsp", keyword_length = 1 },
-        { name = "luasnip", keyword_length = 2 },
         { name = "buffer", keyword_length = 2 },
         { name = "path", keyword_length = 2 },
+        { name = "luasnip", keyword_length = 2 },
         { name = "nvim_lua", keyword_length = 2 },
         { name = "codeium" },
       })
@@ -110,7 +110,6 @@ return {
         formatting = {
           fields = { "abbr", "kind", "menu" },
           format = require("lspkind").cmp_format({
-            mode = "symbol", -- show only symbol annotations
             maxwidth = 50, -- prevent the popup from showing more than provided characters
             ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
             symbol_map = { Codeium = "" },

@@ -4,7 +4,6 @@ return {
   event = { "BufReadPre", "BufWritePre" },
   config = function()
     require("gitsigns").setup({
-      sign_priority = 6,
       current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
       current_line_blame_opts = {
         virt_text = true,
