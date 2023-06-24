@@ -1,7 +1,7 @@
 return {
   "jose-elias-alvarez/typescript.nvim",
   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "jsx", "tsx" },
+  -- ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "jsx", "tsx" },
   config = function()
     require("typescript").setup({
       disable_commands = false, -- prevent the plugin from creating Vim commands

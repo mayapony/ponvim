@@ -62,14 +62,6 @@ return {
       },
     })
 
-    -- To instead override globally
-    local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-    function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-      opts = opts or {}
-      opts.border = opts.border or border
-      return orig_util_open_floating_preview(contents, syntax, opts, ...)
-    end
-
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
     vim.keymap.set(
@@ -111,6 +103,15 @@ return {
 
         if client.name == "tsserver" then
           local buffer = ev.buf
+          vim.api.nvim_buf_create_user_command(buffer, "TypescriptRenameFile", function(opt)
+            local source = vim.api.nvim_buf_get_name(buffer)
+            vim.ui.input({ prompt = "New path: ", default = source }, function(input)
+              if input == "" or input == source or input == nil then
+                return
+              end
+              require("typescript").renameFile(source, input, { force = opt.bang })
+            end)
+          end, { bang = true })
           vim.keymap.set(
             "n",
             "<leader>co",
