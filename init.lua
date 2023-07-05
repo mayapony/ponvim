@@ -27,6 +27,10 @@ if not vim.g.vscode then
       { import = "plugins.ui" },
       { import = "plugins.coding" },
     },
+    checker = { enabled = true },
+    defaults = {
+			version = false
+    },
     performance = {
       rtp = {
         -- disable some rtp plugins

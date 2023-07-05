@@ -39,8 +39,6 @@ function M.initNvim()
 
   -- Move to window using the <ctrl> hjkl keys
   map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
-  map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
-  map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
   map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
 
   -- Resize window using <ctrl> arrow keys
@@ -72,7 +70,8 @@ function M.initVscode()
   map("n", "<C-r>", [[<Cmd>call VSCodeNotify('redo')<CR>]], { desc = "redo" })
 
   -- code action
-  map("n", "<leader>cr", [[<cmd>call VSCodeNotify('editor.action.rename')<cr>]], { desc = "Rename Variable" })
+  map({ "n", "x" }, "<leader>cr", [[<cmd>call VSCodeNotify('editor.action.rename')<cr>]], { desc = "Rename Variable" })
+  map({ "n", "x" }, "<leader>ca", [[<cmd>call VSCodeNotify('keyboard-quickfix.openQuickFix')<cr>]], {})
 
   -- Better Navigation
   map({ "n", "x" }, "<C-j>", [[<cmd>call VSCodeNotify('workbench.action.navigateDown')<cr>]], {})
@@ -80,12 +79,9 @@ function M.initVscode()
   map({ "n", "x" }, "<C-l>", [[<cmd>call VSCodeNotify('workbench.action.navigateRight')<cr>]], {})
   map({ "n", "x" }, "<C-h>", [[<cmd>call VSCodeNotify('workbench.action.navigateLeft')<cr>]], {})
 
-  map({ "n", "x" }, "<C-b><C-s>", [[<cmd>call VSCodeNotify('workbench.action.files.save')<cr>]], {})
   map({ "n", "x" }, "gi", [[<cmd>call VSCodeNotify('editor.action.goToImplementation')<cr>]], {})
-  --  map({ "n", "x" }, "n", [[<cmd>call VSCodeNotify('editor.action.marker.next')<cr>]], {})
-  --  map({ "n", "x" }, "p", [[<cmd>call VSCodeNotify('editor.action.marker.prev')<cr>]], {})
-  map({ "n", "x" }, "gr", [[<cmd>call VSCodeNotify('editor.action.rename')<cr>]], {})
-  map({ "n", "x" }, "<leader>ca", [[<cmd>call VSCodeNotify('keyboard-quickfix.openQuickFix')<cr>]], {})
+  map({ "n", "x" }, "]e", [[<cmd>call VSCodeNotify('editor.action.marker.next')<cr>]], {})
+  map({ "n", "x" }, "[e", [[<cmd>call VSCodeNotify('editor.action.marker.prev')<cr>]], {})
   map({ "n", "x" }, "<leader>.", [[<cmd>call VSCodeNotify('workbench.action.quickOpen')<cr>]], {})
   map(
     { "n", "x" },
@@ -105,6 +101,9 @@ function M.initVscode()
     [[<cmd>call VSCodeNotify('workbench.action.closeActiveEditor')<cr>]],
     { desc = "Close active editor" }
   )
+
+	-- toggle zen mode
+	map("n", "<leader>tz", [[<cmd>call VSCodeNotify('workbench.action.toggleZenMode')<cr>]], {})
 end
 
 return M

@@ -43,19 +43,6 @@ return {
     },
   },
   {
-    "lukas-reineke/indent-blankline.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("indent_blankline").setup({
-        char = "│",
-        filetype_exclude = { "help", "alpha", "dashboard", "Trouble", "lazy", "mason", "toggleterm", "neo-tree" },
-        show_trailing_blankline_indent = false,
-        show_current_context = true,
-        show_end_of_line = false,
-      })
-    end,
-  },
-  {
     "rcarriga/nvim-notify",
     event = "VimEnter",
     keys = {
