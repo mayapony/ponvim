@@ -11,6 +11,9 @@ return {
     highlight = {
       enable = true,
     },
+    autotag = {
+      enable = true,
+    },
     indent = { enable = true, disable = { "python" } },
     context_commentstring = { enable = true, enable_autocmd = false },
     ensure_installed = {

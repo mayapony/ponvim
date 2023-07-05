@@ -13,7 +13,6 @@ return {
       cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
       event = { "VeryLazy" },
     },
-    { "nvim-telescope/telescope.nvim" },
     { "b0o/SchemaStore.nvim" },
     {
       "SmiteshP/nvim-navbuddy",
@@ -34,7 +33,6 @@ return {
       ensure_installed = {
         -- Replace these with whatever servers you want to install
         "lua_ls",
-        "tsserver",
       },
       automatic_installation = true,
     })
@@ -70,6 +68,7 @@ return {
       vim.diagnostic.open_float,
       { noremap = true, silent = true, desc = "diagnostic open float" }
     )
+    vim.keymap.set({ "n", "x" }, "<leader>ca", "<cmd>CodeActionMenu<cr>", { desc = "code action menu" })
 
     -- Use LspAttach autocommand to only map the following keys
     -- after the language server attaches to the current buffer
@@ -88,8 +87,8 @@ return {
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "gi", builtin.lsp_implementations, { buffer = ev.buf, desc = "implementations" })
         vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-        vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
-        vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "code action" })
+        vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, opts)
+        -- vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "code action" })
         vim.keymap.set("n", "gr", builtin.lsp_references, { buffer = ev.buf, desc = "references" })
         vim.keymap.set("n", "go", builtin.lsp_document_symbols, { buffer = ev.buf, desc = "document symbols" })
         vim.keymap.set("n", "gh", vim.diagnostic.open_float, { noremap = true, silent = true })
@@ -100,43 +99,6 @@ return {
           builtin.lsp_workspace_symbols,
           { noremap = true, silent = true, desc = "workspace symbols" }
         )
-
-        if client.name == "tsserver" then
-          local buffer = ev.buf
-          vim.api.nvim_buf_create_user_command(buffer, "TypescriptRenameFile", function(opt)
-            local source = vim.api.nvim_buf_get_name(buffer)
-            vim.ui.input({ prompt = "New path: ", default = source }, function(input)
-              if input == "" or input == source or input == nil then
-                return
-              end
-              require("typescript").renameFile(source, input, { force = opt.bang })
-            end)
-          end, { bang = true })
-          vim.keymap.set(
-            "n",
-            "<leader>co",
-            require("typescript").actions.organizeImports,
-            { buffer = buffer, desc = "Organize Imports" }
-          )
-          vim.keymap.set(
-            "n",
-            "<leader>ci",
-            require("typescript").actions.addMissingImports,
-            { desc = "Import missing modules", buffer = buffer }
-          )
-          vim.keymap.set(
-            "n",
-            "<leader>cc",
-            require("typescript").actions.removeUnused,
-            { desc = "Clear unused variables", buffer = buffer }
-          )
-          vim.keymap.set(
-            { "n", "x" },
-            "<leader>ca",
-            "<cmd>CodeActionMenu<CR>",
-            { desc = "typescript code action menu", buffer = buffer }
-          )
-        end
       end,
     })
   end,
