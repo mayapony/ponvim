@@ -2,9 +2,16 @@ local M = {}
 local function map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
+local default_opts = { noremap = true, silent = true }
+local expr_opts = { noremap = true, expr = true, silent = true }
+
+-- 使用 jk 退出 insert mode
+map("i", "jk", "<ESC>", default_opts)
+map("t", "jk", "<C-\\><C-n>", default_opts)
 
 -- Save file
 map({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+map({ "v", "n" }, "<leader>fs", "<cmd>w<cr><esc>", { desc = "Save file" })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })

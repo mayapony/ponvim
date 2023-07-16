@@ -13,26 +13,27 @@ return {
       })
     end,
   },
-  -- {
-  --   "folke/which-key.nvim",
-  --   keys = "<leader>",
-  --   init = function()
-  --     vim.o.timeout = true
-  --     vim.o.timeoutlen = 300
-  --   end,
-  --   opts = {
-  --     -- your configuration comes here
-  --     -- or leave it empty to use the default settings
-  --     -- refer to the configuration section below
-  --     key_labels = {
-  --       -- override the label used to display some keys. It doesn't effect WK in any other way.
-  --       -- For example:
-  --       ["<space>"] = "SPC",
-  --       ["<cr>"] = "RET",
-  --       ["<tab>"] = "TAB",
-  --     },
-  --   },
-  -- },
+  {
+    "folke/which-key.nvim",
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+
+      require("which-key").setup()
+      require("which-key").register({
+        f = { name = "Find & File" },
+        b = { name = "Buffer" },
+        c = { name = "Code" },
+        m = { name = "Manager" },
+        q = { name = "Session" },
+        t = { name = "Toggle" },
+        u = { name = "UI" },
+        w = { name = "Window" },
+        x = { name = "Trouble" },
+      }, { prefix = "<leader>" })
+    end,
+    event = "VimEnter",
+  },
   {
     "NvChad/nvim-colorizer.lua",
     event = "BufReadPost",

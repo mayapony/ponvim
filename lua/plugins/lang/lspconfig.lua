@@ -5,7 +5,6 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   cmd = { "LspInfo", "LspInstall", "LspUninstall" },
   dependencies = {
-    { "folke/neodev.nvim" },
     { "hrsh7th/cmp-nvim-lsp" },
     { "williamboman/mason-lspconfig.nvim" },
     {
@@ -38,47 +37,29 @@ return {
       automatic_installation = true,
     })
 
-    require("neodev").setup()
-
     local lspconfig = require("lspconfig")
 
     for _, server in pairs(ensure_installed) do
       if server == "lua_ls" then
         lspconfig[server].setup({
           settings = {
+            runtime = {
+              version = "LuaJIT",
+            },
             Lua = {
               diagnostics = {
                 globals = { "vim" },
-              },
-              completion = {
-                callSnippet = "Replace",
               },
               workspace = {
                 -- Make the server aware of Neovim runtime files
                 library = vim.api.nvim_get_runtime_file("", true),
               },
-              runtime = {
-                version = "LuaJIT",
+              telemetry = {
+                enable = false,
               },
             },
           },
         })
-        -- lspconfig[server].setup({
-        --   settings = {
-        --     Lua = {
-        --       diagnostics = {
-        --         globals = { "vim" },
-        --       },
-        --       workspace = {
-        --         -- Make the server aware of Neovim runtime files
-        --         library = vim.api.nvim_get_runtime_file("", true),
-        --       },
-        --       telemetry = {
-        --         enable = false,
-        --       },
-        --     },
-        --   },
-        -- })
       else
         lspconfig[server].setup({})
       end
