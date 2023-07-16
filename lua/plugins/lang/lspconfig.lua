@@ -5,13 +5,12 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   cmd = { "LspInfo", "LspInstall", "LspUninstall" },
   dependencies = {
+    { "folke/neodev.nvim" },
     { "hrsh7th/cmp-nvim-lsp" },
     { "williamboman/mason-lspconfig.nvim" },
     {
       "williamboman/mason.nvim",
-      priority = 10000,
       cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-      event = { "VeryLazy" },
     },
     { "b0o/SchemaStore.nvim" },
     {
@@ -27,38 +26,63 @@ return {
     },
   },
   config = function()
+    local ensure_installed = {
+      "lua_ls",
+      "tailwindcss",
+      "kotlin_language_server",
+    }
     require("mason").setup()
     require("mason-lspconfig").setup({
       -- server name source: https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
-      ensure_installed = {
-        -- Replace these with whatever servers you want to install
-        "lua_ls",
-      },
+      ensure_installed = ensure_installed,
       automatic_installation = true,
     })
 
+    require("neodev").setup()
+
     local lspconfig = require("lspconfig")
 
-    lspconfig.lua_ls.setup({
-      settings = {
-        Lua = {
-          runtime = {
-            version = "LuaJIT",
+    for _, server in pairs(ensure_installed) do
+      if server == "lua_ls" then
+        lspconfig[server].setup({
+          settings = {
+            Lua = {
+              diagnostics = {
+                globals = { "vim" },
+              },
+              completion = {
+                callSnippet = "Replace",
+              },
+              workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+              },
+              runtime = {
+                version = "LuaJIT",
+              },
+            },
           },
-          diagnostics = {
-            globals = { "vim" },
-          },
-          workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = vim.api.nvim_get_runtime_file("", true),
-          },
-          -- Do not send telemetry data containing a randomized but unique identifier
-          telemetry = {
-            enable = false,
-          },
-        },
-      },
-    })
+        })
+        -- lspconfig[server].setup({
+        --   settings = {
+        --     Lua = {
+        --       diagnostics = {
+        --         globals = { "vim" },
+        --       },
+        --       workspace = {
+        --         -- Make the server aware of Neovim runtime files
+        --         library = vim.api.nvim_get_runtime_file("", true),
+        --       },
+        --       telemetry = {
+        --         enable = false,
+        --       },
+        --     },
+        --   },
+        -- })
+      else
+        lspconfig[server].setup({})
+      end
+    end
 
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -87,8 +111,7 @@ return {
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "gi", builtin.lsp_implementations, { buffer = ev.buf, desc = "implementations" })
         vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-        vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, opts)
-        -- vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "code action" })
+        vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { buffer = ev.buf, desc = "rename" })
         vim.keymap.set("n", "gr", builtin.lsp_references, { buffer = ev.buf, desc = "references" })
         vim.keymap.set("n", "go", builtin.lsp_document_symbols, { buffer = ev.buf, desc = "document symbols" })
         vim.keymap.set("n", "gh", vim.diagnostic.open_float, { noremap = true, silent = true })

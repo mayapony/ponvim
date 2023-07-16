@@ -13,26 +13,26 @@ return {
       })
     end,
   },
-  {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    init = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 300
-    end,
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-      key_labels = {
-        -- override the label used to display some keys. It doesn't effect WK in any other way.
-        -- For example:
-        ["<space>"] = "SPC",
-        ["<cr>"] = "RET",
-        ["<tab>"] = "TAB",
-      },
-    },
-  },
+  -- {
+  --   "folke/which-key.nvim",
+  --   keys = "<leader>",
+  --   init = function()
+  --     vim.o.timeout = true
+  --     vim.o.timeoutlen = 300
+  --   end,
+  --   opts = {
+  --     -- your configuration comes here
+  --     -- or leave it empty to use the default settings
+  --     -- refer to the configuration section below
+  --     key_labels = {
+  --       -- override the label used to display some keys. It doesn't effect WK in any other way.
+  --       -- For example:
+  --       ["<space>"] = "SPC",
+  --       ["<cr>"] = "RET",
+  --       ["<tab>"] = "TAB",
+  --     },
+  --   },
+  -- },
   {
     "NvChad/nvim-colorizer.lua",
     event = "BufReadPost",
@@ -59,7 +59,7 @@ return {
           virtualtext = "■",
           -- update color values even if buffer is not focused
           -- example use: cmp_menu, cmp_docs
-          always_update = false,
+          always_update = true,
         },
         -- all the sub-options of filetypes apply to buftypes
         buftypes = {},

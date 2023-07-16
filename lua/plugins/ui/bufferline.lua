@@ -1,7 +1,6 @@
 local spec = {
   "akinsho/bufferline.nvim",
-	priority = 10000,
-  event = "BufWinEnter",
+  event = "BufRead",
   keys = {
     {
       "<S-h>",
@@ -47,24 +46,45 @@ local spec = {
       desc = "go to buffer 5",
     },
   },
-  opts = {
-    options = {
-      diagnostics = "nvim_lsp",
-      themable = true,
-      always_show_bufferline = false,
-      offsets = {
-        {
-          filetype = "neo-tree",
-          text = "File Explore",
-          highlight = "Directory",
-          text_align = "left",
+  config = function()
+    local mocha = require("catppuccin.palettes").get_palette("mocha")
+    local latte = require("catppuccin.palettes").get_palette("latte")
+    require("bufferline").setup({
+      highlights = require("catppuccin.groups.integrations.bufferline").get({
+        custom = {
+          mocha = {
+            buffer_selected = { fg = mocha.pink, bg = mocha.base, bold = true },
+            separator = { bg = mocha.base, fg = mocha.crust },
+            indicator_selected = { fg = mocha.pink, bg = mocha.base },
+            indicator_visible = { fg = mocha.pink, bg = mocha.base },
+          },
+          latte = {
+            buffer_selected = { fg = latte.pink, bg = latte.base, bold = true },
+            separator = { bg = latte.base, fg = latte.crust },
+            indicator_selected = { fg = latte.pink, bg = latte.base },
+            indicator_visible = { fg = latte.pink, bg = latte.base },
+          },
         },
+      }),
+      options = {
+        -- diagnostics = "nvim_lsp",
+        diagnostics = nil,
+        themable = true,
+        always_show_bufferline = false,
+        offsets = {
+          {
+            filetype = "neo-tree",
+            text = "File Explore",
+            highlight = "BufferLineOffset",
+            text_align = "left",
+          },
+        },
+        buffer_close_icon = "",
+        separator_style = { "", "" },
+        extensions = { "lazy", "neo-tree", "nvim-dap-ui", "overseer", "symbols-outline", "toggleterm", "trouble" },
       },
-      buffer_close_icon = "",
-      separator_style = { "", "" },
-      extensions = { "lazy", "neo-tree", "nvim-dap-ui", "overseer", "symbols-outline", "toggleterm", "trouble" },
-    },
-  },
+    })
+  end,
 }
 
 return spec

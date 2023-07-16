@@ -28,8 +28,14 @@ if not vim.g.vscode then
       { import = "plugins.coding" },
     },
     checker = { enabled = true },
+    change_detection = {
+      -- automatically check for config file changes and reload the ui
+      enabled = true,
+      notify = false, -- get a notification when changes are found
+    },
     defaults = {
-			version = false
+      version = false,
+      lazy = true,
     },
     performance = {
       rtp = {

@@ -3,9 +3,6 @@ local function map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
--- Clear search with <esc>
-map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
-
 -- Save file
 map({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 
@@ -21,6 +18,7 @@ map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result
 map("i", ",", ",<c-g>u")
 map("i", ".", ".<c-g>u")
 map("i", ";", ";<c-g>u")
+map("i", "=", "=<c-g>u")
 
 -- better indenting
 map("v", "<", "<gv")
@@ -38,8 +36,10 @@ function M.initNvim()
   vim.keymap.set("n", "<leader>ml", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
   -- Move to window using the <ctrl> hjkl keys
-  map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
-  map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
+  -- map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
+  -- map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
+  -- map("n", "<C-j>", "<C-w>j", { desc = "Go to right window" })
+  -- map("n", "<C-k>", "<C-w>k", { desc = "Go to right window" })
 
   -- Resize window using <ctrl> arrow keys
   map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
@@ -53,6 +53,9 @@ function M.initNvim()
 
   -- toggle line number
   map("n", "<leader>tn", require("config.function").toggle_line, { desc = "Toggle line number" })
+
+  -- Clear search with <esc>
+  map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 end
 
 function M.initVscode()
@@ -73,13 +76,6 @@ function M.initVscode()
   map({ "n", "x" }, "<leader>cr", [[<cmd>call VSCodeNotify('editor.action.rename')<cr>]], { desc = "Rename Variable" })
   map({ "n", "x" }, "<leader>ca", [[<cmd>call VSCodeNotify('keyboard-quickfix.openQuickFix')<cr>]], {})
 
-  -- Better Navigation
-  map({ "n", "x" }, "<C-j>", [[<cmd>call VSCodeNotify('workbench.action.navigateDown')<cr>]], {})
-  map({ "n", "x" }, "<C-k>", [[<cmd>call VSCodeNotify('workbench.action.navigateUp')<cr>]], {})
-  map({ "n", "x" }, "<C-l>", [[<cmd>call VSCodeNotify('workbench.action.navigateRight')<cr>]], {})
-  map({ "n", "x" }, "<C-h>", [[<cmd>call VSCodeNotify('workbench.action.navigateLeft')<cr>]], {})
-
-  map({ "n", "x" }, "gi", [[<cmd>call VSCodeNotify('editor.action.goToImplementation')<cr>]], {})
   map({ "n", "x" }, "]e", [[<cmd>call VSCodeNotify('editor.action.marker.next')<cr>]], {})
   map({ "n", "x" }, "[e", [[<cmd>call VSCodeNotify('editor.action.marker.prev')<cr>]], {})
   map({ "n", "x" }, "<leader>.", [[<cmd>call VSCodeNotify('workbench.action.quickOpen')<cr>]], {})
@@ -102,8 +98,8 @@ function M.initVscode()
     { desc = "Close active editor" }
   )
 
-	-- toggle zen mode
-	map("n", "<leader>tz", [[<cmd>call VSCodeNotify('workbench.action.toggleZenMode')<cr>]], {})
+  -- toggle zen mode
+  map("n", "<leader>tz", [[<cmd>call VSCodeNotify('workbench.action.toggleZenMode')<cr>]], {})
 end
 
 return M

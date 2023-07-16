@@ -2,6 +2,18 @@ return {
   "nvim-telescope/telescope.nvim",
   tag = "0.1.1",
   dependencies = { "nvim-lua/plenary.nvim" },
+  keys = {
+    "<leader>.",
+    "<leader>/",
+    "<leader>fg",
+    "<leader>,",
+    "<leader>fh",
+    "<leader>fw",
+    "<leader>fr",
+    "<leader>uC",
+    "<leader>fp",
+  },
+  cmd = { "Telescope" },
   config = function()
     local telescope = require("telescope")
     local builtin = require("telescope.builtin")

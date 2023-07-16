@@ -1,13 +1,3 @@
-local bufIsBig = function(bufnr)
-  local max_filesize = 100 * 1024 -- 100 KB
-  local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
-  if ok and stats and stats.size > max_filesize then
-    return true
-  else
-    return false
-  end
-end
-
 return {
   -- nvim-cmp
   {
@@ -51,23 +41,10 @@ return {
 
       local default_cmp_sources = cmp.config.sources({
         { name = "nvim_lsp", keyword_length = 1 },
+        { name = "luasnip", keyword_length = 2 },
         { name = "buffer", keyword_length = 2 },
         { name = "path", keyword_length = 2 },
-        { name = "luasnip", keyword_length = 2 },
         { name = "nvim_lua", keyword_length = 2 },
-        { name = "codeium" },
-      })
-
-      vim.api.nvim_create_autocmd("BufReadPre", {
-        callback = function(t)
-          local sources = default_cmp_sources
-          if not bufIsBig(t.buf) then
-            sources[#sources + 1] = { name = "treesitter", group_index = 2 }
-          end
-          cmp.setup.buffer({
-            sources = sources,
-          })
-        end,
       })
 
       cmp.setup({
@@ -102,17 +79,14 @@ return {
           end,
         },
         window = {
-          documentation = {
-            max_height = 15,
-            max_width = 60,
-          },
+          -- documentation = cmp.config.window.bordered({ scrollbar = false }),
+          -- completion = cmp.config.window.bordered({ scrollbar = false, maxwidth = 60 }),
         },
         formatting = {
           fields = { "abbr", "kind", "menu" },
           format = require("lspkind").cmp_format({
-            maxwidth = 50, -- prevent the popup from showing more than provided characters
+            maxwidth = 60, -- prevent the popup from showing more than provided characters
             ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
-            symbol_map = { Codeium = "" },
           }),
         },
       })

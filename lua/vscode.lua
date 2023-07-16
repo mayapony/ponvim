@@ -22,6 +22,10 @@ function M.configure()
   })
 
   require("config.keymaps").initVscode()
+  vim.cmd([[source ~/.config/nvim/lua/vscode/insert.vim]])
+  vim.cmd([[source ~/.config/nvim/lua/vscode/scrolling.vim]])
+  vim.cmd([[source ~/.config/nvim/lua/vscode/tab.vim]])
+  vim.cmd([[source ~/.config/nvim/lua/vscode/fold.vim]])
 end
 
 function M.packages()

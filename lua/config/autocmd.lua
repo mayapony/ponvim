@@ -65,3 +65,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     end
   end,
 })
+
+vim.cmd([[
+	au User LumenLight echom 'catppuccin-latte'
+	au User LumenDark echom 'catppuccin-mocha'
+]])

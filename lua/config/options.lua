@@ -54,9 +54,9 @@ opt.foldenable = true
 -- vim.opt.listchars:append("eol:↴")
 
 -- opacity
-opt.pumblend = 30 -- Popup blend 100 for full transparent
-opt.winblend = 30 -- Fix float black 100 for full transparent
--- source from: https://github.com/catppuccin/nvim/issues/412
+opt.pumblend = 0 -- Popup blend 100 for full transparent
+opt.winblend = 0 -- Fix float black 100 for full transparent
+-- source from: https://github.com/catppucin/nvim/issues/412
 opt.pumheight = 10 -- Maximum number of entries in a popup
 
 -- source: https://github.com/nvim-tree/nvim-tree.lua#quick-start
@@ -77,8 +77,8 @@ vim.diagnostic.config({
   },
 })
 
--- local signs = { Error = " ", Warn = " ", Hint = "󰛨 ", Info = " " }
-local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+local signs = { Error = " ", Warn = " ", Hint = "󰛨 ", Info = " " }
+-- local signs = { Error = "", Warn = "", Hint = "", Info = "" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
