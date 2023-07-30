@@ -1,39 +1,35 @@
 return {
   "nvim-telescope/telescope.nvim",
   tag = "0.1.1",
-  dependencies = { "nvim-lua/plenary.nvim" },
-  keys = {
-    "<leader>.",
-    "<leader>/",
-    "<leader>fg",
-    "<leader>,",
-    "<leader>fh",
-    "<leader>fw",
-    "<leader>fr",
-    "<leader>uC",
-    "<leader>fp",
-  },
+  dependencies = { { "nvim-lua/plenary.nvim" }, { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
+  keys = function()
+    local builtin = require("telescope.builtin")
+    return {
+      { "<leader>.", builtin.find_files, { desc = "Find Files" } },
+      { "<leader>fg", builtin.live_grep, { desc = "Find in global" } },
+      { "<leader>,", builtin.buffers, { desc = "Find buffers" } },
+      { "<leader>fh", builtin.help_tags, { desc = "Find helps" } },
+      { "<leader>fw", builtin.grep_string, { desc = "Find words" } },
+      { "<leader>fr", builtin.grep_string, { desc = "Find recent" } },
+      { "<leader>fN", "<cmd>Telescope notify<cr>", { desc = "Find notify" } },
+      { "<leader>fp", "<cmd>Telescope projects<cr>", { desc = "Find projects" } },
+      { "<leader>uC", builtin.colorscheme, { desc = "Change Colorscheme " } },
+    }
+  end,
   cmd = { "Telescope" },
   config = function()
     local telescope = require("telescope")
-    local builtin = require("telescope.builtin")
-    vim.keymap.set("n", "<leader>.", builtin.find_files, { desc = "Find Files" })
-    vim.keymap.set("n", "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Find in buffer" })
-    vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find in global" })
-    vim.keymap.set("n", "<leader>,", builtin.buffers, { desc = "Find buffers" })
-    vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find helps" })
-    vim.keymap.set({ "n", "v" }, "<leader>fw", builtin.grep_string, { desc = "Find words" })
-    vim.keymap.set("n", "<leader>fr", builtin.grep_string, { desc = "Find recent" })
-    vim.keymap.set("n", "<leader>fN", "<cmd>Telescope notify<cr>", { desc = "Find notify" })
-    vim.keymap.set("n", "<leader>fp", "<cmd>Telescope projects<cr>", { desc = "Find projects" })
-    vim.keymap.set("n", "<leader>uC", builtin.colorscheme, { desc = "Change Colorscheme " })
-
-    telescope.load_extension("projects")
 
     telescope.setup({
       extensions = {
         persisted = {
           layout_config = { width = 0.55, height = 0.55 },
+        },
+        fzf = {
+          fuzzy = true, -- false will only do exact matching
+          override_generic_sorter = true, -- override the generic sorter
+          override_file_sorter = true, -- override the file sorter
+          case_mode = "smart_case", -- or "ignore_case" or "respect_case"
         },
       },
       defaults = {
@@ -74,5 +70,8 @@ return {
         },
       },
     })
+
+    telescope.load_extension("fzf")
+    telescope.load_extension("projects")
   end,
 }

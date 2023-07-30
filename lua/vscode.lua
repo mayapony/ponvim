@@ -26,6 +26,7 @@ function M.configure()
   vim.cmd([[source ~/.config/nvim/lua/vscode/scrolling.vim]])
   vim.cmd([[source ~/.config/nvim/lua/vscode/tab.vim]])
   vim.cmd([[source ~/.config/nvim/lua/vscode/fold.vim]])
+  vim.cmd([[source ~/.config/nvim/lua/vscode/window.vim]])
 end
 
 function M.packages()

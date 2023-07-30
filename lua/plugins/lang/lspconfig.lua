@@ -29,6 +29,7 @@ return {
       "lua_ls",
       "tailwindcss",
       "kotlin_language_server",
+      "bashls",
     }
     require("mason").setup()
     require("mason-lspconfig").setup({
@@ -90,6 +91,7 @@ return {
         local builtin = require("telescope.builtin")
         vim.keymap.set("n", "gd", builtin.lsp_definitions, { buffer = ev.buf, desc = "definitions" })
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        vim.keymap.set("n", "gh", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "gi", builtin.lsp_implementations, { buffer = ev.buf, desc = "implementations" })
         vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
         vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { buffer = ev.buf, desc = "rename" })
