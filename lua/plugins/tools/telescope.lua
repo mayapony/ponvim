@@ -1,7 +1,18 @@
 return {
   "nvim-telescope/telescope.nvim",
   tag = "0.1.1",
-  dependencies = { { "nvim-lua/plenary.nvim" }, { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
+  dependencies = {
+    { "nvim-lua/plenary.nvim" },
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    {
+      "ahmedkhalf/project.nvim",
+      config = function()
+        require("project_nvim").setup({
+          patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", ".luarc.json" },
+        })
+      end,
+    },
+  },
   keys = function()
     local builtin = require("telescope.builtin")
     return {
