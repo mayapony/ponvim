@@ -6,7 +6,7 @@ return {
       chunk = {
         enable = true,
         use_treesitter = true,
-        notify = true, -- notify if some situation(like disable chunk mod double time)
+        notify = false, -- notify if some situation(like disable chunk mod double time)
         exclude_filetypes = {
           aerial = true,
           dashboard = true,
@@ -52,20 +52,3 @@ return {
     })
   end,
 }
---
--- return {
---   "lukas-reineke/indent-blankline.nvim",
---   event = { "BufReadPost", "BufNewFile" },
---   config = function()
---     require("indent_blankline").setup({
---       char = "│",
---       filetype_exclude = { "help", "alpha", "dashboard", "Trouble", "lazy", "mason", "toggleterm", "neo-tree" },
---       show_trailing_blankline_indent = false,
---       show_end_of_line = false,
---       use_treesitter = true,
---       use_treesitter_scope = true,
---       space_char_blankline = " ",
---       show_current_context = true,
---     })
---   end,
--- }

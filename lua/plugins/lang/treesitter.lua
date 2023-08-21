@@ -45,7 +45,7 @@ return {
       "vim",
       "yaml",
       "vue",
-			"kotlin"
+      "kotlin",
     },
     incremental_selection = {
       enable = true,

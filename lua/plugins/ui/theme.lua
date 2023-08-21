@@ -11,20 +11,19 @@ return {
     lazy = false,
     config = function()
       require("catppuccin").setup({
-        -- flavour = "latte",
         background = {
           -- :h background
           light = "latte",
           dark = "mocha",
         },
-        transparent_background = false, -- disables setting the background color.
+        transparent_background = true, -- disables setting the background color.
         term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
         dim_inactive = {
           enabled = false, -- dims the background color of inactive window
           shade = "dark",
           percentage = 0.15, -- percentage of the shade to apply to the inactive window
         },
-        no_italic = false, -- Force no italic
+        no_italic = true, -- Force no italic
         no_bold = false, -- Force no bold
         no_underline = true, -- Force no underline
         styles = {
@@ -37,12 +36,12 @@ return {
         custom_highlights = function(colors)
           return {
             BufferlineOffset = {
-              bg = colors.mantle,
+              -- bg = colors.mantle,
               fg = colors.pink,
               bold = true,
             },
-            NeoTreeNormal = { bg = colors.base },
-            NeoTreeNormalNC = { bg = colors.base },
+            -- NeoTreeNormal = { bg = colors.base },
+            -- NeoTreeNormalNC = { bg = colors.base },
             IndentlineStyle = { fg = colors.pink },
             NeoTreeDirectoryName = { fg = colors.pink },
             NeoTreeDirectoryIcon = { fg = colors.pink },
