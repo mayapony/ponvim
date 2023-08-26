@@ -7,8 +7,7 @@ return {
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp" },
     { "williamboman/mason-lspconfig.nvim" },
-    {
-      "williamboman/mason.nvim",
+    { "williamboman/mason.nvim",
       cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
     },
     { "b0o/SchemaStore.nvim" },

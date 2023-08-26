@@ -34,6 +34,9 @@ opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 opt.wrap = true -- Disable line wrap
 
+opt.autowrite = true
+opt.autoread = true
+
 if vim.fn.has("nvim-0.9.0") == 1 then
   opt.splitkeep = "screen"
   opt.shortmess:append({ C = true })
@@ -63,7 +66,6 @@ opt.pumheight = 10 -- Maximum number of entries in a popup
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-vim.opt.hidden = false
 
 -- don't display ~ for blank lines
 opt.fillchars = "eob: "

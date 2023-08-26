@@ -3,11 +3,6 @@ local function map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 local default_opts = { noremap = true, silent = true }
-local expr_opts = { noremap = true, expr = true, silent = true }
-
--- 使用 jk 退出 insert mode
-map("i", "jk", "<ESC>", default_opts)
-map("t", "jk", "<C-\\><C-n>", default_opts)
 
 -- Save file
 map({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
@@ -41,12 +36,6 @@ map("n", "<leader>wo", "<C-W>o", { desc = "Close other window" })
 function M.initNvim()
   -- lazy
   vim.keymap.set("n", "<leader>ml", "<cmd>:Lazy<cr>", { desc = "Lazy" })
-
-  -- Move to window using the <ctrl> hjkl keys
-  -- map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
-  -- map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
-  -- map("n", "<C-j>", "<C-w>j", { desc = "Go to right window" })
-  -- map("n", "<C-k>", "<C-w>k", { desc = "Go to right window" })
 
   -- Resize window using <ctrl> arrow keys
   map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
