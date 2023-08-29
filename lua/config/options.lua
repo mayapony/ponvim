@@ -1,7 +1,3 @@
--- leader key
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
 local opt = vim.opt
 opt.autowrite = true -- 自动保存
 opt.number = true
@@ -42,9 +38,6 @@ if vim.fn.has("nvim-0.9.0") == 1 then
   opt.shortmess:append({ C = true })
 end
 
--- Fix markdown indentation settings
-vim.g.markdown_recommended_style = 0
-
 -- fold config
 opt.foldcolumn = "0" -- '0' is not bad
 opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
@@ -57,15 +50,10 @@ opt.foldenable = true
 -- vim.opt.listchars:append("eol:↴")
 
 -- opacity
-opt.pumblend = 0 -- Popup blend 100 for full transparent
-opt.winblend = 0 -- Fix float black 100 for full transparent
+opt.pumblend = 30 -- Popup blend 100 for full transparent
+opt.winblend = 30 -- Fix float black 100 for full transparent
 -- source from: https://github.com/catppucin/nvim/issues/412
 opt.pumheight = 10 -- Maximum number of entries in a popup
-
--- source: https://github.com/nvim-tree/nvim-tree.lua#quick-start
--- disable netrw at the very start of your init.lua
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 
 -- don't display ~ for blank lines
 opt.fillchars = "eob: "
@@ -76,7 +64,7 @@ opt.laststatus = 0
 -- diagnostic config
 vim.diagnostic.config({
   virtual_text = {
-    prefix = "●", -- Could be '●', '▎', 'x'
+    prefix = "●",
   },
 })
 

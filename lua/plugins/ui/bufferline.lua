@@ -47,31 +47,31 @@ local spec = {
     },
   },
   config = function()
-    local mocha = require("catppuccin.palettes").get_palette("mocha")
-    local latte = require("catppuccin.palettes").get_palette("latte")
+    -- local mocha = require("catppuccin.palettes").get_palette("mocha")
+    -- local latte = require("catppuccin.palettes").get_palette("latte")
     require("bufferline").setup({
-      highlights = require("catppuccin.groups.integrations.bufferline").get({
-        custom = {
-          mocha = {
-            -- buffer_selected = { fg = mocha.pink, bg = mocha.base, bold = true },
-            buffer_selected = { fg = mocha.pink, bold = true },
-            -- separator = { bg = mocha.base, fg = mocha.crust },
-            -- indicator_selected = { fg = mocha.pink, bg = mocha.base },
-            -- indicator_visible = { fg = mocha.pink, bg = mocha.base },
-            indicator_selected = { fg = mocha.pink },
-            indicator_visible = { fg = mocha.pink },
-          },
-          latte = {
-            -- buffer_selected = { fg = latte.pink, bg = latte.base, bold = true },
-            buffer_selected = { fg = latte.pink, bold = true },
-            -- separator = { bg = latte.base, fg = latte.crust },
-            -- indicator_selected = { fg = latte.pink, bg = latte.base },
-            -- indicator_visible = { fg = latte.pink, bg = latte.base },
-            indicator_selected = { fg = latte.pink },
-            indicator_visible = { fg = latte.pink },
-          },
-        },
-      }),
+      -- highlights = require("catppuccin.groups.integrations.bufferline").get({
+      --   custom = {
+      --     mocha = {
+      --       -- buffer_selected = { fg = mocha.pink, bg = mocha.base, bold = true },
+      --       buffer_selected = { fg = mocha.pink, bold = true },
+      --       -- separator = { bg = mocha.base, fg = mocha.crust },
+      --       -- indicator_selected = { fg = mocha.pink, bg = mocha.base },
+      --       -- indicator_visible = { fg = mocha.pink, bg = mocha.base },
+      --       indicator_selected = { fg = mocha.pink },
+      --       indicator_visible = { fg = mocha.pink },
+      --     },
+      --     latte = {
+      --       -- buffer_selected = { fg = latte.pink, bg = latte.base, bold = true },
+      --       buffer_selected = { fg = latte.pink, bold = true },
+      --       -- separator = { bg = latte.base, fg = latte.crust },
+      --       -- indicator_selected = { fg = latte.pink, bg = latte.base },
+      --       -- indicator_visible = { fg = latte.pink, bg = latte.base },
+      --       indicator_selected = { fg = latte.pink },
+      --       indicator_visible = { fg = latte.pink },
+      --     },
+      --   },
+      -- }),
       options = {
         -- diagnostics = "nvim_lsp",
         diagnostics = nil,

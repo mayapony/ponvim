@@ -17,6 +17,7 @@ if not vim.g.vscode then
   -- load nvim config
   require("config.options")
   require("config.autocmd")
+  require("config.global")
   require("config.keymaps").initNvim()
 
   require("lazy").setup({

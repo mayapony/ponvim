@@ -30,6 +30,8 @@ return {
         u = { name = "UI" },
         w = { name = "Window" },
         x = { name = "Trouble" },
+        S = { name = "Spectre" },
+				s = { name = "Search" }
       }, { prefix = "<leader>" })
     end,
     event = "VimEnter",

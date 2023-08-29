@@ -1,3 +1,5 @@
+local autocmd = vim.api.nvim_create_autocmd
+
 local function augroup(name)
   return vim.api.nvim_create_augroup("maya_" .. name, { clear = true })
 end
@@ -69,5 +71,42 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
 vim.cmd([[
 	au User LumenLight echom 'catppuccin-latte'
-	au User LumenDark echom 'catppuccin-mocha'
+	" au User LumenDark echom 'catppuccin-mocha'
+	au User LumenDark echom 'gruvbox'
 ]])
+
+-- check if a floating dialog exists and if not
+-- then check for diagnostics under the cursor
+vim.api.nvim_create_autocmd({ "CursorHold" }, {
+  group = augroup("lsp_diagnostics_hold"),
+  pattern = "*",
+  command = "lua require('config.function').open_diagnostic_if_not_float()",
+})
+
+-- Persistent Folds
+autocmd("BufWinLeave", {
+  pattern = "*.*",
+  callback = function()
+    vim.cmd.mkview()
+  end,
+  group = augroup("Persistent Folds"),
+})
+autocmd("BufWinEnter", {
+  pattern = "*.*",
+  callback = function()
+    vim.cmd.loadview({ mods = { emsg_silent = true } })
+  end,
+  group = augroup("Persistent Folds"),
+})
+
+-- Auto create dir when saving a file, in case some intermediate directory does not exist
+autocmd({ "BufWritePre" }, {
+  group = augroup("Auto Create Dir"),
+  callback = function(event)
+    if event.match:match("^%w%w+://") then
+      return
+    end
+    local file = vim.loop.fs_realpath(event.match) or event.match
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+  end,
+})

@@ -7,7 +7,8 @@ return {
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp" },
     { "williamboman/mason-lspconfig.nvim" },
-    { "williamboman/mason.nvim",
+    {
+      "williamboman/mason.nvim",
       cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
     },
     { "b0o/SchemaStore.nvim" },
@@ -17,9 +18,28 @@ return {
         "SmiteshP/nvim-navic",
         "MunifTanjim/nui.nvim",
       },
-      opts = { lsp = { auto_attach = true } },
+      opts = {
+        lsp = { auto_attach = true },
+        window = {
+          size = "90%",
+          sections = {
+            left = {
+              size = "20%",
+              border = nil, -- You can set border style for each section individually as well.
+            },
+            mid = {
+              size = "30%",
+              border = nil,
+            },
+            right = {
+              border = nil,
+              preview = "leaf",
+            },
+          },
+        },
+      },
       keys = {
-        { "<leader>ss", "<cmd>Navbuddy<cr>", desc = "Toggle navbuddy" },
+        { "<leader>to", "<cmd>Navbuddy<cr>", desc = "Toggle Navbuddy Outline" },
       },
     },
   },

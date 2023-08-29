@@ -85,7 +85,7 @@ return {
         formatting = {
           fields = { "abbr", "kind", "menu" },
           format = require("lspkind").cmp_format({
-            maxwidth = 60, -- prevent the popup from showing more than provided characters
+            maxwidth = 40, -- prevent the popup from showing more than provided characters
             ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
           }),
         },

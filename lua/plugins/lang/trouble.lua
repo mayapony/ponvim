@@ -3,10 +3,41 @@ return {
   cmd = { "TroubleToggle", "Trouble" },
   opts = { use_diagnostic_signs = true },
   keys = {
-    { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
-    { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
-    { "<leader>xL", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
-    { "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
+    {
+      "<leader>xx",
+      function()
+        require("trouble").open()
+      end,
+      desc = "Toggle Trouble",
+    },
+    {
+      "<leader>xw",
+      function()
+        require("trouble").open("workspace_diagnostics")
+      end,
+      desc = "Workspace Diagnostics (Trouble)",
+    },
+    {
+      "<leader>xd",
+      function()
+        require("trouble").open("document_diagnostics")
+      end,
+      desc = "Document Diagnostics (Trouble)",
+    },
+    {
+      "<leader>xq",
+      function()
+        require("trouble").open("quickfix")
+      end,
+      desc = "Quickfix List (Trouble)",
+    },
+    {
+      "<leader>xl",
+      function()
+        require("trouble").open("loclist")
+      end,
+      desc = "Location List (Trouble)",
+    },
     {
       "[q",
       function()

@@ -1,4 +1,10 @@
 local lsp_formatting = function(bufnr)
+  -- if vim.fn.exists(":TSToolsOrganizeImports") then
+		-- vim.cmd[[TSToolsAddMissingImports sync]]
+		-- vim.cmd[[TSToolsOrganizeImports sync]]
+		-- vim.cmd[[TSToolsFixAll sync]]
+  -- end
+
   vim.lsp.buf.format({
     filter = function(client)
       -- apply whatever logic you want (in this example, we'll only use null-ls)

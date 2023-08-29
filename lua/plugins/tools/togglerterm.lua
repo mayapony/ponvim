@@ -10,6 +10,6 @@ return {
   end,
   keys = {
     { "<leader>tt", "<cmd>ToggleTerm<CR>", desc = "Toggle Terminal" },
-    { "<leader>tg", "<cmd>lua require('config.function').lazygit_toggle()<CR>", desc = "Toggle Lazygit", },
+    { "<leader>tg", "<cmd>lua require('config.function').toggle_lazygit()<CR>", desc = "Toggle Lazygit", },
   },
 }

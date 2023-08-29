@@ -43,9 +43,12 @@ function M.initNvim()
   map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
   map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
-  -- floating terminal
-  map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
-  vim.cmd([[map <C-t> <Nop>]])
+  -- terminal keymap
+  map("t", "<C-t>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+  map("t", "<C-j>", "<c-\\><c-n><c-w>j", { desc = "Go Down" })
+  map("t", "<C-k>", "<c-\\><c-n><c-w>k", { desc = "Go Up" })
+  map("t", "<C-l>", "<c-\\><c-n><c-w>l", { desc = "Go Right" })
+  map("t", "<C-h>", "<c-\\><c-n><c-w>h", { desc = "Go Left" })
 
   -- toggle line number
   map("n", "<leader>tn", require("config.function").toggle_line, { desc = "Toggle line number" })
