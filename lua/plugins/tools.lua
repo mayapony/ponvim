@@ -31,7 +31,7 @@ return {
         w = { name = "Window" },
         x = { name = "Trouble" },
         S = { name = "Spectre" },
-				s = { name = "Search" }
+        s = { name = "Search" },
       }, { prefix = "<leader>" })
     end,
     event = "VimEnter",
@@ -62,7 +62,7 @@ return {
           virtualtext = "■",
           -- update color values even if buffer is not focused
           -- example use: cmp_menu, cmp_docs
-          always_update = true,
+          always_update = false,
         },
         -- all the sub-options of filetypes apply to buftypes
         buftypes = {},

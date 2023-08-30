@@ -11,6 +11,7 @@ return {
       "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-nvim-lua",
       "onsails/lspkind.nvim",
+      "roobert/tailwindcss-colorizer-cmp.nvim",
     },
     config = function()
       -- And you can configure cmp even more, if you want to.
@@ -85,8 +86,12 @@ return {
         formatting = {
           fields = { "abbr", "kind", "menu" },
           format = require("lspkind").cmp_format({
-            maxwidth = 40, -- prevent the popup from showing more than provided characters
+            maxwidth = 50, -- prevent the popup from showing more than provided characters
             ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
+
+            before = function(entry, item)
+              return require("tailwindcss-colorizer-cmp").formatter(entry, item)
+            end,
           }),
         },
       })

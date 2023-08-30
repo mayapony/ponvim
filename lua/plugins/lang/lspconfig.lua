@@ -49,6 +49,7 @@ return {
       "tailwindcss",
       "kotlin_language_server",
       "bashls",
+      "emmet_ls",
     }
     require("mason").setup()
     require("mason-lspconfig").setup({
@@ -101,7 +102,6 @@ return {
       group = vim.api.nvim_create_augroup("UserLspConfig", {}),
       callback = function(ev)
         -- Enable completion triggered by <c-x><c-o>
-        local client = vim.lsp.get_client_by_id(ev.data.client_id)
         vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
         -- Buffer local mappings.

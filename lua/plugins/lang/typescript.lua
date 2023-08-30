@@ -20,8 +20,10 @@ return {
     "dmmulroy/tsc.nvim",
     ft = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact" },
     cmd = "TSC",
-    config = function()
-      require("tsc").setup()
-    end,
+    keys = {
+      "<leader>cc",
+      "<cmd>TSC<cr>",
+      desc = "Typescript Check",
+    },
   },
 }

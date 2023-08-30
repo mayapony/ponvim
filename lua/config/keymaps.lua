@@ -6,7 +6,7 @@ local default_opts = { noremap = true, silent = true }
 
 -- Save file
 map({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
-map({ "v", "n" }, "<leader>fs", "<cmd>w<cr><esc>", { desc = "Save file" })
+map({ "v", "n" }, "<leader>fs", "<cmd>wa<cr><esc>", { desc = "Save file" })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })

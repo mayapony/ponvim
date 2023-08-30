@@ -69,12 +69,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   end,
 })
 
-vim.cmd([[
-	au User LumenLight echom 'catppuccin-latte'
-	" au User LumenDark echom 'catppuccin-mocha'
-	au User LumenDark echom 'gruvbox'
-]])
-
 -- check if a floating dialog exists and if not
 -- then check for diagnostics under the cursor
 vim.api.nvim_create_autocmd({ "CursorHold" }, {
