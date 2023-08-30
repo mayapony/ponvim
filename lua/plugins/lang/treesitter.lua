@@ -3,9 +3,8 @@ return {
   version = "*", -- last release is way too old and doesn't work on Windows
   build = ":TSUpdate",
   event = { "BufReadPost", "BufNewFile" },
-  keys = {
-    { "<c-space>", desc = "Increment selection" },
-    { "<bs>", desc = "Decrement selection", mode = "x" },
+  dependencies = {
+    "windwp/nvim-ts-autotag",
   },
   opts = {
     highlight = {
@@ -46,15 +45,6 @@ return {
       "yaml",
       "vue",
       "kotlin",
-    },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "<A-space>",
-        node_incremental = "<A-space>",
-        scope_incremental = "<nop>",
-        node_decremental = "<bs>",
-      },
     },
   },
   config = function(_, opts)
