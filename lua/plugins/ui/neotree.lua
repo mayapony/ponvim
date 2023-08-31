@@ -30,8 +30,8 @@ return {
           follow_current_file = true,
           use_libuv_file_watcher = true,
         },
-        enable_git_status = false,
-        enable_diagnostics = false,
+        enable_git_status = true,
+        enable_diagnostics = true,
         window = {
           width = 25,
         },
@@ -41,6 +41,20 @@ return {
             expander_collapsed = "",
             expander_expanded = "",
             expander_highlight = "NeoTreeExpander",
+          },
+          git_status = {
+            symbols = {
+              -- Change type
+              added = "",
+              modified = "",
+              deleted = "",
+              renamed = "",
+              untracked = "",
+              ignored = "",
+              unstaged = "󰄱",
+              staged = "",
+              conflict = "󰕚",
+            },
           },
         },
       },
