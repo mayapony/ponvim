@@ -19,11 +19,13 @@ return {
   {
     "dmmulroy/tsc.nvim",
     ft = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact" },
-    cmd = "TSC",
+		opts = {},
     keys = {
-      "<leader>cc",
-      "<cmd>TSC<cr>",
-      desc = "Typescript Check",
+      {
+        "<leader>cc",
+        "<cmd>TSC<cr>",
+        desc = "Typescript Check",
+      },
     },
   },
 }

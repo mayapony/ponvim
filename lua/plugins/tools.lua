@@ -15,6 +15,7 @@ return {
   },
   {
     "folke/which-key.nvim",
+    event = "VeryLazy",
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
@@ -34,7 +35,6 @@ return {
         s = { name = "Search" },
       }, { prefix = "<leader>" })
     end,
-    event = "VimEnter",
   },
   {
     "NvChad/nvim-colorizer.lua",

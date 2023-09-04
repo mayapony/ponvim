@@ -45,6 +45,8 @@ return {
       "yaml",
       "vue",
       "kotlin",
+      "rust",
+      "toml",
     },
   },
   config = function(_, opts)

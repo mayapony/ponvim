@@ -46,7 +46,7 @@ return {
       sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = { diagnostics },
+        lualine_c = {"filename", diagnostics },
         lualine_x = {
           diff,
           { "progress", separator = " ", padding = { left = 1, right = 0 } },

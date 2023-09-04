@@ -1,6 +1,6 @@
 return {
   "Exafunction/codeium.vim",
-  event = "InsertEnter",
+  event = "VeryLazy",
   config = function()
     -- Change '<C-g>' here to any keycode you like.
     vim.keymap.set("i", "<C-t>", function()

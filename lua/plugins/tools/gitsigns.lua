@@ -19,7 +19,7 @@ return {
         delete = { text = icons.git.deleted },
         topdelete = { text = icons.git.deleted },
         changedelete = { text = icons.git.changed },
-        untracked = { text = icons.git.untracked },
+        untracked = { text = "▎" },
       },
     })
   end,

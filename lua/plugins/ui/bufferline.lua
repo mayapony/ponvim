@@ -47,16 +47,15 @@ local spec = {
     },
   },
   config = function()
-    -- local mocha = require("catppuccin.palettes").get_palette("mocha")
-    -- local latte = require("catppuccin.palettes").get_palette("latte")
+    -- local mocha = require("catppuccin.palettes").get_palette("mocha") local latte = require("catppuccin.palettes").get_palette("latte")
     local fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("PinkText")), "fg#")
     local bg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("NeoTreeNormal")), "bg#")
     require("bufferline").setup({
       highlights = {
         buffer_selected = { fg = fg, bg = bg, bold = true },
-        separator = { bg = bg, fg = bg },
-        indicator_selected = { fg = fg, bg = bg },
-        indicator_visible = { fg = fg, bg = bg },
+        separator = { fg = bg },
+        indicator_selected = { fg = fg },
+        indicator_visible = { fg = fg },
       },
       -- highlights = require("catppuccin.groups.integrations.bufferline").get({
       --   custom = {

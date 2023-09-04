@@ -25,5 +25,6 @@ return {
   keys = {
     { "<leader>ff", "<cmd>lua require('fzf-lua').files()<CR>", desc = "Find Files" },
     { "<leader>.", "<cmd>lua require('fzf-lua').files({git_icons = false})<CR>", desc = "Find Files" },
+    { "<leader>/", "<cmd>lua require('fzf-lua').live_grep({git_icons = false})<cr>", desc = "Live Grep" },
   },
 }

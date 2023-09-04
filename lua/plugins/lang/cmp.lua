@@ -41,8 +41,8 @@ return {
       })
 
       local default_cmp_sources = cmp.config.sources({
-        { name = "nvim_lsp", keyword_length = 1 },
         { name = "luasnip", keyword_length = 2 },
+        { name = "nvim_lsp", keyword_length = 1 },
         { name = "buffer", keyword_length = 2 },
         { name = "path", keyword_length = 2 },
         { name = "nvim_lua", keyword_length = 2 },

@@ -42,6 +42,9 @@ return {
             expander_expanded = "",
             expander_highlight = "NeoTreeExpander",
           },
+          name = {
+            use_git_status_colors = false,
+          },
           git_status = {
             symbols = {
               -- Change type

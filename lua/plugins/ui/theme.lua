@@ -1,8 +1,7 @@
 return {
   {
     "vimpostor/vim-lumen",
-    lazy = false,
-    priority = 10010,
+    event = "VeryLazy",
     init = function()
       vim.cmd([[
 				au User LumenLight echom 'rose-pine-dawn'
@@ -90,24 +89,26 @@ return {
     priority = 10000,
     lazy = false,
     config = function()
+      local fg = "rose"
       require("rose-pine").setup({
+        variant = "auto",
         dark_variant = "moon",
         highlight_groups = {
           BufferlineOffset = {
-            fg = "love",
+            fg = fg,
             bold = true,
           },
           NeoTreeNormal = { bg = "base" },
           NeoTreeNormalNC = { bg = "base" },
-          IndentlineStyle = { fg = "love" },
-          NeoTreeDirectoryName = { fg = "love" },
-          NeoTreeDirectoryIcon = { fg = "love" },
-          NeoTreeTitleBar = { fg = "love" },
-          NeoTreeRootName = { fg = "love" },
-          AlphaHeader = { fg = "love" },
-          AlphaButtons = { fg = "love" },
-          AlphaShortcut = { fg = "love" },
-          PinkText = { fg = "love" },
+          IndentlineStyle = { fg = fg },
+          NeoTreeDirectoryName = { fg = fg },
+          NeoTreeDirectoryIcon = { fg = fg },
+          NeoTreeTitleBar = { fg = fg },
+          NeoTreeRootName = { fg = fg },
+          AlphaHeader = { fg = fg },
+          AlphaButtons = { fg = fg },
+          AlphaShortcut = { fg = fg },
+          PinkText = { fg = fg },
         },
       })
       vim.cmd.colorscheme("rose-pine")
