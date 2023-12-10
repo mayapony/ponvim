@@ -1,11 +1,11 @@
 return {
   "simrat39/rust-tools.nvim",
-  ft = "rust",
-	dependencies = {
-		"neovim/nvim-lspconfig",
-	},
+  ft = { "rust", "rs" },
+  dependencies = {
+    "neovim/nvim-lspconfig",
+  },
   config = function()
-		local rt = require("rust-tools")
+    local rt = require("rust-tools")
 
     require("rust-tools").setup({
       server = {

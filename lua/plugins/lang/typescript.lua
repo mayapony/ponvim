@@ -18,14 +18,12 @@ return {
   },
   {
     "dmmulroy/tsc.nvim",
-    ft = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact" },
-		opts = {},
-    keys = {
-      {
-        "<leader>cc",
-        "<cmd>TSC<cr>",
-        desc = "Typescript Check",
-      },
-    },
+    ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "typescript.tsx" },
+    cmd = "TSC",
+    opts = {},
+    config = function()
+      require("tsc").setup({})
+      vim.keymap.set("n", "<leader>cc", "<cmd>TSC<cr>", { desc = "Typescript Check" })
+    end,
   },
 }

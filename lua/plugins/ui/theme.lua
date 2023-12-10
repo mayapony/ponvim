@@ -1,14 +1,31 @@
 return {
-  {
-    "vimpostor/vim-lumen",
-    event = "VeryLazy",
-    init = function()
-      vim.cmd([[
-				au User LumenLight echom 'rose-pine-dawn'
-				au User LumenDark echom 'rose-pine-moon'
-			]])
-    end,
-  },
+  -- {
+  --   "vimpostor/vim-lumen",
+  --   event = "VeryLazy",
+  --   init = function()
+  --     vim.cmd([[
+  -- 		au User LumenLight set background=light | colorscheme everforest
+  -- 		au User LumenDark set background=dark | colorscheme everforest
+  -- 	]])
+  --   end,
+  -- },
+  -- {
+  --   "neanias/everforest-nvim",
+  --   version = false,
+  --   lazy = false,
+  --   priority = 10000, -- make sure to load this before all the other start plugins
+  --   -- Optional; default configuration will be used if setup isn't called.
+  --   config = function()
+  --     require("everforest").setup({
+  --       background = "medium", -- Your config here
+  --       on_highlights = function(hl, palette)
+  --         hl.BufferlineOffset = { bg = palette.bg0 }
+  --         hl.NeoTreeNormal = { bg = palette.bg0 }
+  --         hl.NeoTreeNormalNC = { bg = palette.bg0 }
+  --       end,
+  --     })
+  --   end,
+  -- },
   -- {
   --   "catppuccin/nvim",
   --   name = "catppuccin",
@@ -83,35 +100,48 @@ return {
   --     vim.cmd.colorscheme("gruvbox")
   --   end,
   -- },
+  -- {
+  --   "rose-pine/neovim",
+  --   name = "rose-pine",
+  --   priority = 10000,
+  --   lazy = false,
+  --   config = function()
+  --     local fg = "rose"
+  --     require("rose-pine").setup({
+  --       variant = "auto",
+  --       dark_variant = "moon",
+  --       highlight_groups = {
+  --         BufferlineOffset = {
+  --           fg = fg,
+  --           bold = true,
+  --         },
+  --         NeoTreeNormal = { bg = "base" },
+  --         NeoTreeNormalNC = { bg = "base" },
+  --         IndentlineStyle = { fg = fg },
+  --         NeoTreeDirectoryName = { fg = fg },
+  --         NeoTreeDirectoryIcon = { fg = fg },
+  --         NeoTreeTitleBar = { fg = fg },
+  --         NeoTreeRootName = { fg = fg },
+  --         AlphaHeader = { fg = fg },
+  --         AlphaButtons = { fg = fg },
+  --         AlphaShortcut = { fg = fg },
+  --         PinkText = { fg = fg },
+  --       },
+  --     })
+  --     vim.cmd.colorscheme("rose-pine")
+  --   end,
+  -- },
   {
-    "rose-pine/neovim",
-    name = "rose-pine",
+    "sainnhe/gruvbox-material",
     priority = 10000,
     lazy = false,
     config = function()
-      local fg = "rose"
-      require("rose-pine").setup({
-        variant = "auto",
-        dark_variant = "moon",
-        highlight_groups = {
-          BufferlineOffset = {
-            fg = fg,
-            bold = true,
-          },
-          NeoTreeNormal = { bg = "base" },
-          NeoTreeNormalNC = { bg = "base" },
-          IndentlineStyle = { fg = fg },
-          NeoTreeDirectoryName = { fg = fg },
-          NeoTreeDirectoryIcon = { fg = fg },
-          NeoTreeTitleBar = { fg = fg },
-          NeoTreeRootName = { fg = fg },
-          AlphaHeader = { fg = fg },
-          AlphaButtons = { fg = fg },
-          AlphaShortcut = { fg = fg },
-          PinkText = { fg = fg },
-        },
-      })
-      vim.cmd.colorscheme("rose-pine")
+      vim.cmd([[
+  		let g:gruvbox_material_background = 'soft'
+        " For better performance
+        let g:gruvbox_material_better_performance = 1
+  	]])
+      vim.cmd.colorscheme("gruvbox-material")
     end,
   },
 }

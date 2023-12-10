@@ -18,6 +18,7 @@ if not vim.g.vscode then
   require("config.options")
   require("config.autocmd")
   require("config.global")
+
   require("config.keymaps").initNvim()
 
   require("lazy").setup({
@@ -28,7 +29,7 @@ if not vim.g.vscode then
       { import = "plugins.ui" },
       { import = "plugins.coding" },
     },
-    checker = { enabled = true },
+    checker = { enabled = false },
     change_detection = {
       -- automatically check for config file changes and reload the ui
       enabled = true,

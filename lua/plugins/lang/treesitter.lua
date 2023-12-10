@@ -5,6 +5,13 @@ return {
   event = { "BufReadPost", "BufNewFile" },
   dependencies = {
     "windwp/nvim-ts-autotag",
+    {
+      "nvim-treesitter/nvim-treesitter-context",
+      envent = { "BufReadPost" },
+      config = function()
+        require("treesitter-context").setup()
+      end,
+    },
   },
   opts = {
     highlight = {
