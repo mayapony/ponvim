@@ -50,6 +50,7 @@ return {
       "kotlin_language_server",
       "bashls",
       "emmet_ls",
+      "clangd",
     }
     require("mason").setup()
     require("mason-lspconfig").setup({
@@ -126,7 +127,6 @@ return {
         )
       end,
     })
-
   end,
   keys = {
     {

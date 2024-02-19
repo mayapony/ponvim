@@ -54,6 +54,7 @@ return {
       "kotlin",
       "rust",
       "toml",
+      "cpp",
     },
   },
   config = function(_, opts)

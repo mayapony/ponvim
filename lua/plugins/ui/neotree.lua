@@ -27,11 +27,13 @@ return {
         sources = { "filesystem", "buffers", "git_status", "document_symbols" },
         filesystem = {
           bind_to_cwd = true,
-          follow_current_file = true,
+          follow_current_file = {
+            enabled = true,
+          },
           use_libuv_file_watcher = true,
         },
         enable_git_status = true,
-        enable_diagnostics = true,
+        enable_diagnostics = false,
         window = {
           width = 25,
         },
