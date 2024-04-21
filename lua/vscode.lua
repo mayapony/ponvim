@@ -32,29 +32,69 @@ end
 function M.packages()
 	return {
 		{
-			"kylechui/nvim-surround",
-			version = "*",
+			'Wansmer/treesj',
+			dependencies = { 'nvim-treesitter/nvim-treesitter' },
 			config = function()
-				require("nvim-surround").setup({})
+				require('treesj').setup({ --[[ your config ]] })
+				vim.keymap.set('n', '<leader>j', require('treesj').toggle)
 			end,
 		},
 		{
-			"ggandor/flit.nvim",
-			keys = function()
-				local ret = {}
-				for _, key in ipairs({ "f", "F", "t", "T" }) do
-					ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
-				end
-				return ret
-			end,
-			opts = { labeled_modes = "nx" },
+			"nvim-treesitter/nvim-treesitter",
+			build = ":TSUpdate",
+			config = function()
+				local configs = require("nvim-treesitter.configs")
+				configs.setup({
+					ensure_installed = {
+						"c",
+						"html",
+						"javascript",
+						"json",
+						"python",
+						"tsx",
+						"typescript",
+						"vim",
+						"yaml",
+						"vue",
+						"toml",
+						"cpp",
+					},
+					sync_install = false,
+					highlight = { enable = false },
+					indent = { enable = false },
+				})
+			end
 		},
 		{
-			"ggandor/leap.nvim",
-			config = function()
-				require("leap").add_default_mappings()
-			end,
+			"echasnovski/mini.surround",
+			opts = {
+				mappings = {
+					add = "gsa",
+					delete = "gsd",
+					find = "gsf",
+					find_left = "gsF",
+					highlight = "gsh",
+					replace = "gsr",
+					update_n_lines = "gsn",
+				},
+			},
 		},
+		{
+			"folke/flash.nvim",
+			event = "VeryLazy",
+			opts = {
+				modes = {
+					char = {
+						jump_labels = true
+					}
+				}
+			},
+			-- stylua: ignore
+			keys = {
+				{ "s", mode = { "n", "x", "o" }, function() require("flash").jump() end,       desc = "Flash" },
+				{ "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+			},
+		}
 	}
 end
 

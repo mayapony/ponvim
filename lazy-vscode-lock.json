@@ -1,5 +1,6 @@
 {
-  "flit.nvim": { "branch": "main", "commit": "498b3a4864e697f1ed1145e518c4c78c776c55d8" },
-  "leap.nvim": { "branch": "main", "commit": "5efe985cf68fac3b6a6dfe7a75fbfaca8db2af9c" },
-  "nvim-surround": { "branch": "main", "commit": "d47001f8ddf9646c24f16d2732d4d0255acd2121" }
+  "flash.nvim": { "branch": "main", "commit": "48817af25f51c0590653bbc290866e4890fe1cbe" },
+  "mini.surround": { "branch": "main", "commit": "d035934958e2605048ee1378ce47cf799f7071d4" },
+  "nvim-treesitter": { "branch": "master", "commit": "ea4f6d5175812a3f48302d638a766bc18fcbb04a" },
+  "treesj": { "branch": "main", "commit": "60e27280030f9cd8dfb6ceb335922c6ff76682cc" }
 }
