@@ -48,7 +48,6 @@ return {
 			"lua_ls",
 			"tailwindcss",
 			"bashls",
-			"emmet_ls",
 			"tsserver"
 		}
 		require("mason").setup()

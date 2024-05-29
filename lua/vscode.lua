@@ -9,7 +9,7 @@ function M.configure()
 	vim.g.mapleader = " "
 	vim.g.maplocalleader = " "
 
-	opt.clipboard = "unnamedplus"
+	-- opt.clipboard = "unnamedplus"
 	opt.ignorecase = true
 	opt.smartcase = true
 
@@ -22,11 +22,6 @@ function M.configure()
 	})
 
 	require("vscode.keymaps")
-	-- vim.cmd([[source ~/.config/nvim/lua/vscode/insert.vim]])
-	-- vim.cmd([[source ~/.config/nvim/lua/vscode/scrolling.vim]])
-	-- vim.cmd([[source ~/.config/nvim/lua/vscode/tab.vim]])
-	-- vim.cmd([[source ~/.config/nvim/lua/vscode/fold.vim]])
-	-- vim.cmd([[source ~/.config/nvim/lua/vscode/window.vim]])
 end
 
 function M.packages()
@@ -36,7 +31,7 @@ function M.packages()
 			dependencies = { 'nvim-treesitter/nvim-treesitter' },
 			config = function()
 				require('treesj').setup({ --[[ your config ]] })
-				vim.keymap.set('n', '<leader>j', require('treesj').toggle)
+				vim.keymap.set('n', '<leader>cj', require('treesj').toggle)
 			end,
 		},
 		{
@@ -46,18 +41,9 @@ function M.packages()
 				local configs = require("nvim-treesitter.configs")
 				configs.setup({
 					ensure_installed = {
-						"c",
-						"html",
 						"javascript",
-						"json",
-						"python",
 						"tsx",
 						"typescript",
-						"vim",
-						"yaml",
-						"vue",
-						"toml",
-						"cpp",
 					},
 					sync_install = false,
 					highlight = { enable = false },
@@ -81,7 +67,6 @@ function M.packages()
 		},
 		{
 			"folke/flash.nvim",
-			event = "VeryLazy",
 			opts = {
 				modes = {
 					char = {

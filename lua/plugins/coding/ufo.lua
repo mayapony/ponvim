@@ -68,7 +68,6 @@ return {
 
 		require("ufo").setup({
 			open_fold_hl_timeout = 150,
-			close_fold_kinds = { "comment" },
 			fold_virt_text_handler = handler,
 			preview = {
 				win_config = {

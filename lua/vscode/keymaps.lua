@@ -23,6 +23,8 @@ map_cmd("n", "<C-r>", "redo", { desc = "redo" })
 -- code action
 map_cmd({ "n", "x" }, "<leader>cr", 'editor.action.rename', {})
 map_cmd({ "n", "x" }, "<leader>ca", 'keyboard-quickfix.openQuickFix', {})
+map_cmd({ "n", "x" }, "<leader>ck", 'extension.changeCase.commands', {})
+
 
 -- navigation
 map_cmd({ "n", "x" }, "]e", 'editor.action.marker.next', {})
