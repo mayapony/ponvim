@@ -1,16 +1,26 @@
+local nerd_diagnostics = {
+	Error = " ",
+	Warn = " ",
+	Hint = " ",
+	Info = " ",
+}
+
+local emoji_diagnostics = {
+	Error = "❌",
+	Warn = "❗",
+	Hint = "💡",
+	Info = "📝",
+}
+
+
 local M = {
-  diagnostics = {
-    Error = " ",
-    Warn = " ",
-    Hint = " ",
-    Info = " ",
-  },
-  git = {
-    added = "",
-    changed = "",
-    deleted = "",
-    untracked = "",
-  },
+	diagnostics = emoji_diagnostics,
+	git = {
+		added = "",
+		changed = "",
+		deleted = "",
+		untracked = "",
+	},
 }
 
 return M

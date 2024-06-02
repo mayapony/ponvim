@@ -6,6 +6,7 @@ return {
 	cmd = { "LspInfo", "LspInstall", "LspUninstall" },
 	dependencies = {
 		{ "hrsh7th/cmp-nvim-lsp" },
+		{ "folke/neodev.nvim" },
 		{ "williamboman/mason-lspconfig.nvim" },
 		{
 			"williamboman/mason.nvim",
@@ -48,38 +49,22 @@ return {
 			"lua_ls",
 			"tailwindcss",
 			"bashls",
-			"tsserver"
+			"tsserver",
 		}
+
 		require("mason").setup()
 		require("mason-lspconfig").setup({
 			-- server name source: https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
 			ensure_installed = ensure_installed,
 			automatic_installation = true,
 		})
+		require("neodev").setup({})
 
 		local lspconfig = require("lspconfig")
 
 		for _, server in pairs(ensure_installed) do
 			if server == "lua_ls" then
-				lspconfig[server].setup({
-					settings = {
-						runtime = {
-							version = "LuaJIT",
-						},
-						Lua = {
-							diagnostics = {
-								globals = { "vim" },
-							},
-							workspace = {
-								-- Make the server aware of Neovim runtime files
-								library = vim.api.nvim_get_runtime_file("", true),
-							},
-							telemetry = {
-								enable = false,
-							},
-						},
-					},
-				})
+				lspconfig[server].setup({})
 			else
 				lspconfig[server].setup({})
 			end
@@ -93,7 +78,7 @@ return {
 			vim.diagnostic.open_float,
 			{ noremap = true, silent = true, desc = "diagnostic open float" }
 		)
-		vim.keymap.set({ "n", "x" }, "<leader>ca", "<cmd>CodeActionMenu<cr>", { desc = "code action menu" })
+		-- vim.keymap.set({ "n", "x" }, "<leader>ca", "<cmd>CodeActionMenu<cr>", { desc = "code action menu" })
 
 		-- Use LspAttach autocommand to only map the following keys
 		-- after the language server attaches to the current buffer
@@ -107,14 +92,14 @@ return {
 				-- See `:help vim.lsp.*` for documentation on any of the below functions
 				local opts = { buffer = ev.buf }
 				local builtin = require("telescope.builtin")
-				vim.keymap.set("n", "gd", builtin.lsp_definitions, { buffer = ev.buf, desc = "definitions" })
+				vim.keymap.set("n", "gd", builtin.lsp_definitions, { buffer = ev.buf, desc = "go to definitions" })
 				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+				vim.keymap.set("n", "gk", vim.lsp.buf.signature_help, opts)
 				vim.keymap.set("n", "gi", builtin.lsp_implementations, { buffer = ev.buf, desc = "implementations" })
-				vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
 				vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { buffer = ev.buf, desc = "rename" })
+				vim.keymap.set("n", "gh", vim.diagnostic.open_float, { noremap = true, silent = true })
 				vim.keymap.set("n", "gr", builtin.lsp_references, { buffer = ev.buf, desc = "references" })
 				vim.keymap.set("n", "go", builtin.lsp_document_symbols, { buffer = ev.buf, desc = "document symbols" })
-				vim.keymap.set("n", "gh", vim.diagnostic.open_float, { noremap = true, silent = true })
 				vim.keymap.set("n", "gx", builtin.diagnostics, { buffer = 0, desc = "diagnostics" })
 				vim.keymap.set(
 					"n",

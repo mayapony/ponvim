@@ -1,8 +1,4 @@
 -- ufo.lua
---
--- feat:
--- 1. fold from lsp
--- 2. add fold style
 
 local handler = function(virtText, lnum, endLnum, width, truncate)
 	local newVirtText = {}
