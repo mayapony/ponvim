@@ -38,12 +38,6 @@ if vim.fn.has("nvim-0.9.0") == 1 then
   opt.shortmess:append({ C = true })
 end
 
--- fold config
-opt.foldcolumn = "0" -- '0' is not bad
-opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-opt.foldlevelstart = 99
-opt.foldenable = true
-
 -- indent blankline config
 -- vim.opt.list = true
 -- vim.opt.listchars:append("space:⋅")

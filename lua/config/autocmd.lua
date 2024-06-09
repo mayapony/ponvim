@@ -105,6 +105,15 @@ autocmd({ "BufWritePre" }, {
   end,
 })
 
+-- Auto disable folding for some filetypes
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "neo-tree" },
+  callback = function()
+    require("ufo").detach()
+    vim.opt_local.foldenable = false
+  end,
+})
+
 -- Format with lsp
 -- Create an augroup that is used for managing our formatting autocmds.
 --      We need one augroup per client to make sure that multiple clients

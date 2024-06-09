@@ -1,6 +1,9 @@
 return {
   "goolord/alpha-nvim",
   event = "VimEnter",
+  dependencies = {
+    "luukvbaal/statuscol.nvim",
+  },
   opts = function()
     local dashboard = require("alpha.themes.dashboard")
     local logo = [[
@@ -29,6 +32,7 @@ return {
     dashboard.section.buttons.opts.hl = "AlphaButtons"
     dashboard.section.footer.opts.hl = "AlphaFooter"
     dashboard.opts.layout[1].val = 8
+    dashboard.opts.noautocmd = false
     return dashboard
   end,
   config = function(_, dashboard)

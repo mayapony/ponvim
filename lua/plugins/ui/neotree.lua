@@ -48,18 +48,7 @@ return {
             use_git_status_colors = false,
           },
           git_status = {
-            symbols = {
-              -- Change type
-              added = "",
-              modified = "",
-              deleted = "",
-              renamed = "",
-              untracked = "",
-              ignored = "",
-              unstaged = "󰄱",
-              staged = "",
-              conflict = "󰕚",
-            },
+            symbols = require("config.icons").git,
           },
         },
       },

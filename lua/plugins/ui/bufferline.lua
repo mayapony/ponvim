@@ -12,9 +12,7 @@ local spec = {
       "<cmd>BufferLineCycleNext<cr>",
       { desc = "Next buffer" },
     },
-    { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
-    { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
-    { "<leader>ft", "<Cmd>BufferLinePick<CR>", desc = "Find Buffer" },
+    { "<leader>fb", "<Cmd>BufferLinePick<CR>", desc = "Find Buffer" },
     {
       "<A-1>",
       mode = { "n", "i" },
@@ -47,7 +45,8 @@ local spec = {
     },
   },
   config = function()
-    -- local mocha = require("catppuccin.palettes").get_palette("mocha") local latte = require("catppuccin.palettes").get_palette("latte")
+    local mocha = require("catppuccin.palettes").get_palette("mocha")
+    local latte = require("catppuccin.palettes").get_palette("latte")
     -- local fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("PinkText")), "fg#")
     -- local bg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("NeoTreeNormal")), "bg#")
     require("bufferline").setup({
@@ -57,20 +56,20 @@ local spec = {
       --   indicator_selected = { fg = fg },
       --   indicator_visible = { fg = fg },
       -- },
-      -- highlights = require("catppuccin.groups.integrations.bufferline").get({
-      --   custom = {
-      --     mocha = {
-      --       buffer_selected = { fg = mocha.pink, bold = true },
-      --       indicator_selected = { fg = mocha.pink },
-      --       indicator_visible = { fg = mocha.pink },
-      --     },
-      --     latte = {
-      --       buffer_selected = { fg = latte.pink, bold = true },
-      --       indicator_selected = { fg = latte.pink },
-      --       indicator_visible = { fg = latte.pink },
-      --     },
-      --   },
-      -- }),
+      highlights = require("catppuccin.groups.integrations.bufferline").get({
+        custom = {
+          mocha = {
+            buffer_selected = { fg = mocha.pink, bold = true },
+            indicator_selected = { fg = mocha.pink },
+            indicator_visible = { fg = mocha.pink },
+          },
+          latte = {
+            buffer_selected = { fg = latte.pink, bold = true },
+            indicator_selected = { fg = latte.pink },
+            indicator_visible = { fg = latte.pink },
+          },
+        },
+      }),
       options = {
         -- diagnostics = "nvim_lsp",
         diagnostics = nil,
