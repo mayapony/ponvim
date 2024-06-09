@@ -46,8 +46,6 @@ return {
       vim.diagnostic.open_float,
       { noremap = true, silent = true, desc = "diagnostic open float" }
     )
-    -- vim.keymap.set({ "n", "x" }, "<leader>ca", "<cmd>CodeActionMenu<cr>", { desc = "code action menu" })
-
     -- Use LspAttach autocommand to only map the following keys
     -- after the language server attaches to the current buffer
     vim.api.nvim_create_autocmd("LspAttach", {
