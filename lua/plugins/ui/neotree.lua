@@ -26,16 +26,34 @@ return {
       opts = {
         sources = { "filesystem", "buffers", "git_status", "document_symbols" },
         filesystem = {
+          hijack_netrw_behavior = "open_default",
+          hide_by_name = {
+            ".git",
+            "node_modules",
+            "__pycache__",
+            "venv",
+            "build",
+            "dist",
+            "target",
+            "out",
+            "tmp",
+            ".tox",
+            ".pytest_cache",
+          },
+          always_show = {
+            ".gitignore",
+            ".eslintrc.js",
+          },
           bind_to_cwd = true,
           follow_current_file = {
             enabled = true,
           },
-          use_libuv_file_watcher = true,
+          use_libuv_file_watcher = false,
         },
         enable_git_status = true,
         enable_diagnostics = false,
         window = {
-          width = 25,
+          width = 40,
         },
         default_component_configs = {
           indent = {
