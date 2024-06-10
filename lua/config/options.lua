@@ -45,7 +45,7 @@ end
 
 -- opacity
 opt.pumblend = 0 -- Popup blend 100 for full transparent
-opt.winblend = 30 -- Fix float black 100 for full transparent
+opt.winblend = 0 -- Fix float black 100 for full transparent
 -- source from: https://github.com/catppucin/nvim/issues/412
 opt.pumheight = 10 -- Maximum number of entries in a popup
 

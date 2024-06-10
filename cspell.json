@@ -1,16 +1,1 @@
-{
-  "flagWords": [],
-  "version": "0.2",
-  "language": "en",
-  "words": [
-    "nvim",
-    "davidmh",
-    "prettierd",
-    "builtins",
-    "augroup",
-    "checktime",
-    "autocmd",
-    "lcount",
-    "lspinfo"
-  ]
-}
+{"flagWords":[],"words":["nvim","davidmh","prettierd","builtins","augroup","checktime","autocmd","lcount","lspinfo","nvimtools"],"language":"en","version":"0.2"}

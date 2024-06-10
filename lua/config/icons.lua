@@ -1,7 +1,8 @@
 local nerd_diagnostics = {
   Error = " ",
   Warn = " ",
-  Hint = " ",
+  -- Hint = " ",
+  Hint = " ",
   Info = " ",
 }
 
