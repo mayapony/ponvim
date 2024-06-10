@@ -6,11 +6,14 @@ return {
       chunk = {
         enable = true,
         use_treesitter = true,
-        notify = false, -- notify if some situation(like disable chunk mod double time)
+        notify = true, -- notify if some situation(like disable chunk mod double time)
         exclude_filetypes = {
           aerial = true,
           dashboard = true,
           Trouble = true,
+          ["neo-tree"] = true,
+          ["neo-tree-popup"] = true,
+          [""] = true,
         },
         support_filetypes = {
           "*.lua",
@@ -34,17 +37,10 @@ return {
 
       indent = {
         enable = false,
-        use_treesitter = false,
-        chars = { "│", "¦", "┆", "┊" },
-        style = {
-          { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui") },
-        },
       },
 
       line_num = {
-        enable = true,
-        use_treesitter = false,
-        style = vim.fn.synIDattr(vim.fn.hlID("IndentlineStyle"), "fg", "gui"),
+        enable = false,
       },
       blank = {
         enable = false,

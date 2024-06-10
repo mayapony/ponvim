@@ -5,6 +5,20 @@ local function setup_cmp_highlight()
   vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { link = "CmpIntemAbbrMatch" })
 end
 
+local function setup_autocmds()
+  vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("cmp_gitmoji", { clear = true }),
+    pattern = { "NeogitCommitMessage", "gitcommit" },
+    callback = function()
+      require("cmp").setup.buffer({
+        sources = {
+          { name = "gitmoji" },
+        },
+      })
+    end,
+  })
+end
+
 return {
   -- nvim-cmp
   {
@@ -18,12 +32,14 @@ return {
       "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-nvim-lua",
       "onsails/lspkind.nvim",
+      "megalithic/cmp-gitmoji",
     },
     config = function()
       local cmp = require("cmp")
       local lspkind = require("lspkind")
 
       setup_cmp_highlight()
+      setup_autocmds()
 
       -- `/` cmdline setup.
       cmp.setup.cmdline("/", {

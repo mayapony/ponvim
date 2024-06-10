@@ -86,6 +86,7 @@ return {
           neotree = true,
           which_key = true,
           treesitter = true,
+          mini = true,
           -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
         },
       })
