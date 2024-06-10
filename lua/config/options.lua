@@ -55,6 +55,8 @@ opt.fillchars = "eob: "
 -- disable default status line
 opt.laststatus = 0
 
+opt.cursorline = true
+
 -- diagnostic config
 vim.diagnostic.config({
   virtual_text = {

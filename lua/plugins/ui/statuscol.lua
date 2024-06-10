@@ -19,6 +19,7 @@ return {
         "Trouble",
         "lazy",
         "toggleterm",
+        "DiffviewFiles",
       },
       segments = {
         {

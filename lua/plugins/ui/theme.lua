@@ -76,6 +76,7 @@ return {
             PinkText = { fg = colors.pink },
           }
         end,
+
         integrations = {
           cmp = true,
           gitsigns = true,
