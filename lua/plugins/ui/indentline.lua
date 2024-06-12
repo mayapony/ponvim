@@ -14,6 +14,7 @@ return {
 					["neo-tree"] = true,
 					["neo-tree-popup"] = true,
 					gitconfig = true,
+					harpoon = true,
 					[""] = true,
 				},
 				support_filetypes = {
