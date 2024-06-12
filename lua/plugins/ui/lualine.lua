@@ -1,6 +1,7 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	event = "VeryLazy",
+	-- event = "VeryLazy",
+	event = "VimEnter",
 	dependencies = {
 		"chrisgrieser/nvim-recorder",
 		evnent = "BufReadPost",
@@ -46,13 +47,14 @@ return {
 				theme = "auto",
 				globalstatus = true,
 				component_separators = { left = "", right = "" },
+				section_separators = { left = '', right = '' },
 				disabled_filetypes = { statusline = { "dashboard", "lazy", "alpha", "neo-tree", "Trouble", "term" } },
 			},
 			extensions = { "toggleterm" },
 			sections = {
-				lualine_a = {},
-				lualine_b = {},
-				lualine_c = { "filename", diagnostics, require("recorder").recordingStatus },
+				lualine_a = { "mode" },
+				lualine_b = { diagnostics, require("recorder").recordingStatus },
+				lualine_c = {},
 				lualine_x = {
 					diff,
 					{ "progress", separator = " ",                  padding = { left = 1, right = 0 } },
