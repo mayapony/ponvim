@@ -40,12 +40,12 @@ return {
 		})
 	end,
 	keys = {
-		{ "<leader>ff", "<cmd>lua require('fzf-lua').files({prompt = '👉'})<CR>", desc = "Find Files" },
-		{ "<leader>ca", "<cmd>lua require('fzf-lua').lsp_code_actions()<CR>", desc = "Code Actions" },
-		{ "<leader>.", "<cmd>lua require('fzf-lua').files()<CR>", desc = "Find Files" },
-		{ "<leader>/", "<cmd>lua require('fzf-lua').live_grep()<cr>", desc = "Live Grep" },
-		-- lsp
-		{ "<leader>gr", "<cmd>lua require('fzf-lua').lsp_references()<cr>", desc = "Go to lsp references" },
-		{ "<leader>gd", "<cmd>lua require('fzf-lua').lsp_definitions()<cr>", desc = "Go to lsp definitions" },
+		-- { "<leader>ff", "<cmd>lua require('fzf-lua').files({prompt = '👉'})<CR>", desc = "Find Files" },
+		-- { "<leader>ca", "<cmd>lua require('fzf-lua').lsp_code_actions()<CR>", desc = "Code Actions" },
+		-- { "<leader>.", "<cmd>lua require('fzf-lua').files()<CR>", desc = "Find Files" },
+		-- { "<leader>/", "<cmd>lua require('fzf-lua').live_grep()<cr>", desc = "Live Grep" },
+		-- -- lsp
+		-- { "<leader>gr", "<cmd>lua require('fzf-lua').lsp_references()<cr>", desc = "Go to lsp references" },
+		-- { "<leader>gd", "<cmd>lua require('fzf-lua').lsp_definitions()<cr>", desc = "Go to lsp definitions" },
 	},
 }

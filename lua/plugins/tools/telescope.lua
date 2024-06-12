@@ -7,28 +7,24 @@ return {
 			build =
 			"cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
 		},
-		{
-			"ahmedkhalf/project.nvim",
-			config = function()
-				require("project_nvim").setup({
-					patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", ".luarc.json" },
-				})
-			end,
-		},
+		"nvim-telescope/telescope-ui-select.nvim"
 	},
 	keys = function()
 		local builtin = require("telescope.builtin")
 		return {
-			-- { "<leader>.",  builtin.find_files,            { desc = "Find Files" } },
-			-- { "<leader>/",  builtin.live_grep,             { desc = "Find in global" } },
-			-- { "<leader>fg", builtin.live_grep,             { desc = "Find in global" } },
-			-- { "<leader>,",  builtin.buffers,               { desc = "Find buffers" } },
-			-- { "<leader>fh", builtin.help_tags,             { desc = "Find helps" } },
-			-- { "<leader>fw", builtin.grep_string,           { desc = "Find words" } },
-			-- { "<leader>fr", builtin.grep_string,           { desc = "Find recent" } },
-			-- { "<leader>fN", "<cmd>Telescope notify<cr>",   { desc = "Find notify" } },
-			-- { "<leader>fp", "<cmd>Telescope projects<cr>", { desc = "Find projects" } },
-			-- { "<leader>uC", builtin.colorscheme,           { desc = "Change Colorscheme " } },
+			{ "<leader>.",  builtin.find_files,          { desc = "Find Files" } },
+			{ "<leader>/",  builtin.live_grep,           { desc = "Find in global" } },
+			{ "<leader>fg", builtin.live_grep,           { desc = "Find in global" } },
+			{ "<leader>,",  builtin.buffers,             { desc = "Find buffers" } },
+			{ "<leader>fh", builtin.help_tags,           { desc = "Find helps" } },
+			{ "<leader>fw", builtin.grep_string,         { desc = "Find words" } },
+			{ "<leader>fr", builtin.oldfiles,            { desc = "Find recent" } },
+			{ "<leader>fN", "<cmd>Telescope notify<cr>", { desc = "Find notify" } },
+			{ "<leader>uC", builtin.colorscheme,         { desc = "Change Colorscheme " } },
+			{ "<leader>fd", [[<cmd>TodoTelescope<cr>]],  { desc = "Find todos" } },
+
+			-- lsp
+			{ "<leader>ca", vim.lsp.buf.code_action,     { desc = "code action" } },
 		}
 	end,
 	cmd = { "Telescope" },
@@ -37,15 +33,15 @@ return {
 
 		telescope.setup({
 			extensions = {
-				persisted = {
-					layout_config = { width = 0.55, height = 0.55 },
-				},
 				fzf = {
 					fuzzy = true,              -- false will only do exact matching
 					override_generic_sorter = true, -- override the generic sorter
 					override_file_sorter = true, -- override the file sorter
 					case_mode = "ignore_case", -- or "ignore_case" or "respect_case"
 				},
+				["ui-select"] = {
+					require("telescope.themes").get_dropdown {}
+				}
 			},
 			defaults = {
 				prompt_prefix = " ",
@@ -64,18 +60,6 @@ return {
 						["<a-t>"] = function(...)
 							return require("trouble.providers.telescope").open_selected_with_trouble(...)
 						end,
-						["<C-Down>"] = function(...)
-							return require("telescope.actions").cycle_history_next(...)
-						end,
-						["<C-Up>"] = function(...)
-							return require("telescope.actions").cycle_history_prev(...)
-						end,
-						["<C-f>"] = function(...)
-							return require("telescope.actions").preview_scrolling_down(...)
-						end,
-						["<C-b>"] = function(...)
-							return require("telescope.actions").preview_scrolling_up(...)
-						end,
 					},
 					n = {
 						["q"] = function(...)
@@ -87,6 +71,6 @@ return {
 		})
 
 		telescope.load_extension("fzf")
-		telescope.load_extension("projects")
+		telescope.load_extension("ui-select")
 	end,
 }
