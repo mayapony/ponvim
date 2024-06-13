@@ -19,6 +19,7 @@ return {
 			"tailwindcss",
 			"bashls",
 			"tsserver",
+			"eslint"
 		}
 
 		require("mason").setup()
@@ -29,42 +30,27 @@ return {
 		})
 
 		local lspconfig = require("lspconfig")
+		local lsp_opts = require("config.lsp")
 
 		for _, server in pairs(ensure_installed) do
-			if server == "lua_ls" then
-				lspconfig[server].setup({})
+			if server == "eslint" then
+				lspconfig.eslint.setup(lsp_opts.eslint)
 			else
 				lspconfig[server].setup({})
 			end
 		end
 
-		-- Global mappings.
-		-- See `:help vim.diagnostic.*` for documentation on any of the below functions
-		vim.keymap.set(
-			"n",
-			"gh",
-			vim.diagnostic.open_float,
-			{ noremap = true, silent = true, desc = "diagnostic open float" }
-		)
 		-- Use LspAttach autocommand to only map the following keys
 		-- after the language server attaches to the current buffer
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("maya-user-lsp-config", {}),
 			callback = function(ev)
-				-- Enable completion triggered by <c-x><c-o>
 				vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
-				-- Buffer local mappings.
-				-- See `:help vim.lsp.*` for documentation on any of the below functions
 				local opts = { buffer = ev.buf }
-				local builtin = require("telescope.builtin")
 				vim.keymap.set("n", "gk", vim.lsp.buf.signature_help, opts)
+				vim.keymap.set("n", "gh", vim.diagnostic.open_float, { noremap = true, silent = true, desc = "show diagnostics" })
 				vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { buffer = ev.buf, desc = "rename" })
-				vim.keymap.set("n", "gh", vim.diagnostic.open_float, { noremap = true, silent = true })
-
-				vim.keymap.set("n", "gi", builtin.lsp_implementations, { buffer = ev.buf, desc = "go implementations" })
-				vim.keymap.set("n", "go", builtin.lsp_document_symbols, { buffer = ev.buf, desc = "go document symbols" })
-				vim.keymap.set("n", "gx", builtin.diagnostics, { buffer = 0, desc = "go diagnostics" })
 			end,
 		})
 	end,
