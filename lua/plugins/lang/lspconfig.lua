@@ -2,7 +2,7 @@ return {
 	"neovim/nvim-lspconfig",
 	-- lazy load lspconfig
 	-- source: https://www.reddit.com/r/neovim/comments/1308ie7/help_how_to_lazy_load_lspconfig/
-	event = { "BufReadPre", "BufNewFile" },
+	lazy = false,
 	cmd = { "LspInfo", "LspInstall", "LspUninstall" },
 	dependencies = {
 		{ "hrsh7th/cmp-nvim-lsp" },

@@ -9,7 +9,6 @@ return {
 				name = "Launch Chrome against localhost",
 				url = "http://localhost:8282",
 				webRoot = "${workspaceFolder}",
-				runtimeExecutable = "C:\\Users\\shma4\\AppData\\Local\\Chromium\\Application\\chrome.exe"
 			}
 		}
 	end,
@@ -48,47 +47,5 @@ return {
 			{ "<leader>dl", "<cmd>lua require('dap').load_launchjs(nil)<cr>",  desc = "Step over" },
 			{ "<leader>dt", "<cmd>lua require('dap').terminate()<cr>",         desc = "Terminate" },
 		},
-	},
-	{
-		"mxsdev/nvim-dap-vscode-js",
-		event = "VeryLazy",
-		dependencies = { "mfussenegger/nvim-dap" },
-		build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
-		config = function()
-			require("dap-vscode-js").setup({
-				-- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
-				debugger_path = vim.fn.stdpath('data') .. "/lazy/vscode-js-debug",
-				adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost', "chrome", "node" }, -- which adapters to register in nvim-dap
-			})
-
-			local js_based_languages = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" }
-			for _, lang in ipairs(js_based_languages) do
-				require("dap").configurations[lang] = {
-					{
-						type = "pwa-node",
-						request = "launch",
-						name = "Launch file",
-						program = "${file}",
-						cwd = "${workspaceFolder}",
-					},
-					{
-						type = "pwa-node",
-						request = "attach",
-						name = "Attach",
-						processId = require 'dap.utils'.pick_process,
-						cwd = "${workspaceFolder}",
-					},
-					{
-						type = "pwa-chrome",
-						request = "launch",
-						name = "Start Chrome with \"localhost\"",
-						url = "http://localhost:8282",
-						webRoot = "${workspaceFolder}",
-						userDataDir = "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir",
-						runtimeExecutable = "/mnt/c/Users/shma4/AppData/Local/Chromium/Application/chrome.exe",
-					}
-				}
-			end
-		end
-	},
+	}
 }
