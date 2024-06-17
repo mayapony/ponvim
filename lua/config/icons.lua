@@ -26,7 +26,7 @@ local git_icons = {
 }
 
 local M = {
-	diagnostics = emoji_diagnostics,
+	diagnostics = nerd_diagnostics,
 	git = git_icons,
 }
 

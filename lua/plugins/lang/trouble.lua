@@ -4,6 +4,28 @@ return {
 	cmd = "Trouble",
 	keys = {
 		{
+			"]x",
+			function()
+				local trouble = require("trouble")
+				if trouble.is_open() then
+					---@diagnostic disable-next-line: missing-parameter
+					trouble.next({ skip_groups = true, jump = true })
+				end
+			end,
+			desc = "Next (Trouble)",
+		},
+		{
+			"[x",
+			function()
+				local trouble = require("trouble")
+				if trouble.is_open() then
+					---@diagnostic disable-next-line: missing-parameter
+					trouble.prev({ skip_groups = true, jump = true })
+				end
+			end,
+			desc = "Prev (Trouble)",
+		},
+		{
 			"<leader>xx",
 			"<cmd>Trouble diagnostics toggle<cr>",
 			desc = "Diagnostics (Trouble)",

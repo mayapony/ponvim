@@ -29,6 +29,7 @@ opt.updatetime = 200               -- Save swap file and trigger CursorHold
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5                -- Minimum window width
 opt.wrap = true                    -- Disable line wrap
+opt.conceallevel = 0
 
 opt.autowrite = true
 opt.autoread = true

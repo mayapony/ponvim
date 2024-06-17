@@ -16,9 +16,9 @@ return {
 	config = function()
 		local ensure_installed = {
 			"lua_ls",
-			"tailwindcss",
+			-- "tailwindcss",
 			"bashls",
-			"tsserver",
+			-- "tsserver",
 			"eslint"
 		}
 
@@ -34,23 +34,16 @@ return {
 
 		for _, server in pairs(ensure_installed) do
 			if server == "eslint" then
-				lspconfig.eslint.setup(lsp_opts.eslint)
+				lspconfig[server].setup(lsp_opts.eslint)
 			else
 				lspconfig[server].setup({})
 			end
 		end
 
-		-- Use LspAttach autocommand to only map the following keys
-		-- after the language server attaches to the current buffer
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("maya-user-lsp-config", {}),
 			callback = function(ev)
-				vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-				local opts = { buffer = ev.buf }
-				vim.keymap.set("n", "gk", vim.lsp.buf.signature_help, opts)
-				vim.keymap.set("n", "gh", vim.diagnostic.open_float, { noremap = true, silent = true, desc = "show diagnostics" })
-				vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { buffer = ev.buf, desc = "rename" })
+				require("config.lsp").lsp_attach_callback(ev.buf)
 			end,
 		})
 	end,

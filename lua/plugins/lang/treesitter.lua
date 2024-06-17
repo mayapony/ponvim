@@ -9,19 +9,26 @@ return {
 			"nvim-treesitter/nvim-treesitter-context",
 			envent = { "BufReadPost" },
 			config = function()
-				require("treesitter-context").setup()
+				require("treesitter-context").setup({
+					max_lines = 3,
+				})
 			end,
 		},
 	},
+	config = function(_, opts)
+		require("nvim-treesitter.configs").setup(opts)
+	end,
 	opts = {
 		highlight = {
 			enable = true,
-			disable = function(lang, buf)
+			disable = function(_, buf)
 				local max_filesize = 100 * 1024 -- 100 KB
 				local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
 				if ok and stats and stats.size > max_filesize then
+					require("notify")("File too large to highlight", vim.log.levels.WARN)
 					return true
 				end
+				return false
 			end,
 			additional_vim_regex_highlighting = false,
 		},
@@ -29,7 +36,6 @@ return {
 			enable = true,
 		},
 		indent = { enable = true, disable = { "python" } },
-		context_commentstring = { enable = true, enable_autocmd = false },
 		ensure_installed = {
 			"bash",
 			"c",

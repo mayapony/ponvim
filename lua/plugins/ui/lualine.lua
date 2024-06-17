@@ -52,16 +52,20 @@ return {
 			},
 			extensions = { "toggleterm" },
 			sections = {
-				lualine_a = { "mode" },
-				lualine_b = { diagnostics, require("recorder").recordingStatus },
-				lualine_c = {},
-				lualine_x = {
-					diff,
-					{ "progress", separator = " ",                  padding = { left = 1, right = 0 } },
-					{ "location", padding = { left = 0, right = 1 } },
+				lualine_a = {
+					"mode",
 				},
-				lualine_y = {},
-				lualine_z = {},
+				lualine_b = {},
+				lualine_c = { diagnostics, require("recorder").recordingStatus },
+				lualine_x = {
+					diff
+				},
+				lualine_y = { "filetype" },
+				lualine_z = { { "location", separator = " ", padding = { left = 0, right = 0 } }, {
+					"progress",
+					separator = " ",
+					padding = { left = 0, right = 1 },
+				} },
 			},
 		}
 	end,

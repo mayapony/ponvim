@@ -17,6 +17,7 @@ return {
 			{ "<leader>fg", builtin.live_grep,           { desc = "Find in global" } },
 			{ "<leader>,",  builtin.buffers,             { desc = "Find buffers" } },
 			{ "<leader>fh", builtin.help_tags,           { desc = "Find helps" } },
+			{ "<leader>fm", builtin.marks,               { desc = "Find marks" } },
 			{ "<leader>fw", builtin.grep_string,         { desc = "Find words" } },
 			{ "<leader>fr", builtin.oldfiles,            { desc = "Find recent" } },
 			{ "<leader>fN", "<cmd>Telescope notify<cr>", { desc = "Find notify" } },

@@ -20,6 +20,7 @@ return {
 				"lazy",
 				"toggleterm",
 				"DiffviewFiles",
+				"leetcode.nvim"
 			},
 			segments = {
 				{

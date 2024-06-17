@@ -1,6 +1,6 @@
 return {
 	"shellRaining/hlchunk.nvim",
-	event = { "BufRead" },
+	-- event = { "BufRead" },
 	config = function()
 		require("hlchunk").setup({
 			chunk = {
@@ -16,6 +16,7 @@ return {
 					gitconfig = true,
 					harpoon = true,
 					[""] = true,
+					dropbar_menu = true,
 				},
 				support_filetypes = {
 					"*.lua",
