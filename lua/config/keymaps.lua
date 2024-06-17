@@ -1,7 +1,8 @@
 local M = {}
 local function map(mode, lhs, rhs, opts)
-  vim.keymap.set(mode, lhs, rhs, opts)
+	vim.keymap.set(mode, lhs, rhs, opts)
 end
+local silent = { silent = true }
 
 -- Save file
 map({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
@@ -32,28 +33,38 @@ map("n", "<leader>ws", "<C-W>v", { desc = "Split window right" })
 map("n", "<leader>wv", "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>wo", "<C-W>o", { desc = "Close other window" })
 
+-- Don't yank on some operation
+local dontYankOper = { "x", "X", "d", "c" }
+for _, oper in ipairs(dontYankOper) do
+	map("n", oper, string.format([["_%s]], oper))
+	map("v", oper, string.format([["_%s]], oper))
+end
+
+-- Don't yank on visual paste
+map("v", "p", '"_dP', silent)
+
 function M.initNvim()
-  -- lazy
-  vim.keymap.set("n", "<leader>ml", "<cmd>:Lazy<cr>", { desc = "Lazy" })
+	-- lazy
+	vim.keymap.set("n", "<leader>ml", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
-  -- Resize window using <ctrl> arrow keys
-  map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
-  map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
-  map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
-  map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+	-- Resize window using <ctrl> arrow keys
+	map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+	map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+	map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+	map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
-  -- terminal keymap
-  map("t", "<C-t>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
-  map("t", "<C-j>", "<c-\\><c-n><c-w>j", { desc = "Go Down" })
-  map("t", "<C-k>", "<c-\\><c-n><c-w>k", { desc = "Go Up" })
-  map("t", "<C-l>", "<c-\\><c-n><c-w>l", { desc = "Go Right" })
-  map("t", "<C-h>", "<c-\\><c-n><c-w>h", { desc = "Go Left" })
+	-- terminal keymap
+	map("t", "<C-t>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+	map("t", "<C-j>", "<c-\\><c-n><c-w>j", { desc = "Go Down" })
+	map("t", "<C-k>", "<c-\\><c-n><c-w>k", { desc = "Go Up" })
+	map("t", "<C-l>", "<c-\\><c-n><c-w>l", { desc = "Go Right" })
+	map("t", "<C-h>", "<c-\\><c-n><c-w>h", { desc = "Go Left" })
 
-  -- toggle line number
-  map("n", "<leader>tn", require("config.function").toggle_line, { desc = "Toggle line number" })
+	-- toggle line number
+	map("n", "<leader>tn", require("config.function").toggle_line, { desc = "Toggle line number" })
 
-  -- Clear search with <esc>
-  map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+	-- Clear search with <esc>
+	map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 end
 
 return M
