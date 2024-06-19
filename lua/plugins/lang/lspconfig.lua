@@ -2,7 +2,7 @@ return {
 	"neovim/nvim-lspconfig",
 	-- lazy load lspconfig
 	-- source: https://www.reddit.com/r/neovim/comments/1308ie7/help_how_to_lazy_load_lspconfig/
-	lazy = false,
+	event = { "BufReadPre", "BufNewFile" },
 	cmd = { "LspInfo", "LspInstall", "LspUninstall" },
 	dependencies = {
 		{ "hrsh7th/cmp-nvim-lsp" },
@@ -19,7 +19,7 @@ return {
 			-- "tailwindcss",
 			"bashls",
 			-- "tsserver",
-			"eslint"
+			-- "eslint"
 		}
 
 		require("mason").setup()
