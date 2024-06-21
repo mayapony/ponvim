@@ -1,6 +1,7 @@
 return {
 	"nvim-lualine/lualine.nvim",
 	-- event = "VeryLazy",
+	enabled = false,
 	event = "VimEnter",
 	dependencies = {
 		"chrisgrieser/nvim-recorder",
@@ -44,7 +45,7 @@ return {
 
 		return {
 			options = {
-				theme = "auto",
+				theme = "rose-pine",
 				globalstatus = true,
 				component_separators = { left = "", right = "" },
 				section_separators = { left = '', right = '' },

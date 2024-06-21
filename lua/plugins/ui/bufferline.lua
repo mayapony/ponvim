@@ -45,31 +45,31 @@ local spec = {
 		},
 	},
 	config = function()
-		local mocha = require("catppuccin.palettes").get_palette("mocha")
-		local latte = require("catppuccin.palettes").get_palette("latte")
-		-- local fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("PinkText")), "fg#")
-		-- local bg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("NeoTreeNormal")), "bg#")
+		-- local mocha = require("catppuccin.palettes").get_palette("mocha")
+		-- local latte = require("catppuccin.palettes").get_palette("latte")
+		local fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("PinkText")), "fg#")
+		local bg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("NeoTreeNormal")), "bg#")
 		require("bufferline").setup({
-			-- highlights = {
-			--   buffer_selected = { fg = fg, bg = bg, bold = true },
-			--   separator = { fg = bg },
-			--   indicator_selected = { fg = fg },
-			--   indicator_visible = { fg = fg },
-			-- },
-			highlights = require("catppuccin.groups.integrations.bufferline").get({
-				custom = {
-					mocha = {
-						buffer_selected = { fg = mocha.pink, bold = true },
-						indicator_selected = { fg = mocha.pink },
-						indicator_visible = { fg = mocha.pink },
-					},
-					latte = {
-						buffer_selected = { fg = latte.pink, bold = true },
-						indicator_selected = { fg = latte.pink },
-						indicator_visible = { fg = latte.pink },
-					},
-				},
-			}),
+			highlights = {
+				buffer_selected = { fg = fg, bg = bg, bold = true },
+				separator = { fg = bg },
+				indicator_selected = { fg = fg },
+				indicator_visible = { fg = fg },
+			},
+			-- highlights = require("catppuccin.groups.integrations.bufferline").get({
+			-- 	custom = {
+			-- 		mocha = {
+			-- 			buffer_selected = { fg = mocha.pink, bold = true },
+			-- 			indicator_selected = { fg = mocha.pink },
+			-- 			indicator_visible = { fg = mocha.pink },
+			-- 		},
+			-- 		latte = {
+			-- 			buffer_selected = { fg = latte.pink, bold = true },
+			-- 			indicator_selected = { fg = latte.pink },
+			-- 			indicator_visible = { fg = latte.pink },
+			-- 		},
+			-- 	},
+			-- }),
 			options = {
 				-- diagnostics = "nvim_lsp",
 				diagnostics = nil,

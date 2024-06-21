@@ -3,14 +3,11 @@ return {
 	tag = "v0.2.0",
 	event = "BufReadPost",
 	config = function()
-		local mocha = require("catppuccin.palettes").get_palette("mocha")
+		-- local mocha = require("catppuccin.palettes").get_palette("mocha")
+		local fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("PinkText")), "fg#")
 		require("modes").setup({
 			colors = {
-				bg = "",
-				copy = mocha.yellow,
-				delete = mocha.red,
-				insert = mocha.pink,
-				visual = mocha.mauve,
+				insert = fg,
 			},
 			ignore_filetypes = { 'NvimTree', 'TelescopePrompt', 'neo-tree' }
 		})
