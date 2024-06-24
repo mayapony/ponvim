@@ -54,7 +54,8 @@ opt.pumheight = 10 -- Maximum number of entries in a popup
 opt.fillchars = "eob: "
 
 -- disable default status line
-opt.laststatus = 0
+opt.laststatus = 0 -- Or 3 for global statusline
+opt.statusline = ""
 
 opt.cursorline = true
 

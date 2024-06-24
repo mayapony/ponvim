@@ -8,6 +8,7 @@ return {
 				clear_suggestion = "<C-]>",
 				accept_word = "<C-g>",
 			},
+			ignore_filetypes = { ["neo-tree"] = true },
 		})
 	end,
 }

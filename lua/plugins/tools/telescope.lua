@@ -7,7 +7,6 @@ return {
 			build =
 			"cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
 		},
-		"nvim-telescope/telescope-ui-select.nvim"
 	},
 	keys = function()
 		local builtin = require("telescope.builtin")
@@ -40,9 +39,6 @@ return {
 					override_file_sorter = true, -- override the file sorter
 					case_mode = "ignore_case", -- or "ignore_case" or "respect_case"
 				},
-				["ui-select"] = {
-					require("telescope.themes").get_dropdown {}
-				}
 			},
 			defaults = {
 				prompt_prefix = " ",
@@ -72,6 +68,5 @@ return {
 		})
 
 		telescope.load_extension("fzf")
-		telescope.load_extension("ui-select")
 	end,
 }
