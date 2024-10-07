@@ -3,7 +3,9 @@ return {
 	-- optional, but required for fuzzy finder support
 	event = "VeryLazy",
 	dependencies = {
-		"nvim-telescope/telescope-fzf-native.nvim",
+		{
+			'nvim-telescope/telescope-fzf-native.nvim', build = 'make'
+		}
 	},
 	opts = {},
 	keys = {

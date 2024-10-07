@@ -1,5 +1,6 @@
 return {
 	"lewis6991/gitsigns.nvim",
+	enabled = false,
 	tag = "release", -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
 	event = { "BufReadPre", "BufWritePre" },
 	config = function()
