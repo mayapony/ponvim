@@ -17,49 +17,26 @@ return {
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
-		-- config = function()
-		-- 	vim.o.timeout = true
-		-- 	vim.o.timeoutlen = 300
-		--
-		-- 	require("which-key").setup()
-		-- 	require("which-key").register({
-		-- 		f = { name = "Find & File" },
-		-- 		b = { name = "Buffer" },
-		-- 		c = { name = "Code" },
-		-- 		d = { name = "Debug & Diff" },
-		-- 		g = { name = "Git" },
-		-- 		m = { name = "Manager" },
-		-- 		q = { name = "Session" },
-		-- 		t = { name = "Toggle" },
-		-- 		u = { name = "UI" },
-		-- 		w = { name = "Window" },
-		-- 		x = { name = "Trouble" },
-		-- 		S = { name = "Spectre" },
-		-- 		s = { name = "Search" },
-		-- 		[","] = { name = "Find Buffers" },
-		-- 		["."] = { name = "Find Files" },
-		-- 		["/"] = { name = "Grep" },
-		-- 	}, { prefix = "<leader>" })
-		-- end,
-		opts = {},
-		keys = {
-			{ "<leader>f", group = "Find & File" },
-			{ "<leader>b", group = "Find & File" },
-			{ "<leader>c", group = "Find & File" },
-			{ "<leader>d", group = "Find & File" },
-			{ "<leader>g", group = "Find & File" },
-			{ "<leader>m", group = "Find & File" },
-			{ "<leader>q", group = "Find & File" },
-			{ "<leader>t", group = "Find & File" },
-			{ "<leader>u", group = "Find & File" },
-			{ "<leader>w", group = "Find & File" },
-			{ "<leader>x", group = "Find & File" },
-			{ "<leader>S", group = "Find & File" },
-			{ "<leader>s", group = "Find & File" },
-			{ "<leader>,", group = "Find & File" },
-			{ "<leader>.", group = "Find & File" },
-			{ "<leader>/", group = "Find & File" },
-		}
+		config = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+
+			require("which-key").add({
+				{ "<leader>f", group = "File" },
+				{ "<leader>b", group = "Buffer" },
+				{ "<leader>c", group = "Code" },
+				{ "<leader>d", group = "Debug & Diff" },
+				{ "<leader>g", group = "Git" },
+				{ "<leader>m", group = "Manager" },
+				{ "<leader>q", group = "Session" },
+				{ "<leader>t", group = "Toggle" },
+				{ "<leader>u", group = "UI" },
+				{ "<leader>w", group = "Window" },
+				{ "<leader>x", group = "Trouble" },
+				{ "<leader>S", group = "Spectre" },
+				{ "<leader>s", group = "Search" },
+			})
+		end,
 	},
 	{
 		"NvChad/nvim-colorizer.lua",
