@@ -60,18 +60,5 @@ if not vim.g.vscode then
     },
   })
 else
-  local vscodeConfig = require("config.vscode")
-  vscodeConfig.configure()
-  vscodeConfig.keymaps()
-
-  local options = {
-    root = vim.fn.stdpath("data") .. "/lazy-vscode",
-    lockfile = vim.fn.stdpath("config") .. "/lazy-vscode-lock.json",
-  }
-
-  if vim.loop.os_uname().version:match("Windows") then
-    options.concurrency = 1
-  end
-
-  require("lazy").setup(vscodeConfig.packages(), options)
+  require("vscode.setup")
 end
