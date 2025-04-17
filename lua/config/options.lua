@@ -61,15 +61,17 @@ opt.statusline = ""
 opt.cursorline = true
 
 -- diagnostic config
+local signs = require("config.icons").diagnostics
 vim.diagnostic.config({
   virtual_text = {
     prefix = "●",
   },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = signs.Error,
+      [vim.diagnostic.severity.WARN] = signs.Warn,
+      [vim.diagnostic.severity.HINT] = signs.Hint,
+      [vim.diagnostic.severity.INFO] = signs.Info,
+    },
+  },
 })
-
-local signs = require("config.icons").diagnostics
--- local signs = { Error = "", Warn = "", Hint = "", Info = "" }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
