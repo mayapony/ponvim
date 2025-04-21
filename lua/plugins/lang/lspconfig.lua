@@ -15,7 +15,7 @@ return {
 	config = function()
 		local ensure_installed = {
 			"lua_ls",
-			-- "tailwindcss",
+			"tailwindcss",
 			"bashls",
 			-- "tsserver",
 			-- "eslint"
