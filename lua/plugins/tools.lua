@@ -22,7 +22,7 @@ return {
 			vim.o.timeoutlen = 300
 
 			require("which-key").add({
-				{ "<leader>f", group = "File" },
+				{ "<leader>f", group = "File & Find" },
 				{ "<leader>b", group = "Buffer" },
 				{ "<leader>c", group = "Code" },
 				{ "<leader>d", group = "Debug & Diff" },
