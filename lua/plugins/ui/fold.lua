@@ -81,7 +81,7 @@ return {
           jumpBot = "]",
         },
       },
-      provider_selector = function(bufnr, filetype, buftype)
+      provider_selector = function(bufnr, filetype)
         -- if you prefer treesitter provider rather than lsp,
         -- return ftMap[filetype] or {'treesitter', 'indent'}
         return ftMap[filetype]
@@ -93,12 +93,5 @@ return {
     vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close all folds" })
     vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds, { desc = "Open all folds except specified kinds" })
     vim.keymap.set("n", "zm", require("ufo").closeFoldsWith, { desc = "Close all folds except specified kinds" })
-    vim.keymap.set("n", "K", function()
-      local winid = require("ufo").peekFoldedLinesUnderCursor()
-      if not winid then
-        -- choose one of coc.nvim and nvim lsp
-        vim.lsp.buf.hover()
-      end
-    end, { desc = "Peek folded lines or show lsp info" })
   end,
 }
