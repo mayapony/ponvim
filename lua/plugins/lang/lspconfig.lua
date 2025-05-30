@@ -17,6 +17,7 @@ return {
       "lua_ls",
       "tailwindcss",
       "bashls",
+      "cssls",
       -- "tsserver",
       -- "eslint"
     }
