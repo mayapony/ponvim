@@ -71,6 +71,7 @@ return {
         lualine_c = { diagnostics, require("recorder").recordingStatus, "harpoon2" },
         lualine_x = {
           diff,
+          { require("minuet.lualine") },
         },
         lualine_y = {},
         lualine_z = {

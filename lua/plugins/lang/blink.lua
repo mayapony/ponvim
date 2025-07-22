@@ -55,6 +55,11 @@ return {
         preset = "super-tab",
         ["<S-k>"] = { "scroll_documentation_up", "fallback" },
         ["<S-j>"] = { "scroll_documentation_down", "fallback" },
+        ["<A-y>"] = {
+          function(cmp)
+            cmp.show({ providers = { "minuet" } })
+          end,
+        },
       },
 
       snippets = {
@@ -80,17 +85,22 @@ return {
       },
 
       -- (Default) Only show the documentation popup when manually triggered
-      completion = { documentation = { auto_show = false } },
+      completion = { documentation = { auto_show = false }, trigger = { prefetch_on_insert = false } },
 
       -- Default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
-        default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+        default = { "lazydev", "lsp", "path", "snippets", "buffer", "minuet" },
         providers = {
           lazydev = {
             name = "LazyDev",
             module = "lazydev.integrations.blink",
             -- make lazydev completions top priority (see `:h blink.cmp`)
+            score_offset = 100,
+          },
+          minuet = {
+            name = "minuet",
+            module = "minuet.blink",
             score_offset = 100,
           },
         },
