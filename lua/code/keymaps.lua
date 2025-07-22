@@ -1,8 +1,8 @@
 local function map(mode, lhs, rhs, opts)
-  vim.keymap.set(mode, lhs, rhs, opts)
+	vim.keymap.set(mode, lhs, rhs, opts)
 end
 local function map_cmd(mode, lhs, cmd, opts)
-  vim.keymap.set(mode, lhs, [[<cmd>lua require('vscode-neovim').call(']] .. cmd .. [[')<cr>]], opts)
+	vim.keymap.set(mode, lhs, [[<cmd>lua require('vscode-neovim').call(']] .. cmd .. [[')<cr>]], opts)
 end
 
 -- ui
@@ -13,10 +13,10 @@ map_cmd("n", "<leader>uz", "workbench.action.toggleZenMode", {})
 map_cmd({ "n", "x" }, "<leader>.", "workbench.action.quickOpen", {})
 map_cmd("n", "<leader>fp", "workbench.action.openRecent", { desc = "find project" })
 map(
-  "n",
-  "<leader>fw",
-  [[<Cmd>lua require('vscode-neovim').action('workbench.action.findInFiles', { args = { query = vim.fn.expand('<cword>') } })<CR>]],
-  {}
+	"n",
+	"<leader>fw",
+	[[<Cmd>lua require('vscode-neovim').action('workbench.action.findInFiles', { args = { query = vim.fn.expand('<cword>') } })<CR>]],
+	{}
 )
 
 -- redo undo

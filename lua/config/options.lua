@@ -36,8 +36,8 @@ opt.autowrite = true
 opt.autoread = true
 
 if vim.fn.has("nvim-0.9.0") == 1 then
-  opt.splitkeep = "screen"
-  opt.shortmess:append({ C = true })
+	opt.splitkeep = "screen"
+	opt.shortmess:append({ C = true })
 end
 
 -- indent blankline config
@@ -63,15 +63,15 @@ opt.cursorline = true
 -- diagnostic config
 local signs = require("config.icons").diagnostics
 vim.diagnostic.config({
-  virtual_text = {
-    prefix = "●",
-  },
-  signs = {
-    text = {
-      [vim.diagnostic.severity.ERROR] = signs.Error,
-      [vim.diagnostic.severity.WARN] = signs.Warn,
-      [vim.diagnostic.severity.HINT] = signs.Hint,
-      [vim.diagnostic.severity.INFO] = signs.Info,
-    },
-  },
+	virtual_text = {
+		prefix = "●",
+	},
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = signs.Error,
+			[vim.diagnostic.severity.WARN] = signs.Warn,
+			[vim.diagnostic.severity.HINT] = signs.Hint,
+			[vim.diagnostic.severity.INFO] = signs.Info,
+		},
+	},
 })
