@@ -5,6 +5,60 @@ return {
 		config = function()
 			local conform = require("conform")
 
+			-- 获取项目格式化状态的存储路径
+			local function get_format_state_path()
+				return vim.fn.stdpath("data") .. "/project_format_states.json"
+			end
+
+			-- 加载项目格式化状态
+			local function load_format_states()
+				local path = get_format_state_path()
+				local file = io.open(path, "r")
+				if file then
+					local content = file:read("*all")
+					file:close()
+					local ok, states = pcall(vim.json.decode, content)
+					if ok then
+						return states
+					end
+				end
+				return {}
+			end
+
+			-- 保存项目格式化状态
+			local function save_format_states(states)
+				local path = get_format_state_path()
+				local file = io.open(path, "w")
+				if file then
+					file:write(vim.json.encode(states))
+					file:close()
+				end
+			end
+
+			-- 获取当前项目路径
+			local function get_project_path()
+				return vim.fn.getcwd()
+			end
+
+			-- 检查当前项目是否启用格式化
+			local function is_format_enabled()
+				local states = load_format_states()
+				local project = get_project_path()
+				-- 默认启用格式化
+				return states[project] ~= false
+			end
+
+			-- 切换当前项目的格式化状态
+			local function toggle_format()
+				local states = load_format_states()
+				local project = get_project_path()
+				states[project] = not is_format_enabled()
+				save_format_states(states)
+
+				local status = states[project] and "enabled" or "disabled"
+				vim.notify(string.format("Formatting %s for project: %s", status, project), vim.log.levels.INFO)
+			end
+
 			conform.setup({
 				formatters_by_ft = {
 					javascript = { "prettierd", "eslint_d" },
@@ -21,12 +75,22 @@ return {
 					lua = { "stylua" },
 					python = { "isort", "black" },
 				},
-				format_on_save = {
-					lsp_fallback = true,
-					async = false,
-					timeout_ms = 500,
-				},
+				format_on_save = function(bufnr)
+					-- 检查当前项目是否启用格式化
+					if not is_format_enabled() then
+						return
+					end
+					-- 返回格式化配置
+					return {
+						lsp_fallback = true,
+						async = false,
+						timeout_ms = 500,
+					}
+				end,
 			})
+
+			-- 设置快捷键
+			vim.keymap.set("n", "<leader>tf", toggle_format, { desc = "[T]oggle [F]ormat" })
 		end,
 	},
 
