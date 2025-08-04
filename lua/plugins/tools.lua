@@ -24,7 +24,7 @@ return {
 			require("which-key").add({
 				{ "<leader>f", group = "File & Find" },
 				{ "<leader>b", group = "Buffer" },
-				{ "<leader>c", group = "Code" },
+				{ "<leader>c", group = "Code & Choose" },
 				{ "<leader>d", group = "Debug & Diff" },
 				{ "<leader>g", group = "Git" },
 				{ "<leader>m", group = "Manager" },
