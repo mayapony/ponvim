@@ -60,6 +60,7 @@ return {
 						cmp.show({ providers = { "minuet" } })
 					end,
 				},
+				["<C-k>"] = { "show", "show_documentation", "hide_documentation" },
 			},
 
 			snippets = {
