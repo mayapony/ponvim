@@ -31,5 +31,10 @@ return {
 			"<cmd>DiffviewClose<cr>",
 			desc = "[G]it [D]iff [C]lose",
 		},
+		{
+			"<leader>gdo",
+			"<cmd>DiffviewOpen<cr>",
+			desc = "[G]it [D]iff [O]pen",
+		},
 	},
 }
