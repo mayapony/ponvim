@@ -19,7 +19,7 @@ return {
 			"bashls",
 			"cssls",
 			-- "tsserver",
-			-- "eslint"
+			-- "eslint_d"
 		}
 
 		require("mason").setup()

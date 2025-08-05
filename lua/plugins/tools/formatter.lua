@@ -112,6 +112,17 @@ return {
 				python = { "pylint" },
 			}
 
+			-- Fix Eslint Error
+			-- 1. Could not parse linter output due to: Expected value but found invalid token at character 1 output: Error: Could not find config file.
+			-- https://github.com/mfussenegger/nvim-lint/issues/462
+			lint.linters.eslint_d = require("lint.util").wrap(lint.linters.eslint_d, function(diagnostic)
+				-- try to ignore "No ESLint configuration found" error
+				if diagnostic.message:find("Error: Could not find config file") then
+					return nil
+				end
+				return diagnostic
+			end)
+
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
