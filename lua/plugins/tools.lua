@@ -22,10 +22,11 @@ return {
 			vim.o.timeoutlen = 300
 
 			require("which-key").add({
-				{ "<leader>f", group = "File & Find" },
+				{ "<leader>a", group = "Avante" },
 				{ "<leader>b", group = "Buffer" },
 				{ "<leader>c", group = "Code & Choose" },
 				{ "<leader>d", group = "Debug & Diff" },
+				{ "<leader>f", group = "File & Find" },
 				{ "<leader>g", group = "Git" },
 				{ "<leader>m", group = "Manager" },
 				{ "<leader>q", group = "Session" },
@@ -35,6 +36,12 @@ return {
 				{ "<leader>x", group = "Trouble" },
 				{ "<leader>S", group = "Spectre" },
 				{ "<leader>s", group = "Search" },
+			})
+
+			require("which-key").setup({
+				icons = {
+					mappings = false,
+				},
 			})
 		end,
 	},
