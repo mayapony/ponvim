@@ -1,3 +1,5 @@
+local funs = require("config.function")
+
 local M = {}
 local function map(mode, lhs, rhs, opts)
 	vim.keymap.set(mode, lhs, rhs, opts)
@@ -54,6 +56,9 @@ function M.initNvim()
 
 	-- Clear search with <esc>
 	map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+
+	-- reload neovim config
+	map("n", "<leader>rc", funs.reload_config, { desc = "Reload config" })
 end
 
 return M
