@@ -5,6 +5,7 @@ return {
 		"yetone/avante.nvim",
 		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 		-- ⚠️ must add this setting! ! !
+		enabled = false,
 		build = function()
 			-- conditionally use the correct build system for the current OS
 			if vim.fn.has("win32") == 1 then
@@ -34,11 +35,11 @@ return {
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
 			--- The below dependencies are optional,
-			"echasnovski/mini.pick", -- for file_selector provider mini.pick
+			"echasnovski/mini.pick",      -- for file_selector provider mini.pick
 			"nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-			"ibhagwan/fzf-lua", -- for file_selector provider fzf
-			"stevearc/dressing.nvim", -- for input provider dressing
-			"folke/snacks.nvim", -- for input provider snacks
+			"ibhagwan/fzf-lua",           -- for file_selector provider fzf
+			"stevearc/dressing.nvim",     -- for input provider dressing
+			"folke/snacks.nvim",          -- for input provider snacks
 			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
 			{
 				-- Make sure to set this up properly if you have lazy=true
@@ -78,10 +79,9 @@ return {
 				provider = "openai_compatible",
 				provider_options = {
 					openai_compatible = {
-						api_key = "NEOVIM_API_KEY",
-						end_point = "https://mify-be-idpt.pt.xiaomi.com/open/api/v1/chat/completions",
-						model = "gemini-2.0-flash-lite",
-						name = "mify",
+						api_key = "QWEN_API_KEY",
+						end_point = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
+						model = "qwen2.5-coder-32b-instruct",
 						stream = true,
 					},
 				},
