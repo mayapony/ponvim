@@ -55,11 +55,6 @@ return {
 				preset = "super-tab",
 				["<S-k>"] = { "scroll_documentation_up", "fallback" },
 				["<S-j>"] = { "scroll_documentation_down", "fallback" },
-				["<A-y>"] = {
-					function(cmp)
-						cmp.show({ providers = { "minuet" } })
-					end,
-				},
 				["<C-k>"] = { "show", "show_documentation", "hide_documentation" },
 			},
 
@@ -91,17 +86,12 @@ return {
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
-				default = { "lazydev", "lsp", "path", "snippets", "buffer", "minuet" },
+				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
 				providers = {
 					lazydev = {
 						name = "LazyDev",
 						module = "lazydev.integrations.blink",
 						-- make lazydev completions top priority (see `:h blink.cmp`)
-						score_offset = 100,
-					},
-					minuet = {
-						name = "minuet",
-						module = "minuet.blink",
 						score_offset = 100,
 					},
 				},
