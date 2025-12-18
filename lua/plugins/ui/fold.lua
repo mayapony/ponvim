@@ -3,7 +3,7 @@ local setup_fold_options = function()
 	local opt = vim.opt
 	-- fold config
 	opt.foldcolumn = "1" -- '0' is not bad
-	opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+	opt.foldlevel = 99  -- Using ufo provider need a large value, feel free to decrease the value
 	opt.foldlevelstart = 99
 	opt.foldenable = true
 	opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
@@ -46,24 +46,6 @@ return {
 	},
 	config = function()
 		setup_fold_options()
-
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		capabilities.textDocument.foldingRange = {
-			dynamicRegistration = false,
-			lineFoldingOnly = true,
-		}
-		local language_servers = require("lspconfig").util.available_servers() -- or list servers manually like {'gopls', 'clangd'}
-		for _, ls in ipairs(language_servers) do
-			require("lspconfig")[ls].setup({
-				capabilities = capabilities,
-			})
-		end
-		local ftMap = {
-			vim = "indent",
-			python = { "indent" },
-			git = "",
-		}
-
 		---@diagnostic disable-next-line: missing-fields
 		require("ufo").setup({
 			open_fold_hl_timeout = 150,
@@ -82,11 +64,7 @@ return {
 				},
 			},
 			provider_selector = function(bufnr, filetype)
-				-- if you prefer treesitter provider rather than lsp,
-				-- return ftMap[filetype] or {'treesitter', 'indent'}
-				return ftMap[filetype]
-
-				-- refer to ./doc/example.lua for detail
+				return { 'treesitter', 'indent' }
 			end,
 		})
 		vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })

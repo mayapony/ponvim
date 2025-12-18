@@ -1,16 +1,17 @@
 return {
 	{
-		dir = "~/Code/Github/conf-toc.nvim", -- Path to your local plugin
-		lazy = false,
-		config = function()
-			require("conf-toc").setup({
-				-- Your configuration options here
-				header_marker = "#",
-				toc_title = "Table of Contents",
-				indent_char = " ",
-				link_format = " ...................... "
-			})
-		end
+		'nvim-mini/mini.files',
+		version = '*',
+		opts = {},
+		keys = {
+			{
+				"<leader>fe",
+				function()
+					require('mini.files').open()
+				end,
+				desc = "[F]ile [E]ditor",
+			},
+		},
 	},
 	{
 		"ojroques/nvim-bufdel",
