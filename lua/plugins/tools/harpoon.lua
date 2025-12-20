@@ -1,3 +1,51 @@
+local function get_harpoon_keymaps()
+	local keymaps = {
+		{
+			"<leader>hm",
+			function()
+				require("harpoon"):list():add()
+			end,
+			desc = "[H]arpoon [M]ark",
+		},
+		{
+			"<leader>ho",
+			function()
+				require("harpoon").ui.toggle_quick_menu(require("harpoon"):list())
+			end,
+			desc = "[H]arpoon [O]pen quick menu",
+		},
+		{
+			"<leader>hp",
+			function()
+				require("harpoon"):list():prev()
+			end,
+			desc = "[H]arpoon [P]revious",
+		},
+		{
+			"<leader>hn",
+			function()
+				require("harpoon"):list():next()
+			end,
+			desc = "[H]arpoon [N]ext",
+		},
+	}
+
+	local quick_select_keys = "asdfghjkl"
+	for i = 1, #quick_select_keys do
+		local key = quick_select_keys:sub(i, i)
+		local keymap = {
+			"<leader>h" .. key,
+			function()
+				require("harpoon"):list():select(i)
+			end,
+			desc = "Harpoon: Select item " .. i,
+		}
+		table.insert(keymaps, keymap)
+	end
+
+	return keymaps
+end
+
 return {
 	"ThePrimeagen/harpoon",
 	branch = "harpoon2",
@@ -13,62 +61,5 @@ return {
 			harpoon.ui:toggle_quick_menu(harpoon:list())
 		end)
 	end,
-	keys = {
-		{
-			"mm",
-			function()
-				require("harpoon"):list():add()
-			end,
-			desc = "Add file to list",
-		},
-		{
-			"<C-e>",
-			function()
-				require("harpoon").ui.toggle_quick_menu(require("harpoon"):list())
-			end,
-			desc = "Open quick menu",
-		},
-		{
-			"m1",
-			function()
-				require("harpoon"):list():select(1)
-			end,
-			desc = "Select 1st item",
-		},
-		{
-			"m2",
-			function()
-				require("harpoon"):list():select(2)
-			end,
-			desc = "Select 2nd item",
-		},
-		{
-			"m3",
-			function()
-				require("harpoon"):list():select(3)
-			end,
-			desc = "Select 3rd item",
-		},
-		{
-			"m4",
-			function()
-				require("harpoon"):list():select(4)
-			end,
-			desc = "Select 4th item",
-		},
-		{
-			"[m",
-			function()
-				require("harpoon"):list():prev()
-			end,
-			desc = "Previous item",
-		},
-		{
-			"]m",
-			function()
-				require("harpoon"):list():next()
-			end,
-			desc = "Next item",
-		},
-	},
+	keys = get_harpoon_keymaps(),
 }

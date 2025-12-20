@@ -20,68 +20,67 @@ return {
 			},
 		},
 	},
-	opts = function(plugin)
-		if plugin.override then
-			require("lazyvim.util").deprecate("lualine.override", "lualine.opts")
-		end
-
-		local icons = require("config.icons")
-
-		local diagnostics = {
-			"diagnostics",
-			sources = { "nvim_diagnostic" },
-			sections = { "error", "warn", "info", "hint" },
-			symbols = {
-				error = icons.diagnostics.Error,
-				hint = icons.diagnostics.Hint,
-				info = icons.diagnostics.Info,
-				warn = icons.diagnostics.Warn,
-			},
-			colored = true,
-			update_in_insert = false,
-			always_visible = false,
-		}
-
-		local diff = {
-			"diff",
-			symbols = {
-				added = icons.git.added .. " ",
-				untracked = icons.git.added .. " ",
-				modified = icons.git.changed .. " ",
-				removed = icons.git.deleted .. " ",
-			},
-			colored = true,
-			always_visible = false,
-		}
-
+	opts = function()
 		return {
 			options = {
 				theme = "auto",
 				globalstatus = true,
+				disabled_filetypes = { statusline = { "dashboard", "lazy", "alpha", "neo-tree", "Trouble" } },
 				component_separators = { left = "", right = "" },
-				section_separators = { left = "", right = "" },
-				disabled_filetypes = { statusline = { "dashboard", "lazy", "alpha", "neo-tree", "Trouble", "term" } },
 			},
-			extensions = { "toggleterm" },
 			sections = {
-				lualine_a = {
-					"mode",
-				},
-				lualine_b = { "filename" },
-				lualine_c = { diagnostics, require("recorder").recordingStatus, "harpoon2" },
-				lualine_x = {
-					diff,
-				},
-				lualine_y = {},
-				lualine_z = {
-					{ "location", separator = " ", padding = { left = 0, right = 0 } },
+				lualine_a = {},
+				lualine_b = {},
+				lualine_c = {
 					{
-						"progress",
-						separator = " ",
-						padding = { left = 1, right = 1 },
+						"filetype",
+						icon_only = true,
+						separator = "",
+						padding = {
+							left = 1,
+							right = 0,
+						},
+					},
+					{
+						"filename",
+						path = 1,
+						symbols = {
+							modified = "*",
+							readonly = "",
+							unnamed = "",
+						},
+					},
+					{
+						"harpoon2",
+						icon = ""
+					},
+					{
+						"diagnostics",
 					},
 				},
+				lualine_x = {
+					{
+						require("noice").api.status.command.get,
+						cond = require("noice").api.status.command.has,
+					},
+					{
+						require("noice").api.status.mode.get,
+						cond = require("noice").api.status.mode.has,
+					},
+					{
+						require("noice").api.status.search.get,
+						cond = require("noice").api.status.search.has,
+					},
+					{
+						"diff",
+					},
+					{ "progress", separator = " ",                  padding = { left = 1, right = 0 } },
+					{ "location", padding = { left = 0, right = 1 } },
+				},
+				lualine_y = {},
+				lualine_z = {},
 			},
+			extensions = { "toggleterm" },
 		}
 	end,
 }
