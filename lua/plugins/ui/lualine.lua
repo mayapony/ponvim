@@ -7,7 +7,7 @@ return {
 		{
 			"chrisgrieser/nvim-recorder",
 			evnent = "BufReadPost",
-			dependencies = "rcarriga/nvim-notify", -- optional
+			-- dependencies = "rcarriga/nvim-notify", -- optional
 			opts = {},
 		},
 		{

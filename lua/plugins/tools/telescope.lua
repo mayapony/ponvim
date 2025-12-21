@@ -10,20 +10,20 @@ return {
 	keys = function()
 		local builtin = require("telescope.builtin")
 		return {
-			{ "<leader>.", builtin.find_files, desc = "Find Files" },
-			{ "<leader>/", builtin.live_grep, desc = "Find in global" },
-			{ "<leader>fg", builtin.live_grep, desc = "Find in global" },
-			{ "<leader>,", builtin.buffers, desc = "Find buffers" },
-			{ "<leader>fh", builtin.help_tags, desc = "Find helps" },
-			{ "<leader>fm", builtin.marks, desc = "Find marks" },
-			{ "<leader>fw", builtin.grep_string, desc = "Find words" },
-			{ "<leader>fr", builtin.oldfiles, desc = "Find recent" },
-			{ "<leader>fN", "<cmd>Telescope notify<cr>", desc = "Find notify" },
-			{ "<leader>uC", builtin.colorscheme, desc = "Change Colorscheme " },
+			{ "<leader>.",  builtin.find_files,         desc = "Find Files" },
+			{ "<leader>/",  builtin.live_grep,          desc = "Find in global" },
+			{ "<leader>fg", builtin.live_grep,          desc = "Find in global" },
+			{ "<leader>,",  builtin.buffers,            desc = "Find buffers" },
+			{ "<leader>fh", builtin.help_tags,          desc = "Find helps" },
+			{ "<leader>fm", builtin.marks,              desc = "Find marks" },
+			{ "<leader>fw", builtin.grep_string,        desc = "Find words" },
+			{ "<leader>fr", builtin.oldfiles,           desc = "Find recent" },
+			{ "<leader>fn", "<cmd>Noice pick<cr>",      desc = "[F]ilter [N]oice" },
+			{ "<leader>uC", builtin.colorscheme,        desc = "Change Colorscheme " },
 			{ "<leader>fd", [[<cmd>TodoTelescope<cr>]], desc = "Find todos" },
 
 			-- lsp
-			{ "<leader>ca", vim.lsp.buf.code_action, desc = "code action" },
+			{ "<leader>ca", vim.lsp.buf.code_action,    desc = "code action" },
 		}
 	end,
 	cmd = { "Telescope" },
@@ -33,7 +33,7 @@ return {
 		telescope.setup({
 			extensions = {
 				fzf = {
-					fuzzy = true, -- false will only do exact matching
+					fuzzy = true,              -- false will only do exact matching
 					override_generic_sorter = true, -- override the generic sorter
 					override_file_sorter = true, -- override the file sorter
 					case_mode = "ignore_case", -- or "ignore_case" or "respect_case"

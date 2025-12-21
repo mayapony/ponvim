@@ -19,7 +19,8 @@ M.lsp_attach_callback = function(bufnr)
 	nmap("gx", builtin.diagnostics, "[G]oto Diagnostics")
 	nmap("ge", vim.diagnostic.open_float, "[G]oto [E]rror")
 
-	-- See `:help K` for why this keymap
+	-- not truncate information
+	-- source: https://www.reddit.com/r/neovim/comments/1kqt7tz/how_do_i_get_vimlspbufhover_to_not_truncate/
 	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
 	nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 

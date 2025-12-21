@@ -33,9 +33,9 @@ return {
 		build = ":TSUpdate",
 		branch = "main",
 		event = { "BufReadPre", "BufNewFile" },
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter-context",
-		},
+		-- dependencies = {
+		-- 	"nvim-treesitter/nvim-treesitter-context",
+		-- },
 		config = function()
 			local ts = require('nvim-treesitter')
 
@@ -100,7 +100,7 @@ return {
 
 					-- Start highlighting immediately (works if parser exists)
 					if is_file_too_large(buf, 100) then
-						require("notify")("File too large to highlight", vim.log.levels.WARN)
+						vim.notify("File too large to highlight", vim.log.levels.WARN)
 					else
 						pcall(vim.treesitter.start, buf, lang)
 					end
