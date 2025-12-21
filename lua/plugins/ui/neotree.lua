@@ -61,7 +61,7 @@ return {
 			enable_git_status = true,
 			enable_diagnostics = false,
 			window = {
-				width = 40,
+				width = 30,
 			},
 			default_component_configs = {
 				indent = {

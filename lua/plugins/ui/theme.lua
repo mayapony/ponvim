@@ -40,7 +40,7 @@ return {
 				transparent_background = false, -- disables setting the background color.
 				term_colors = true,         -- sets terminal colors (e.g. `g:terminal_color_0`)
 				dim_inactive = {
-					enabled = true,           -- dims the background color of inactive window
+					enabled = false,          -- dims the background color of inactive window
 					shade = "dark",
 					percentage = 0.15,        -- percentage of the shade to apply to the inactive window
 				},
@@ -57,11 +57,13 @@ return {
 				show_end_of_buffer = true,
 				custom_highlights = function(colors)
 					return {
+						-- bufferline
 						BufferlineOffset = {
 							-- bg = colors.mantle,
 							fg = colors.pink,
 							bold = true,
 						},
+						-- neotree
 						NeoTreeNormal = { bg = colors.base },
 						NeoTreeNormalNC = { bg = colors.base },
 						IndentlineStyle = { fg = colors.pink },
@@ -69,10 +71,13 @@ return {
 						NeoTreeDirectoryIcon = { fg = colors.pink },
 						NeoTreeTitleBar = { fg = colors.pink },
 						NeoTreeRootName = { fg = colors.pink },
+						-- alpha
 						AlphaHeader = { fg = colors.pink },
 						AlphaButtons = { fg = colors.pink },
 						AlphaShortcut = { fg = colors.pink },
 						PinkText = { fg = colors.pink },
+
+						-- global
 						Directory = { fg = colors.pink }
 					}
 				end,
