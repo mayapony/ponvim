@@ -57,6 +57,7 @@ return {
 					},
 					{
 						"diagnostics",
+						symbols = require('config.icons').diagnostics
 					},
 				},
 				lualine_x = {
