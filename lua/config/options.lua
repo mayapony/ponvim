@@ -54,9 +54,12 @@ opt.pumheight = 10 -- Maximum number of entries in a popup
 -- don't display ~ for blank lines
 opt.fillchars = "eob: "
 
--- disable default status line
-opt.laststatus = 2 -- Or 3 for global statusline
-opt.statusline = ""
+-- native statusline (replaces lualine)
+opt.laststatus = 3 -- global statusline
+opt.statusline = "%!v:lua.require('config.statusline').get()"
+
+-- native statuscolumn (replaces statuscol.nvim)
+opt.statuscolumn = "%s%{v:relnum ? v:relnum : v:lnum} "
 
 opt.cursorline = true
 

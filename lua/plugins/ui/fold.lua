@@ -42,7 +42,6 @@ return {
 	event = "BufReadPost",
 	dependencies = {
 		"kevinhwang91/promise-async",
-		"luukvbaal/statuscol.nvim",
 	},
 	config = function()
 		setup_fold_options()

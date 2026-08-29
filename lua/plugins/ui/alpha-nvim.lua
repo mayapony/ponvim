@@ -1,9 +1,6 @@
 return {
 	"goolord/alpha-nvim",
 	event = "VimEnter",
-	dependencies = {
-		"luukvbaal/statuscol.nvim",
-	},
 	opts = function()
 		local dashboard = require("alpha.themes.dashboard")
 		local logo = [[

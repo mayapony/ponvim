@@ -109,11 +109,47 @@ autocmd({ "BufWritePre" }, {
 	end,
 })
 
+-- refresh native statusline when async data updates
+vim.api.nvim_create_autocmd("DiagnosticChanged", {
+	group = augroup("statusline"),
+	callback = function()
+		vim.cmd.redrawstatus()
+	end,
+})
+vim.api.nvim_create_autocmd("User", {
+	pattern = "GitSignsUpdate",
+	group = augroup("statusline"),
+	callback = function()
+		vim.cmd.redrawstatus()
+	end,
+})
+
 -- Auto disable folding for some filetypes
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "neo-tree" },
 	callback = function()
 		require("ufo").detach()
 		vim.opt_local.foldenable = false
+	end,
+})
+
+-- native statuscolumn: fall back to default column for some filetypes
+local ft_ignore_statuscol = {
+	alpha = true,
+	["neo-tree"] = true,
+	neotree = true,
+	Trouble = true,
+	help = true,
+	vim = true,
+	dashboard = true,
+	lazy = true,
+	toggleterm = true,
+	DiffviewFiles = true,
+	["leetcode.nvim"] = true,
+}
+vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
+	group = augroup("statuscolumn"),
+	callback = function()
+		vim.wo.statuscolumn = ft_ignore_statuscol[vim.bo.filetype] and "" or vim.o.statuscolumn
 	end,
 })
