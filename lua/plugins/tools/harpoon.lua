@@ -1,6 +1,7 @@
 return {
 	"ThePrimeagen/harpoon",
 	branch = "harpoon2",
+	lazy = false,
 	dependencies = { "nvim-lua/plenary.nvim" },
 	config = function()
 		local harpoon = require("harpoon")
@@ -9,11 +10,11 @@ return {
 
 		local keymaps = {
 			{
-				"<leader>hm",
+				"<leader>hh",
 				function()
 					require("harpoon"):list():add()
 				end,
-				desc = "[H]arpoon [M]ark",
+				desc = "[HH]arpoon Mark",
 			},
 			{
 				"<leader>ho",

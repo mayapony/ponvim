@@ -51,16 +51,6 @@ opt.winblend = 40  -- Fix float black 100 for full transparent
 -- source from: https://github.com/catppucin/nvim/issues/412
 opt.pumheight = 10 -- Maximum number of entries in a popup
 
--- don't display ~ for blank lines
-opt.fillchars = "eob: "
-
--- native statusline (replaces lualine)
-opt.laststatus = 3 -- global statusline
-opt.statusline = "%!v:lua.require('config.statusline').get()"
-
--- native statuscolumn (replaces statuscol.nvim)
-opt.statuscolumn = "%s%{v:relnum ? v:relnum : v:lnum} "
-
 opt.cursorline = true
 
 -- diagnostic config
