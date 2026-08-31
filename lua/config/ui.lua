@@ -210,6 +210,14 @@ local ignored = {
 	Trouble = true,
 }
 
+function M.statuscolumn()
+	if ignored[vim.bo.filetype] then
+		return ""
+	end
+	local num = vim.v.relnum ~= 0 and vim.v.relnum or vim.v.lnum
+	return M.fold_glyph() .. " " .. num .. " "
+end
+
 function M.statusline()
 	if ignored[vim.bo.filetype] then
 		return ""
@@ -250,7 +258,7 @@ end
 function M.setup()
 	vim.o.laststatus = 3 -- global statusline
 	vim.o.statusline = "%!v:lua.require('config.ui').statusline()"
-	vim.o.statuscolumn = "%s%{v:lua.require('config.ui').fold_glyph()} %{v:relnum ? v:relnum : v:lnum} "
+	vim.o.statuscolumn = "%s%{v:lua.require('config.ui').statuscolumn()}"
 
 	-- refresh statusline when async data updates
 	vim.api.nvim_create_autocmd("DiagnosticChanged", {
