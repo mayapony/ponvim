@@ -1,7 +1,7 @@
 return {
 	{
 		"pmizio/typescript-tools.nvim",
-		ft = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact" },
+		-- not auto-loaded; enabled on demand with <leader>ll
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 		config = function()
 			local api = require("typescript-tools.api")

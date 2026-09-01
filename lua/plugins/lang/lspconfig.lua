@@ -2,9 +2,7 @@ local icons = require("config.icons")
 
 return {
 	"neovim/nvim-lspconfig",
-	-- lazy load lspconfig
-	-- source: https://www.reddit.com/r/neovim/comments/1308ie7/help_how_to_lazy_load_lspconfig/
-	event = { "BufReadPre", "BufNewFile" },
+	-- LSP is disabled by default; enable on demand with <leader>ll (see config/keymaps.lua)
 	cmd = { "LspInfo", "LspInstall", "LspUninstall" },
 	dependencies = {
 		{ "williamboman/mason-lspconfig.nvim" },

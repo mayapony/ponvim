@@ -38,6 +38,26 @@ function M.initNvim()
 	-- lazy
 	vim.keymap.set("n", "<leader>ml", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
+	-- toggle LSP (disabled by default)
+	vim.keymap.set("n", "<leader>ll", function()
+		if vim.g.lsp_enabled then
+			-- ponytail: vim.lsp._enabled_configs is internal; revisit if a public list API appears
+			vim.g.lsp_servers = vim.tbl_keys(vim.lsp._enabled_configs)
+			for _, name in ipairs(vim.g.lsp_servers) do
+				pcall(vim.lsp.enable, name, false)
+			end
+			vim.g.lsp_enabled = false
+			vim.notify("LSP disabled", vim.log.levels.INFO, { title = "LSP" })
+		else
+			require("lazy.core.loader").load({ "nvim-lspconfig", "typescript-tools.nvim" }, { key = "<leader>ll" })
+			for _, name in ipairs(vim.g.lsp_servers or {}) do
+				pcall(vim.lsp.enable, name)
+			end
+			vim.g.lsp_enabled = true
+			vim.notify("LSP enabled", vim.log.levels.INFO, { title = "LSP" })
+		end
+	end, { desc = "Toggle LSP" })
+
 	-- Resize window using <ctrl> arrow keys
 	map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
 	map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
