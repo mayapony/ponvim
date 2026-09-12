@@ -3,11 +3,18 @@ return {
 	event = "VeryLazy",
 	keys = {
 		{
-			"<leader>e",
+			"<leader>ee",
 			function()
 				require("oil").toggle_float()
 			end,
-			desc = "Explorer Oil",
+			desc = "[E]xplore",
+		},
+		{
+			"<leader>er",
+			function()
+				require("oil").toggle_float(vim.fs.root(0, { ".git" }) or vim.fn.getcwd())
+			end,
+			desc = "[E]xplore [R]oot",
 		},
 	},
 	dependencies = { "nvim-tree/nvim-web-devicons" },
