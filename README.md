@@ -24,7 +24,7 @@ React Project
 - 🧠 Mason + nvim-lspconfig + typescript-tools 的 LSP 配置
 - 🌳 Treesitter 语法高亮、折叠与文本对象
 - 🪄 Conform 格式化 + nvim-lint 代码检查
-- 🪟 全键盘操作：Telescope / fzf-lua / mini.files 多种查找方式
+- 🪟 全键盘操作：Telescope / mini.files 多种查找方式
 - 🗂️ 文件管理（oil）、Yazi、Neogit、Trouble 等工具
 - 📁 会话持久化（persistence.nvim）与 Harpoon 快速跳转
 - 💻 额外支持 VSCode 内嵌 Neovim（`vim.g.vscode` 模式）
@@ -33,7 +33,7 @@ React Project
 
 - [Neovim](https://github.com/neovim/neovim) >= 0.9（推荐最新稳定版）
 - [git](https://git-scm.com/)
-- [ripgrep](https://github.com/BurntSushi/ripgrep) —— Telescope / fzf-lua 的 `live_grep` 依赖
+- [ripgrep](https://github.com/BurntSushi/ripgrep) —— Telescope 的 `live_grep` 依赖
 - [Nerd Font](https://www.nerdfonts.com/) —— 图标显示
 - 支持 true color 的终端
 
@@ -110,7 +110,7 @@ React Project
 | 编辑 | mini.surround、mini.ai、mini.pairs、treesj、flash.nvim、nvim-ts-autotag、nvim-ts-context-commentstring |
 | 补全 | blink.cmp、blink.compat、LuaSnip、friendly-snippets |
 | 语法 | nvim-treesitter |
-| 查找 | telescope.nvim、telescope-fzf-native.nvim、fzf-lua、mini.files |
+| 查找 | telescope.nvim、telescope-fzf-native.nvim、mini.files |
 | Git | neogit、gitsigns.nvim、diffview.nvim |
 | 格式化 / 检查 | conform.nvim、nvim-lint |
 | UI | catppuccin、lualine.nvim、statuscol.nvim、noice.nvim、dressing.nvim、alpha-nvim、oil.nvim、nvim-web-devicons、nvim-colorizer.lua |
@@ -146,7 +146,7 @@ React Project
 | `<C-t>` | 终端进入 Normal 模式 |
 | `<C-h/j/k/l>` | 终端 / tmux 窗格导航 |
 
-### 查找（Telescope / fzf-lua）
+### 查找（Telescope）
 
 | 快捷键 | 描述 |
 | --- | --- |
