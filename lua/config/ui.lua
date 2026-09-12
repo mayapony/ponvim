@@ -249,6 +249,60 @@ function M.statusline()
 end
 
 ------------------------------------------------------------
+-- Mode indicator: cursorline tint per mode (replaces modes.nvim)
+------------------------------------------------------------
+local MODE_COLORS = {
+	copy = "#f5c359",   -- operator-pending: y
+	delete = "#c75c6a", -- operator-pending: d/c/x/...
+	insert = "#78ccc5",
+	visual = "#9745be",
+}
+local MODE_OPACITY = 0.15
+
+local function blend(fg_hex, alpha)
+	local bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
+	local fg = vim.api.nvim_get_color_by_name(fg_hex)
+	if not bg or not fg or fg == -1 then
+		return nil
+	end
+	local function channel(shift)
+		local a = bit.band(bit.rshift(fg, shift), 0xff)
+		local b = bit.band(bit.rshift(bg, shift), 0xff)
+		return math.floor(a * alpha + b * (1 - alpha) + 0.5)
+	end
+	return string.format("#%02x%02x%02x", channel(16), channel(8), channel(0))
+end
+
+local mode_tints = {}
+local default_cursorline = nil
+local default_cursorlinenr = nil
+
+local function define_mode_tints()
+	default_cursorline = vim.api.nvim_get_hl(0, { name = "CursorLine" }).bg
+	default_cursorlinenr = vim.api.nvim_get_hl(0, { name = "CursorLineNr" }).bg
+	for name, hex in pairs(MODE_COLORS) do
+		mode_tints[name] = blend(hex, MODE_OPACITY)
+	end
+end
+
+local function current_mode_tint()
+	local mode = vim.api.nvim_get_mode().mode
+	if mode == "i" then
+		return mode_tints.insert
+	elseif mode == "v" or mode == "V" or mode == "\22" then
+		return mode_tints.visual
+	elseif mode == "no" then
+		return vim.v.operator == "y" and mode_tints.copy or mode_tints.delete
+	end
+end
+
+local function update_mode_tint()
+	local tint = current_mode_tint()
+	vim.api.nvim_set_hl(0, "CursorLine", { bg = tint or default_cursorline })
+	vim.api.nvim_set_hl(0, "CursorLineNr", { bg = tint or default_cursorlinenr })
+end
+
+------------------------------------------------------------
 -- Setup: options + autocmds
 ------------------------------------------------------------
 local function augroup(name)
@@ -260,16 +314,33 @@ function M.setup()
 	vim.o.statusline = "%!v:lua.require('config.ui').statusline()"
 	vim.o.statuscolumn = "%s%{v:lua.require('config.ui').statuscolumn()}"
 
+	-- mode cursorline tint (replaces modes.nvim)
+	local mode_group = augroup("mode")
+	define_mode_tints()
+	update_mode_tint()
+	vim.api.nvim_create_autocmd("ModeChanged", {
+		group = mode_group,
+		callback = update_mode_tint,
+	})
+	vim.api.nvim_create_autocmd("ColorScheme", {
+		group = mode_group,
+		callback = function()
+			define_mode_tints()
+			update_mode_tint()
+		end,
+	})
+
 	-- refresh statusline when async data updates
+	local statusline_group = augroup("statusline")
 	vim.api.nvim_create_autocmd("DiagnosticChanged", {
-		group = augroup("statusline"),
+		group = statusline_group,
 		callback = function()
 			vim.cmd.redrawstatus()
 		end,
 	})
 	vim.api.nvim_create_autocmd("User", {
 		pattern = "GitSignsUpdate",
-		group = augroup("statusline"),
+		group = statusline_group,
 		callback = function()
 			vim.cmd.redrawstatus()
 		end,
@@ -291,6 +362,18 @@ function M.demo()
 	local out = vim.api.nvim_eval_statusline(vim.o.statusline, { maxwidth = 80 })
 	assert(type(out.str) == "string", "statusline must render to a string")
 	print("statusline OK: " .. out.str)
+
+	-- mode tint self-check
+	define_mode_tints()
+	for _, t in pairs(mode_tints) do
+		assert(type(t) == "string" and t:match("^#%x%x%x%x%x%x$"), "mode tint blend broken: " .. tostring(t))
+	end
+	local before = vim.api.nvim_get_hl(0, { name = "CursorLine" }).bg
+	vim.api.nvim_set_hl(0, "CursorLine", { bg = mode_tints.insert })
+	assert(vim.api.nvim_get_hl(0, { name = "CursorLine" }).bg ~= before, "mode tint apply broken")
+	update_mode_tint()
+	assert(vim.api.nvim_get_hl(0, { name = "CursorLine" }).bg == before, "mode tint reset broken")
+	print("mode tint OK")
 end
 
 return M

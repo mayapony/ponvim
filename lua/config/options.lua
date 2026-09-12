@@ -31,6 +31,7 @@ opt.winminwidth = 5                -- Minimum window width
 opt.wrap = true                    -- Disable line wrap
 opt.conceallevel = 0
 opt.showtabline = 0                -- 不要显示Tab栏
+opt.winbar = "%f"                  -- 顶部显示文件路径（替代 dropbar）
 
 opt.autowrite = true
 opt.autoread = true

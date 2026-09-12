@@ -48,6 +48,10 @@ return {
 						-- global
 						Directory = { fg = colors.pink },
 
+						-- winbar
+						WinBar = { fg = colors.pink, bg = colors.crust, bold = true },
+						StatusLine = { bg = colors.crust },
+
 						-- float windows (oil, LSP hover...)
 						NormalFloat = { bg = colors.mantle },
 						FloatBorder = { fg = colors.surface1, bg = colors.mantle },

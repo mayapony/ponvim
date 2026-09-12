@@ -113,7 +113,7 @@ React Project
 | 查找 | telescope.nvim、telescope-fzf-native.nvim、fzf-lua、mini.files |
 | Git | neogit、gitsigns.nvim、diffview.nvim |
 | 格式化 / 检查 | conform.nvim、nvim-lint |
-| UI | catppuccin、lualine.nvim、statuscol.nvim、dropbar.nvim、modes.nvim、noice.nvim、dressing.nvim、alpha-nvim、oil.nvim、nvim-web-devicons、nvim-colorizer.lua |
+| UI | catppuccin、lualine.nvim、statuscol.nvim、noice.nvim、dressing.nvim、alpha-nvim、oil.nvim、nvim-web-devicons、nvim-colorizer.lua |
 | 折叠 | nvim-ufo |
 | 其他工具 | trouble.nvim、which-key.nvim、harpoon、persistence.nvim、nvim-spectre、text-case.nvim、todo-comments.nvim、nvim-bufdel、tmux.nvim、yazi.nvim、hawtkeys.nvim、nvim-recorder、markdown.nvim、render-markdown.nvim |
 
@@ -236,7 +236,7 @@ React Project
 
 | 快捷键 | 描述 |
 | --- | --- |
-| `<leader>e` | 切换 Oil 浮动文件树 |
+| `<leader>ee` / `<leader>er` | 打开 Oil 浮动文件树 / 跳到项目根目录 |
 | `<leader>-` / `<leader>ty` | 打开 Yazi |
 | `<leader>snl` / `<leader>snh` | Noice 最近消息 / 历史 |
 | `<leader>snd` | 关闭所有 Noice 通知 |
