@@ -22,9 +22,6 @@ return {
 			{ "<leader>fn", "<cmd>Noice pick<cr>",      desc = "[F]ilter [N]oice" },
 			{ "<leader>uC", builtin.colorscheme,        desc = "Change Colorscheme " },
 			{ "<leader>fd", [[<cmd>TodoTelescope<cr>]], desc = "Find todos" },
-
-			-- lsp
-			{ "<leader>ca", vim.lsp.buf.code_action,    desc = "code action" },
 		}
 	end,
 	cmd = { "Telescope" },

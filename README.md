@@ -108,8 +108,8 @@ React Project
 | 分类 | 插件 |
 | --- | --- |
 | 编辑 | mini.surround、mini.ai、mini.pairs、treesj、flash.nvim、nvim-ts-autotag、nvim-ts-context-commentstring |
-| 补全 / LSP | blink.cmp、blink.compat、LuaSnip、friendly-snippets、mason.nvim、mason-lspconfig.nvim、nvim-lspconfig、typescript-tools.nvim、tsc.nvim |
-| 语法 | nvim-treesitter、lazydev.nvim、luvit-meta |
+| 补全 | blink.cmp、blink.compat、LuaSnip、friendly-snippets |
+| 语法 | nvim-treesitter |
 | 查找 | telescope.nvim、telescope-fzf-native.nvim、fzf-lua、mini.files |
 | Git | neogit、gitsigns.nvim、diffview.nvim |
 | 格式化 / 检查 | conform.nvim、nvim-lint |

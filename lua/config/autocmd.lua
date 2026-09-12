@@ -39,7 +39,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = {
 		"PlenaryTestPopup",
 		"help",
-		"lspinfo",
 		"man",
 		"notify",
 		"qf",
@@ -71,14 +70,6 @@ vim.api.nvim_create_autocmd("FileType", {
 --     end
 --   end,
 -- })
-
--- check if a floating dialog exists and if not
--- then check for diagnostics under the cursor
-vim.api.nvim_create_autocmd({ "CursorHold" }, {
-	group = augroup("lsp_diagnostics_hold"),
-	pattern = "*",
-	command = "lua require('config.function').open_diagnostic_if_not_float()",
-})
 
 -- Persistent Folds
 autocmd("BufWinLeave", {

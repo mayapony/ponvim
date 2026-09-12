@@ -82,7 +82,6 @@ return {
 					end
 					-- 返回格式化配置
 					return {
-						lsp_fallback = true,
 						async = false,
 						timeout_ms = 500,
 					}

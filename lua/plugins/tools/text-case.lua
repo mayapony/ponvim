@@ -12,7 +12,6 @@ return {
 		"Subs",
 		"TextCaseOpenTelescope",
 		"TextCaseOpenTelescopeQuickChange",
-		"TextCaseOpenTelescopeLSPChange",
 		"TextCaseStartReplacingCommand",
 	},
 }
