@@ -13,6 +13,7 @@ return {
 			{ "<leader>.",  builtin.find_files,         desc = "Find Files" },
 			{ "<leader>/",  builtin.live_grep,          desc = "Find in global" },
 			{ "<leader>fg", builtin.live_grep,          desc = "Find in global" },
+			{ "<leader>fi", function() builtin.find_files({ hidden = true, no_ignore = true, file_ignore_patterns = { "node_modules/" } }) end, desc = "Find ignored files" },
 			{ "<leader>,",  builtin.buffers,            desc = "Find buffers" },
 			{ "<leader>fh", builtin.help_tags,          desc = "Find helps" },
 			{ "<leader>fm", builtin.marks,              desc = "Find marks" },

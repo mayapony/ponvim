@@ -25,7 +25,7 @@ React Project
 - 🌳 Treesitter 语法高亮、折叠与文本对象
 - 🪄 Conform 格式化 + nvim-lint 代码检查
 - 🪟 全键盘操作：Telescope / fzf-lua / mini.files 多种查找方式
-- 🗂️ 文件树（neo-tree）、Yazi、Neogit、Trouble 等工具
+- 🗂️ 文件管理（oil）、Yazi、Neogit、Trouble 等工具
 - 📁 会话持久化（persistence.nvim）与 Harpoon 快速跳转
 - 💻 额外支持 VSCode 内嵌 Neovim（`vim.g.vscode` 模式）
 
@@ -113,7 +113,7 @@ React Project
 | 查找 | telescope.nvim、telescope-fzf-native.nvim、fzf-lua、mini.files |
 | Git | neogit、gitsigns.nvim、diffview.nvim |
 | 格式化 / 检查 | conform.nvim、nvim-lint |
-| UI | catppuccin、lualine.nvim、statuscol.nvim、dropbar.nvim、modes.nvim、noice.nvim、dressing.nvim、alpha-nvim、neo-tree.nvim、nvim-web-devicons、nvim-colorizer.lua |
+| UI | catppuccin、lualine.nvim、statuscol.nvim、dropbar.nvim、modes.nvim、noice.nvim、dressing.nvim、alpha-nvim、oil.nvim、nvim-web-devicons、nvim-colorizer.lua |
 | 折叠 | nvim-ufo |
 | 其他工具 | trouble.nvim、which-key.nvim、harpoon、persistence.nvim、nvim-spectre、text-case.nvim、todo-comments.nvim、nvim-bufdel、tmux.nvim、yazi.nvim、hawtkeys.nvim、nvim-recorder、markdown.nvim、render-markdown.nvim |
 
@@ -236,7 +236,7 @@ React Project
 
 | 快捷键 | 描述 |
 | --- | --- |
-| `<leader>e` | 切换 Neo-tree |
+| `<leader>e` | 切换 Oil 浮动文件树 |
 | `<leader>-` / `<leader>ty` | 打开 Yazi |
 | `<leader>snl` / `<leader>snh` | Noice 最近消息 / 历史 |
 | `<leader>snd` | 关闭所有 Noice 通知 |

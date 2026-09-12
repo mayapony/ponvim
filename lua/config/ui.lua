@@ -206,7 +206,7 @@ local ignored = {
 	alpha = true,
 	dashboard = true,
 	lazy = true,
-	["neo-tree"] = true,
+	oil = true,
 	Trouble = true,
 }
 

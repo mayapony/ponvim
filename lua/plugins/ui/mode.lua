@@ -4,7 +4,7 @@ return {
 	event = "BufReadPost",
 	config = function()
 		require("modes").setup({
-			ignore_filetypes = { "NvimTree", "TelescopePrompt", "neo-tree" },
+			ignore_filetypes = { "NvimTree", "TelescopePrompt", "oil" },
 		})
 	end,
 }

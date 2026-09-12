@@ -37,14 +37,8 @@ return {
 							fg = colors.pink,
 							bold = true,
 						},
-						-- neotree
-						NeoTreeNormal = { bg = colors.base },
-						NeoTreeNormalNC = { bg = colors.base },
+						-- indent-blankline
 						IndentlineStyle = { fg = colors.pink },
-						NeoTreeDirectoryName = { fg = colors.pink },
-						NeoTreeDirectoryIcon = { fg = colors.pink },
-						NeoTreeTitleBar = { fg = colors.pink },
-						NeoTreeRootName = { fg = colors.pink },
 						-- alpha
 						AlphaHeader = { fg = colors.pink },
 						AlphaButtons = { fg = colors.pink },
@@ -52,7 +46,11 @@ return {
 						PinkText = { fg = colors.pink },
 
 						-- global
-						Directory = { fg = colors.pink }
+						Directory = { fg = colors.pink },
+
+						-- float windows (oil, LSP hover...)
+						NormalFloat = { bg = colors.mantle },
+						FloatBorder = { fg = colors.surface1, bg = colors.mantle },
 					}
 				end,
 
@@ -62,7 +60,6 @@ return {
 					telescope = true,
 					notify = true,
 					alpha = true,
-					neotree = true,
 					which_key = true,
 					treesitter = true,
 					mini = true,
