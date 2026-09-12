@@ -74,6 +74,9 @@ function M.initNvim()
 	-- toggle line number
 	map("n", "<leader>tn", require("config.function").toggle_line, { desc = "Toggle line number" })
 
+	-- toggle wrap (markdown 默认关闭，见 ftplugin/markdown.lua)
+	map("n", "<leader>tw", "<cmd>setlocal wrap!<cr>", { desc = "Toggle wrap" })
+
 	-- Clear search with <esc>
 	map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 

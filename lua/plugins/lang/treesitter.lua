@@ -20,59 +20,33 @@ return {
 		build = ":TSUpdate",
 		branch = "main",
 		config = function()
-			require('nvim-treesitter.configs').setup({
-				-- Core parsers installed at startup
-				ensure_installed = {
-					'bash',
-					'comment',
-					'css',
-					'diff',
-					'fish',
-					'git_config',
-					'git_rebase',
-					'gitcommit',
-					'gitignore',
-					'html',
-					'javascript',
-					'json',
-					'latex',
-					'lua',
-					'luadoc',
-					'make',
-					'markdown',
-					'markdown_inline',
-					'norg',
-					'python',
-					'query',
-					'regex',
-					'scss',
-					'svelte',
-					'toml',
-					'tsx',
-					'typescript',
-					'typst',
-					'vim',
-					'vimdoc',
-					'vue',
-					'xml',
-				},
+			local treesitter = require("nvim-treesitter")
+			local languages = {
+				"bash", "css", "git_config", "git_rebase",
+				"gitcommit", "gitignore", "html", "javascript", "json", "latex", "lua",
+				"luadoc", "markdown", "markdown_inline", "python", "query",
+				"regex", "scss", "svelte", "toml", "tsx", "typescript", "typst", "vim",
+				"vimdoc", "vue", "xml",
+			}
 
-				-- Auto-install missing parsers when entering a buffer
-				auto_install = true,
+			treesitter.setup()
+			treesitter.install(languages)
 
-				highlight = {
-					enable = true,
-					-- Skip highlighting for large files
-					disable = function(lang, buf)
-						local max_filesize = 100 * 1024 -- 100 KB
-						local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-						if ok and stats and stats.size > max_filesize then
-							return true
-						end
-					end,
-				},
+			vim.api.nvim_create_autocmd("FileType", {
+				group = vim.api.nvim_create_augroup("maya_treesitter", { clear = true }),
+				pattern = languages,
+				callback = function(args)
+					local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
+					if ok and stats and stats.size > 100 * 1024 then
+						return
+					end
 
-				indent = { enable = true },
+					local lang = vim.treesitter.language.get_lang(args.match)
+					if lang and vim.treesitter.query.get(lang, "highlights") then
+						pcall(vim.treesitter.start, args.buf, lang)
+						vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					end
+				end,
 			})
 		end,
 	},

@@ -10,22 +10,13 @@ local packages = {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
+		branch = "main",
 		build = ":TSUpdate",
 		config = function()
-			local configs = require("nvim-treesitter.configs")
-			configs.setup({
-				modules = {},
-				ignore_install = {},
-				auto_install = true,
-				ensure_installed = {
-					"javascript",
-					"tsx",
-					"typescript",
-				},
-				sync_install = false,
-				highlight = { enable = false },
-				indent = { enable = false },
-			})
+			local treesitter = require("nvim-treesitter")
+			treesitter.setup()
+			treesitter.install({ "javascript", "tsx", "typescript" })
 		end,
 	},
 	{
