@@ -10,7 +10,7 @@ local function ai_commit()
 	end
 
 	local prompt = "你是 git commit message 生成器。只输出 conventional commit message"
-		.. "（type(scope): subject 用英文 + 可选 body），不要任何解释、不要代码块、不要引号。diff 如下：\n\n"
+		.. "（type(scope): subject 用中文 + 可选 body），不要任何解释、不要代码块、不要引号。diff 如下：\n\n"
 		.. diff
 	local msg = vim.fn.system("pi -p --no-tools --no-session " .. vim.fn.shellescape(prompt))
 	if vim.v.shell_error ~= 0 then
