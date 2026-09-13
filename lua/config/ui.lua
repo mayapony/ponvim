@@ -224,6 +224,10 @@ function M.statusline()
 	end
 
 	local left = {}
+	local ai = vim.g.ai_commit_status
+	if ai then
+		left[#left + 1] = hl("Keyword") .. ai .. hl("StatusLine")
+	end
 	local h = harpoon()
 	if h ~= "" then
 		left[#left + 1] = h
