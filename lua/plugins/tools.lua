@@ -1,34 +1,5 @@
 return {
 	{
-		'nvim-mini/mini.files',
-		version = '*',
-		opts = {},
-		keys = {
-			{
-				"<leader>fe",
-				function()
-					require('mini.files').open()
-				end,
-				desc = "[F]ile [E]ditor",
-			},
-		},
-	},
-	{
-		"ojroques/nvim-bufdel",
-		event = "VeryLazy",
-		keys = {
-			{ "<leader>qq", "<cmd>BufDel<cr>",       desc = "Delete Buffer",       silent = true },
-			{ "<leader>qo", "<cmd>BufDelOthers<cr>", desc = "Delete other buffer", silent = true },
-			{ "<leader>qa", ":qa<cr>",               desc = "Delete Buffer all",   silent = true },
-		},
-		opts = {
-			{
-				next = "tabs",
-				quit = false, -- quit Neovim when last buffer is closed
-			},
-		},
-	},
-	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
 		config = function()

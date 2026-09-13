@@ -115,7 +115,7 @@ React Project
 | 格式化 / 检查 | conform.nvim、nvim-lint |
 | UI | catppuccin、lualine.nvim、statuscol.nvim、noice.nvim、dressing.nvim、alpha-nvim、oil.nvim、nvim-web-devicons、nvim-colorizer.lua |
 | 折叠 | nvim-ufo |
-| 其他工具 | trouble.nvim、which-key.nvim、harpoon、persistence.nvim、nvim-spectre、text-case.nvim、todo-comments.nvim、nvim-bufdel、tmux.nvim、yazi.nvim、hawtkeys.nvim、nvim-recorder、markdown.nvim、render-markdown.nvim |
+| 其他工具 | trouble.nvim、which-key.nvim、harpoon、persistence.nvim、nvim-spectre、text-case.nvim、todo-comments.nvim、tmux.nvim、yazi.nvim、hawtkeys.nvim、nvim-recorder、markdown.nvim、render-markdown.nvim |
 
 ## 快捷键
 

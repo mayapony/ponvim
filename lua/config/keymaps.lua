@@ -8,6 +8,12 @@ end
 -- Save file
 map({ "i", "v", "n", "s" }, "<C-s>", "<cmd>wall<cr><esc>", { desc = "Save file" })
 map({ "v", "n" }, "<leader>fs", "<cmd>wall<cr><esc>", { desc = "Save all file" })
+map("n", "<leader>wq", "<cmd>w<cr><cmd>bdelete<cr>", { desc = "[W]rite and [Q]uit buffer" })
+
+-- buffers
+map("n", "<leader>qq", funs.bufdel, { desc = "[Q]uit buffer" })
+map("n", "<leader>qo", funs.bufdel_others, { desc = "[Q]uit other buffers" })
+map("n", "<leader>qa", "<cmd>qa<cr>", { desc = "[Q]uit all" })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
