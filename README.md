@@ -20,18 +20,18 @@ React Project
 
 - 🚀 基于 [lazy.nvim](https://github.com/folke/lazy.nvim) 的懒加载插件管理
 - 🎨 Catppuccin 主题，自动跟随系统浅色 / 深色模式（Latte / Mocha）
-- 🔡 [blink.cmp](https://github.com/Saghen/blink.cmp) 补全 + LuaSnip 片段
-- 🧠 Mason + nvim-lspconfig + typescript-tools 的 LSP 配置
+- 🔡 [blink.cmp](https://github.com/Saghen/blink.cmp) 补全 + 片段（内置 `vim.snippet`）
+- 🧠 不内置 LSP 配置，按需自行接入语言服务器（Neovim 内置 `vim.lsp`）
 - 🌳 Treesitter 语法高亮、折叠与文本对象
 - 🪄 Conform 格式化 + nvim-lint 代码检查
-- 🪟 全键盘操作：Telescope / mini.files 多种查找方式
+- 🪟 全键盘操作：Telescope 多种查找方式
 - 🗂️ 文件管理（oil）、Yazi、Neogit、Trouble 等工具
 - 📁 会话持久化（persistence.nvim）与 Harpoon 快速跳转
 - 💻 额外支持 VSCode 内嵌 Neovim（`vim.g.vscode` 模式）
 
 ## 依赖要求
 
-- [Neovim](https://github.com/neovim/neovim) >= 0.9（推荐最新稳定版）
+- [Neovim](https://github.com/neovim/neovim) >= 0.12（nvim-treesitter `main` 分支要求，推荐最新稳定版）
 - [git](https://git-scm.com/)
 - [ripgrep](https://github.com/BurntSushi/ripgrep) —— Telescope 的 `live_grep` 依赖
 - [Nerd Font](https://www.nerdfonts.com/) —— 图标显示
@@ -47,7 +47,7 @@ React Project
 | [stylua](https://github.com/JohnnyMorganz/StyLua) | Lua 格式化 |
 | [prettierd](https://github.com/fsouza/prettierd) / [eslint_d](https://github.com/mantoni/eslint_d) | 前端格式化 |
 | [black](https://github.com/psf/black) / [isort](https://github.com/PyCQA/isort) | Python 格式化 |
-| `make` / Rust 工具链 | 部分插件编译（telescope-fzf-native、blink.cmp、LuaSnip） |
+| `make` / Rust 工具链 | 部分插件编译（telescope-fzf-native、blink.cmp） |
 
 ## 安装
 
@@ -69,14 +69,6 @@ React Project
    nvim
    ```
 
-4. 安装 LSP 服务器（由 Mason 自动安装，或手动执行）：
-
-   ```text
-   :Mason
-   ```
-
-   默认安装的 LSP 服务器：`lua_ls`、`tailwindcss`、`bashls`、`cssls`、`ts_ls`、`eslint`。
-
 ## 目录结构
 
 ```text
@@ -93,12 +85,12 @@ React Project
     │   ├── autocmd.lua         # 自动命令
     │   ├── global.lua          # 全局变量
     │   ├── function.lua        # 工具函数
-    │   ├── lsp.lua             # LSP 回调与绑定
+    │   ├── ui.lua              # 折叠与状态栏等 UI 设置
     │   └── icons.lua           # 图标定义
     ├── code/                   # VSCode 内嵌 Neovim 模式配置
     └── plugins/                # 插件配置（按分类拆分）
         ├── coding/             # 编辑与文本对象
-        ├── lang/               # LSP、补全、语法
+        ├── lang/               # 补全、语法
         ├── tools/              # 查找、Git、格式化等工具
         └── ui/                 # 主题、状态栏、文件树等 UI
 ```
@@ -107,15 +99,15 @@ React Project
 
 | 分类 | 插件 |
 | --- | --- |
-| 编辑 | mini.surround、mini.ai、mini.pairs、treesj、flash.nvim、nvim-ts-autotag、nvim-ts-context-commentstring |
-| 补全 | blink.cmp、blink.compat、LuaSnip、friendly-snippets |
+| 编辑 | mini.surround、mini.ai、mini.pairs、treesj、flash.nvim、nvim-ts-context-commentstring |
+| 补全 | blink.cmp |
 | 语法 | nvim-treesitter |
-| 查找 | telescope.nvim、telescope-fzf-native.nvim、mini.files |
+| 查找 | telescope.nvim、telescope-fzf-native.nvim |
 | Git | neogit、gitsigns.nvim、diffview.nvim |
 | 格式化 / 检查 | conform.nvim、nvim-lint |
-| UI | catppuccin、lualine.nvim、statuscol.nvim、noice.nvim、dressing.nvim、alpha-nvim、oil.nvim、nvim-web-devicons、nvim-colorizer.lua |
+| UI | catppuccin、noice.nvim、dressing.nvim、alpha-nvim、oil.nvim、nvim-web-devicons、nvim-colorizer.lua |
 | 折叠 | nvim-ufo |
-| 其他工具 | trouble.nvim、which-key.nvim、harpoon、persistence.nvim、nvim-spectre、text-case.nvim、todo-comments.nvim、tmux.nvim、yazi.nvim、hawtkeys.nvim、nvim-recorder、markdown.nvim、render-markdown.nvim |
+| 其他工具 | trouble.nvim、which-key.nvim、harpoon、persistence.nvim、nvim-spectre、text-case.nvim、todo-comments.nvim、tmux.nvim、yazi.nvim、hawtkeys.nvim、markview.nvim |
 
 ## 快捷键
 
@@ -160,25 +152,13 @@ React Project
 | `<leader>fn` | Noice pick |
 | `<leader>uC` | 切换配色 |
 | `<leader>fd` | 查找 TODO |
-| `<leader>fe` | mini.files 文件编辑器 |
 
-### LSP / 诊断
+### 诊断
 
 | 快捷键 | 描述 |
 | --- | --- |
-| `<leader>mm` | 打开 Mason |
-| `<leader>cr` | 重命名 |
-| `<leader>ca` | Code Action |
-| `gd` / `gr` / `gi` | 定义 / 引用 / 实现 |
-| `gtd` / `gD` | 类型定义 / 声明 |
-| `go` | 文档符号 |
-| `gx` / `ge` | 诊断列表 / 浮动错误 |
-| `K` / `<C-k>` | 悬浮文档 / 签名帮助 |
-| `<leader>wa/wr/wl` | 工作区目录 增 / 删 / 列 |
 | `<leader>xx` | 切换 Trouble 诊断 |
 | `<leader>xX` | 当前 buffer 诊断 |
-| `<leader>cs` | 符号 |
-| `<leader>cl` | LSP 定义 / 引用 |
 | `<leader>xL` / `<leader>xQ` | 位置列表 / Quickfix |
 | `]x` / `[x` | 下一个 / 上一个诊断 |
 
@@ -229,8 +209,6 @@ React Project
 | `<leader>tp` | 切换自动括号 |
 | `<leader>tf` | 切换项目自动格式化 |
 | `gsa` / `gsd` / `gsr` | mini.surround 添加 / 删除 / 替换 |
-| `<leader>co` / `<leader>ci` | TypeScript 整理 / 补全 import |
-| `<leader>cc` | TypeScript 类型检查（tsc.nvim） |
 
 ### UI 与文件
 
