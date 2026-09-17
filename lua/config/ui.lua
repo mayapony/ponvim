@@ -1,15 +1,17 @@
--- Centralized UI management: folds (nvim-ufo) + native statusline
+-- Centralized UI management: folds (native 'foldmethod=expr') + native statusline
 local M = {}
 
 local icons = require("config.icons")
 
 ------------------------------------------------------------
--- Folds (nvim-ufo)
+-- Folds (native 'foldmethod=expr')
 ------------------------------------------------------------
 local function fold_options()
 	local opt = vim.opt
 	vim.o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldclose:'
-	opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+	opt.foldmethod = "expr"
+	opt.foldexpr = "v:lua.require('config.ui').foldexpr()"
+	opt.foldlevel = 99 -- 默认全展开，需要时用 zc/za/zM 收起
 	opt.foldlevelstart = 99
 	opt.foldenable = true
 end
@@ -38,66 +40,23 @@ function M.fold_glyph()
 	return " "
 end
 
-local fold_handler = function(virtText, lnum, endLnum, width, truncate)
-	local newVirtText = {}
-	local suffix = (" 󰁂 %d "):format(endLnum - lnum)
-	local sufWidth = vim.fn.strdisplaywidth(suffix)
-	local targetWidth = width - sufWidth
-	local curWidth = 0
-	for _, chunk in ipairs(virtText) do
-		local chunkText = chunk[1]
-		local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-		if targetWidth > curWidth + chunkWidth then
-			table.insert(newVirtText, chunk)
-		else
-			chunkText = truncate(chunkText, targetWidth - curWidth)
-			local hlGroup = chunk[2]
-			table.insert(newVirtText, { chunkText, hlGroup })
-			chunkWidth = vim.fn.strdisplaywidth(chunkText)
-			-- str width returned from truncate() may less than 2nd argument, need padding
-			if curWidth + chunkWidth < targetWidth then
-				suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
-			end
-			break
+-- 折叠层级：treesitter（需 highlighter 已启动 + 该语言有 folds query），否则回退到缩进。
+-- 与 ufo 的 provider_selector { 'treesitter', 'indent' } 等价：没有 folds query 时
+-- treesitter 折叠恒为 0，必须回退，否则该语言的折叠会完全消失。
+function M.foldexpr()
+	local buf = vim.api.nvim_get_current_buf()
+	if vim.treesitter.highlighter.active[buf] then
+		local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype)
+		if lang and vim.treesitter.query.get(lang, "folds") then
+			return vim.treesitter.foldexpr()
 		end
-		curWidth = curWidth + chunkWidth
 	end
-	table.insert(newVirtText, { suffix, "MoreMsg" })
-	return newVirtText
+	local sw = vim.bo[buf].shiftwidth
+	return math.floor(vim.fn.indent(vim.v.lnum) / (sw > 0 and sw or 1))
 end
 
 function M.setup_fold()
 	fold_options()
-	---@diagnostic disable-next-line: missing-fields
-	require("ufo").setup({
-		open_fold_hl_timeout = 150,
-		fold_virt_text_handler = fold_handler,
-		preview = {
-			win_config = {
-				border = { "", "─", "", "", "", "─", "", "" },
-				winhighlight = "Normal:Folded",
-				winblend = 0,
-			},
-			mappings = {
-				scrollU = "<C-u>",
-				scrollD = "<C-d>",
-				jumpTop = "[",
-				jumpBot = "]",
-			},
-		},
-		provider_selector = function(bufnr, filetype)
-			return { 'treesitter', 'indent' }
-		end,
-	})
-	vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
-	vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Close all folds" })
-	vim.keymap.set(
-		"n",
-		"zr",
-		require("ufo").openFoldsExceptKinds,
-		{ desc = "Open all folds except specified kinds" }
-	)
-	vim.keymap.set("n", "zm", require("ufo").closeFoldsWith, { desc = "Close all folds except specified kinds" })
 end
 
 ------------------------------------------------------------
@@ -318,6 +277,8 @@ function M.setup()
 	vim.o.statusline = "%!v:lua.require('config.ui').statusline()"
 	vim.o.statuscolumn = "%s%{v:lua.require('config.ui').statuscolumn()}"
 
+	M.setup_fold()
+
 	-- mode cursorline tint (replaces modes.nvim)
 	local mode_group = augroup("mode")
 	define_mode_tints()
@@ -350,11 +311,10 @@ function M.setup()
 		end,
 	})
 
-	-- auto disable folding for neo-tree
+	-- 文件树不需要折叠
 	vim.api.nvim_create_autocmd("FileType", {
 		pattern = { "neo-tree" },
 		callback = function()
-			require("ufo").detach()
 			vim.opt_local.foldenable = false
 		end,
 	})
