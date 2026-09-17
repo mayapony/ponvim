@@ -1,32 +1,8 @@
 return {
-	-- add blink.compat
-	{
-		"saghen/blink.compat",
-		-- use the latest release, via version = '*', if you also use the latest release for blink.cmp
-		version = "*",
-		-- lazy.nvim will automatically load the plugin when it's required by blink.cmp
-		lazy = true,
-		-- make sure to set opts so that lazy.nvim calls blink.compat's setup
-		opts = {},
-	},
 	{
 		"saghen/blink.cmp",
 		event = "VeryLazy",
-		-- optional: provides snippets for the snippet source
-		dependencies = {
-			"rafamadriz/friendly-snippets",
-			"saghen/blink.compat",
-			{
-				"L3MON4D3/LuaSnip",
-				version = "v2.*",
-				build = "make install_jsregexp",
-				config = function()
-					require("luasnip.loaders.from_vscode").lazy_load({
-						paths = { vim.fn.stdpath("config") .. "/snippets" },
-					})
-				end,
-			},
-		},
+		-- snippets: blink's built-in `vim.snippet` engine (no LuaSnip)
 
 		-- use a release tag to download pre-built binaries
 		version = "1.*",
@@ -56,22 +32,6 @@ return {
 				["<S-k>"] = { "scroll_documentation_up", "fallback" },
 				["<S-j>"] = { "scroll_documentation_down", "fallback" },
 				["<C-k>"] = { "show", "show_documentation", "hide_documentation" },
-			},
-
-			snippets = {
-				preset = "luasnip",
-				expand = function(snippet)
-					require("luasnip").lsp_expand(snippet)
-				end,
-				active = function(filter)
-					if filter and filter.direction then
-						return require("luasnip").jumpable(filter.direction)
-					end
-					return require("luasnip").in_snippet()
-				end,
-				jump = function(direction)
-					require("luasnip").jump(direction)
-				end,
 			},
 
 			appearance = {
