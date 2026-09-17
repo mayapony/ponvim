@@ -22,7 +22,7 @@ React Project
 - 🎨 Catppuccin 主题，自动跟随系统浅色 / 深色模式（Latte / Mocha）
 - 🔡 [blink.cmp](https://github.com/Saghen/blink.cmp) 补全 + 片段（内置 `vim.snippet`）
 - 🧠 不内置 LSP 配置，按需自行接入语言服务器（Neovim 内置 `vim.lsp`）
-- 🌳 Treesitter 语法高亮、折叠与文本对象
+- 🌳 Treesitter 语法高亮、折叠与文本对象（按打开的文件类型自动安装 parser 与 queries）
 - 🪄 Conform 格式化 + nvim-lint 代码检查
 - 🪟 全键盘操作：Telescope 多种查找方式
 - 🗂️ 文件管理（oil）、Yazi、Neogit、Trouble 等工具
@@ -34,6 +34,7 @@ React Project
 - [Neovim](https://github.com/neovim/neovim) >= 0.12（nvim-treesitter `main` 分支要求，推荐最新稳定版）
 - [git](https://git-scm.com/)
 - [ripgrep](https://github.com/BurntSushi/ripgrep) —— Telescope 的 `live_grep` 依赖
+- C 编译器（`cc`/`gcc`/`clang`）—— 编译 treesitter parser，首次打开新语言时会用到
 - [Nerd Font](https://www.nerdfonts.com/) —— 图标显示
 - 支持 true color 的终端
 
@@ -45,6 +46,7 @@ React Project
 | [yazi](https://github.com/sxyazi/yazi) | 终端文件管理器 |
 | [tmux](https://github.com/tmux/tmux) | 使用 `tmux.nvim` 进行窗格导航 |
 | [stylua](https://github.com/JohnnyMorganz/StyLua) | Lua 格式化 |
+| [tree-sitter-cli](https://github.com/tree-sitter/tree-sitter) | 安装 `latex` 等需要从 grammar 生成 parser 的语言（`:checkhealth nvim-treesitter` 会提示） |
 | [prettierd](https://github.com/fsouza/prettierd) / [eslint_d](https://github.com/mantoni/eslint_d) | 前端格式化 |
 | [black](https://github.com/psf/black) / [isort](https://github.com/PyCQA/isort) | Python 格式化 |
 | `make` / Rust 工具链 | 部分插件编译（telescope-fzf-native、blink.cmp） |
@@ -106,7 +108,7 @@ React Project
 | Git | neogit、gitsigns.nvim、diffview.nvim |
 | 格式化 / 检查 | conform.nvim、nvim-lint |
 | UI | catppuccin、noice.nvim、dressing.nvim、alpha-nvim、oil.nvim、nvim-web-devicons、nvim-colorizer.lua |
-| 折叠 | nvim-ufo |
+| 折叠 | Neovim 原生 foldexpr（treesitter 优先，缩进回退；nvim-ufo 已停用） |
 | 其他工具 | trouble.nvim、which-key.nvim、harpoon、persistence.nvim、nvim-spectre、text-case.nvim、todo-comments.nvim、tmux.nvim、yazi.nvim、hawtkeys.nvim、markview.nvim |
 
 ## 快捷键
@@ -218,7 +220,7 @@ React Project
 | `<leader>-` / `<leader>ty` | 打开 Yazi |
 | `<leader>snl` / `<leader>snh` | Noice 最近消息 / 历史 |
 | `<leader>snd` | 关闭所有 Noice 通知 |
-| `zR` / `zM` / `zr` / `zm` | 折叠操作（ufo） |
+| `zR` / `zM` / `zr` / `zm` | 折叠操作（原生） |
 
 ## VSCode 模式
 
