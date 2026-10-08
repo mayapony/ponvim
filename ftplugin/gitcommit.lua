@@ -35,7 +35,7 @@ local function ai_commit()
 		"",
 		"diff 如下：",
 		"",
-	}, "\n") .. diff
+	}, "\n")
 
 	local bufnr = vim.api.nvim_get_current_buf()
 	vim.g.ai_commit_status = "AI 生成 commit…"
@@ -53,7 +53,7 @@ local function ai_commit()
 		"--no-extensions",
 		"--no-prompt-templates",
 		prompt,
-	}, { text = true }, function(res)
+	}, { text = true, stdin = diff }, function(res)
 		vim.schedule(function()
 			vim.g.ai_commit_status = nil
 			vim.cmd.redrawstatus()
